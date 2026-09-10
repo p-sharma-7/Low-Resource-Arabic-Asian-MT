@@ -1,0 +1,36 @@
+Human Evaluation Form MOS Key (5 samples per direction)
+=======================================================
+
+This file maps anonymized Translation A/B/C labels back to model names.
+Do not share this file with annotators before scoring.
+
+Item 001 | ar-hi | line 52 | A=GEMMAX2 | B=MADLAD | C=NLLB | old_item=1
+Item 002 | ar-hi | line 62 | A=MADLAD | B=NLLB | C=GEMMAX2 | old_item=2
+Item 003 | ar-hi | line 66 | A=GEMMAX2 | B=MADLAD | C=NLLB | old_item=3
+Item 004 | ar-hi | line 179 | A=NLLB | B=MADLAD | C=GEMMAX2 | old_item=4
+Item 005 | ar-hi | line 192 | A=NLLB | B=MADLAD | C=GEMMAX2 | old_item=5
+Item 006 | hi-ar | line 52 | A=NLLB | B=GEMMAX2 | C=MADLAD | old_item=21
+Item 007 | hi-ar | line 62 | A=GEMMAX2 | B=NLLB | C=MADLAD | old_item=22
+Item 008 | hi-ar | line 66 | A=NLLB | B=GEMMAX2 | C=MADLAD | old_item=23
+Item 009 | hi-ar | line 179 | A=GEMMAX2 | B=MADLAD | C=NLLB | old_item=24
+Item 010 | hi-ar | line 192 | A=NLLB | B=MADLAD | C=GEMMAX2 | old_item=25
+Item 011 | ar-en | line 52 | A=NLLB | B=GEMMAX2 | C=MADLAD | old_item=41
+Item 012 | ar-en | line 62 | A=GEMMAX2 | B=MADLAD | C=NLLB | old_item=42
+Item 013 | ar-en | line 66 | A=GEMMAX2 | B=NLLB | C=MADLAD | old_item=43
+Item 014 | ar-en | line 179 | A=MADLAD | B=GEMMAX2 | C=NLLB | old_item=44
+Item 015 | ar-en | line 192 | A=NLLB | B=MADLAD | C=GEMMAX2 | old_item=45
+Item 016 | en-ar | line 52 | A=MADLAD | B=GEMMAX2 | C=NLLB | old_item=61
+Item 017 | en-ar | line 62 | A=GEMMAX2 | B=MADLAD | C=NLLB | old_item=62
+Item 018 | en-ar | line 66 | A=MADLAD | B=NLLB | C=GEMMAX2 | old_item=63
+Item 019 | en-ar | line 179 | A=MADLAD | B=NLLB | C=GEMMAX2 | old_item=64
+Item 020 | en-ar | line 192 | A=MADLAD | B=GEMMAX2 | C=NLLB | old_item=65
+Item 021 | ar-ur | line 52 | A=GEMMAX2 | B=NLLB | C=MADLAD | old_item=81
+Item 022 | ar-ur | line 62 | A=GEMMAX2 | B=MADLAD | C=NLLB | old_item=82
+Item 023 | ar-ur | line 66 | A=MADLAD | B=GEMMAX2 | C=NLLB | old_item=83
+Item 024 | ar-ur | line 179 | A=NLLB | B=GEMMAX2 | C=MADLAD | old_item=84
+Item 025 | ar-ur | line 192 | A=MADLAD | B=GEMMAX2 | C=NLLB | old_item=85
+Item 026 | ur-ar | line 52 | A=MADLAD | B=GEMMAX2 | C=NLLB | old_item=101
+Item 027 | ur-ar | line 62 | A=MADLAD | B=NLLB | C=GEMMAX2 | old_item=102
+Item 028 | ur-ar | line 66 | A=MADLAD | B=GEMMAX2 | C=NLLB | old_item=103
+Item 029 | ur-ar | line 179 | A=NLLB | B=GEMMAX2 | C=MADLAD | old_item=104
+Item 030 | ur-ar | line 192 | A=NLLB | B=GEMMAX2 | C=MADLAD | old_item=105

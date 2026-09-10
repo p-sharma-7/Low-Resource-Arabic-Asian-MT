@@ -1,0 +1,13 @@
+direction,comparison,identical_sents,duplicate_pct
+ar-en/ar,train↔dev,0,0.0
+ar-en/ar,train↔devtest,0,0.0
+ar-en/en,train↔dev,1,0.1001
+ar-en/en,train↔devtest,0,0.0
+ar-hi/ar,train↔dev,0,0.0
+ar-hi/ar,train↔devtest,0,0.0
+ar-hi/hi,train↔dev,1,0.1001
+ar-hi/hi,train↔devtest,0,0.0
+ar-ur/ar,train↔dev,0,0.0
+ar-ur/ar,train↔devtest,0,0.0
+ar-ur/ur,train↔dev,1,0.1001
+ar-ur/ur,train↔devtest,0,0.0

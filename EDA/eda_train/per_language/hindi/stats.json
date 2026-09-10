@@ -1,0 +1,44 @@
+{
+  "language": "hindi",
+  "source_files": [
+    "/mnt/storage/Pushkar/challenge/wmt/dataset/Ar-Hi/train_hi_ar-hi.txt"
+  ],
+  "total_sentences": 20100,
+  "unique_sentences": 20091,
+  "duplicate_sentences": 9,
+  "duplicate_pct": 0.0448,
+  "empty_sentences": 0,
+  "mean_len": 38.333,
+  "median_len": 33.0,
+  "min_len": 3,
+  "max_len": 421,
+  "std_len": 22.6913,
+  "p95_len": 79.05,
+  "p99_len": 122.0,
+  "raw_vocab": {
+    "total_tokens": 770493,
+    "unique_tokens": 35427,
+    "ttr": 0.04598,
+    "freq_exactly_1": 18345,
+    "freq_exactly_2": 4725,
+    "freq_3_to_5": 4700,
+    "freq_over_100": 1037,
+    "mean_token_char_len": 4.3637,
+    "median_token_char_len": 4.0,
+    "min_token_char_len": 1,
+    "max_token_char_len": 49
+  },
+  "norm_vocab": {
+    "total_tokens": 770493,
+    "unique_tokens": 35426,
+    "ttr": 0.045978,
+    "freq_exactly_1": 18344,
+    "freq_exactly_2": 4725,
+    "freq_3_to_5": 4700,
+    "freq_over_100": 1037,
+    "mean_token_char_len": 4.3637,
+    "median_token_char_len": 4.0,
+    "min_token_char_len": 1,
+    "max_token_char_len": 49
+  }
+}

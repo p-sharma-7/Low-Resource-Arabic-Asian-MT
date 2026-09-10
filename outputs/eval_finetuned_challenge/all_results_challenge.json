@@ -1,0 +1,62 @@
+{
+  "nllb": {
+    "ar-ur": {
+      "note": "hypotheses only; references unavailable"
+    },
+    "ur-ar": {
+      "note": "hypotheses only; references unavailable"
+    },
+    "ar-hi": {
+      "note": "hypotheses only; references unavailable"
+    },
+    "ar-en": {
+      "note": "hypotheses only; references unavailable"
+    },
+    "en-ar": {
+      "note": "hypotheses only; references unavailable"
+    },
+    "hi-ar": {
+      "note": "hypotheses only; references unavailable"
+    }
+  },
+  "madlad": {
+    "ar-ur": {
+      "note": "hypotheses only; references unavailable"
+    },
+    "ur-ar": {
+      "note": "hypotheses only; references unavailable"
+    },
+    "ar-hi": {
+      "note": "hypotheses only; references unavailable"
+    },
+    "ar-en": {
+      "note": "hypotheses only; references unavailable"
+    },
+    "en-ar": {
+      "note": "hypotheses only; references unavailable"
+    },
+    "hi-ar": {
+      "note": "hypotheses only; references unavailable"
+    }
+  },
+  "gemmax2": {
+    "ar-ur": {
+      "note": "hypotheses only; references unavailable"
+    },
+    "ur-ar": {
+      "note": "hypotheses only; references unavailable"
+    },
+    "ar-hi": {
+      "note": "hypotheses only; references unavailable"
+    },
+    "ar-en": {
+      "note": "hypotheses only; references unavailable"
+    },
+    "en-ar": {
+      "note": "hypotheses only; references unavailable"
+    },
+    "hi-ar": {
+      "note": "hypotheses only; references unavailable"
+    }
+  }
+}

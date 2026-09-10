@@ -1,0 +1,5 @@
+language,avg_token_coverage,avg_oov_pct,avg_duplicate_pct,avg_semantic_sim
+ar,89.89,10.11,0.0,0.2283
+en,95.89,4.11,0.05,0.264
+hi,97.8,2.2,0.05,0.418
+ur,98.15,1.85,0.05,0.2978

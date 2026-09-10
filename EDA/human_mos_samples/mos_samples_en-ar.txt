@@ -1,0 +1,364 @@
+Human MOS Evaluation Samples
+============================
+
+Purpose: Human Mean Opinion Score (MOS) evaluation of MT outputs.
+Rating scale suggestion: 1 = unusable, 2 = poor, 3 = understandable with errors, 4 = good, 5 = excellent.
+Each block contains one Challenge-Test source sentence and the corresponding outputs from NLLB, MADLAD, and GemmaX2.
+Write the MOS score and optional comments under each model output.
+
+Sampling: 20 fixed random line IDs per direction, generated with seed=42 from the 1500-line Challenge-Test source files.
+Line IDs are 1-based and correspond to the original source/submission files.
+
+
+Direction: en-ar
+
+Source file: /mnt/storage/Ahtisham_Aziz/NLP-IIT Patna/Challenge-Test/Sub-Task 1A_ English-to- Arabic/En-to-Ar/test_challenge_en_en-to-ar.txt
+
+NLLB output file: /mnt/storage/Pushkar/challenge/wmt/submission/NLLB/NLP-IIT-Patna_contrastive1_Sub-Task-1A.txt
+
+MADLAD output file: /mnt/storage/Pushkar/challenge/wmt/submission/MADLAD/NLP-IIT-Patna_primary_Sub-Task-1A.txt
+
+GEMMAX2 output file: /mnt/storage/Pushkar/challenge/wmt/submission/GEMMAX2/NLP-IIT-Patna_contrastive2_Sub-Task-1A.txt
+
+
+========================================================================================
+
+[EN-AR | Sample 01 | Original line 52]
+SOURCE:
+When asked if peace would be realized in Gaza, President Trump stated, "I am very confident," adding, "And I am very confident" in response to a question regarding whether his 21-point plan had been approved by all parties involved.
+NLLB TRANSLATION:
+ورداً على سؤال عما إذا كانت السلام ستتحقق في غزة، قال ترامب: "أنا واثق للغاية"، مضيفاً: "وأنا واثقة للغاية"، في رده على سؤال حول ما إذا كانت خطته المكونة من 21 نقطة قد تمت الموافقة عليها من قبل جميع الأطراف.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+وعندما سُئل عما إذا كان السلام سيتحقق في غزة، أجاب ترامب: "أنا واثق جدًا"، مضيفًا: "وأنا واثق جدًا" ردًا على سؤال عما إن كانت خطته المكونة من 21 بندًا قد حظيت بموافقة جميع الأطراف.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+وعندما سُئل عما إذا كانت اتفاقية سلام ستُبرم في غزة، أجاب ترامب "أثق جدًا". وأضاف ردًا على سؤال حول ما إذا كانت خطته المكونة من 21 بندًا مقبولة من جميع الأطراف "وأنا واثق جدًا أيضًا".
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[EN-AR | Sample 02 | Original line 62]
+SOURCE:
+During today's government press conference, Al-Dosari emphasized that the current controls issued by the General Authority for Media Regulation concerning substandard content clearly define boundaries for content creators while preventing them from engaging in media violations.
+NLLB TRANSLATION:
+وخلال المؤتمر الصحفي الحكومي اليوم، أكد الدوسري أن الضوابط الحالية الصادرة عن الهيئة العامة لتنظيم الإعلام فيما يتعلق بالمحتوى دون المستوى تحدد بوضوح حدودًا لمبدعي المحتوى وتمنعهم من الانخراط في انتهاكات إعلامية.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+وأكد الدوسري، خلال المؤتمر الصحفي الحكومي اليوم، أن الضوابط الحالية الصادرة عن الهيئة العامة للرقابة الإعلامية بشأن المحتوى غير المرخص تضع حدوداً واضحة لمنشئي المحتوى وتمنعهم من ارتكاب المخالفات الإعلامية.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+وأكد الدوسري، خلال مؤتمر صحفي حكومي اليوم الثلاثاء، أن الضوابط التي أصدرتها الهيئة العامة لتنظيم الإعلام بخصوص المحتوى غير اللائق حددت الخطوط الحمراء لمنشئي المحتوى ومنعتهم من ارتكاب مخالفات إعلامية.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[EN-AR | Sample 03 | Original line 66]
+SOURCE:
+The demand for the residential sector among high-net-worth individuals in Gulf countries has seen a minor decrease from 68% in 2023, whereas there has been a significant increase in interest in the office sector, which has more than doubled compared to 23% in the same year.
+NLLB TRANSLATION:
+وشهد الطلب على القطاع السكني بين الأثرياء في دول الخليج انخفاضًا طفيفًا من 68% في عام 2023، بينما شهد قطاع المكاتب ارتفاعًا كبيرًا، حيث تضاعف من 23% في العام نفسه.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+وشهد الطلب على القطاع السكني من قبل الأثرياء في دول الخليج انخفاضًا طفيفًا من 68% في عام 2023، بينما ارتفع الاهتمام بقطاع المكاتب إلى أكثر من الضعف من 23% في العام نفسه.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+وأشارت إلى أن الطلب على القطاع السكني من جانب أصحاب الثروات الكبيرة في دول الخليج انخفض بشكل طفيف مقارنةً بنسبة 67% في عام 1993، في حين تضاعف تقريبًا معدل الاهتمام بقطاع المكاتب ليصل إلى 24% هذا العام.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[EN-AR | Sample 04 | Original line 179]
+SOURCE:
+Recently released by ExxonMobil, a report highlights the global energy supply and demand forecast up to 2050, considering factors such as ongoing global economic growth, increased standards of living in developing nations, technological advancements, consumer behaviors, governmental policy impacts on combating climate change, and the significance of diverse energy resource pricing in competitive markets. The report underscores the necessity for a more prosperous future with reduced carbon emissions through accelerated innovation in renewable energy technologies, significant decreases in coal consumption, and the continued dominance of petroleum (oil) and natural gas in shaping over half of the future energy mix.
+NLLB TRANSLATION:
+أصدرت "إكسون موبيل" مؤخراً تقريراً حول توقعات العرض والطلب على الطاقة عالمياً حتى عام 2050، مع مراعاة استمرار النمو الاقتصادي العالمي، وزيادة مستويات المعيشة في البلدان النامية، والتقدم التكنولوجي، وسلوكيات المستهلكين، وتأثير السياسات الحكومية على مكافحة تغير المناخ، وأهمية التسعير المتنوع لموارد الطاقة في الأسواق التنافسية. وشدد التقرير على ضرورة تحقيق مستقبل أكثر ازدهارًا مع انبعاثات أقل من الكربون من خلال تسريع الابتكار في تقنيات الطاقة المتجددة، وانخفاض كبير في استهلاك الفحم، واستمرار هيمنة النفط (النفط) والغاز الطبيعي في تشكيل أكثر من نصف مزيج الطاقة المستقبلي.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+يعرض تقرير أصدرته شركة إكسون موبيل مؤخراً توقعات العرض والطلب العالمي على الطاقة حتى عام 2050، مع مراعاة عوامل مثل استمرار النمو الاقتصادي العالمي، وارتفاع مستويات المعيشة في الدول النامية، والتطورات التكنولوجية، وسلوكيات المستهلكين، وتأثير السياسات الحكومية على مكافحة تغير المناخ، وأهمية التسعير المتنوع لموارد الطاقة في الأسواق التنافسية. ويؤكد التقرير على ضرورة تحقيق مستقبل أكثر ازدهارا مع انخفاض الانبعاثات الكربونية من خلال تسريع الابتكار في تقنيات الطاقة المتجددة، وتخفيض كبير في استهلاك الفحم، واستمرار هيمنة البترول (النفط) والغاز الطبيعي في تشكيل أكثر من نصف مزيج الطاقة المستقبلي.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+أصدرت شركة النفط العملاقة إكسون موبيل مؤخراً تقريرًا يسلط الضوء على توقعات العرض والطلب العالمي على الطاقة حتى عام 2٠5٠، مع مراعاة استمرار النمو الاقتصادي العالمي، وارتفاع مستويات المعيشة في الدول النامية، والتقدم التكنولوجي، وأنماط الاستهلاك، وتأثير السياسات الحكومية لمكافحة تغير المناخ، وأهمية أسعار مصادر الطاقة المتنوعة في السوق التنافسية، ويؤكد التقرير أن الطريق نحو مستقبل أكثر ازدهارًا وانخفاضًا في الانبعاثات الكربونية يمر عبر تسريع الابتكار في مجال الطاقة النظيفة، والتراجع الكبير لاستخدام الفحم، واستمرار دور النفط والغاز الطبيعي في تشكيل أكثر من نصف مزيج الطاقة المستقبلية.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[EN-AR | Sample 05 | Original line 192]
+SOURCE:
+In the same context, British Prime Minister Keir Starmer welcomed Trump's efforts to end the war in the Gaza Strip, saying: "We call on all parties to join hands and work with the American administration to complete this agreement and embody it on the ground. Hamas must now agree to the plan and end the suffering, by laying down its weapons and releasing all the remaining prisoners."
+NLLB TRANSLATION:
+في السياق ذاته، رحب رئيس الوزراء البريطاني كير ستارمر بجهود ترامب لإنهاء الحرب في قطاع غزة، قائلاً: "ندعو جميع الأطراف إلى المشاركة والعمل مع الإدارة الأميركية لإكمال هذه الاتفاقية وتجسيدها على الأرض. يجب على حماس الآن الموافقة على الخطة وإنهاء المعاناة، بإلقاء سلاحها وإطلاق سراح جميع الأسرى المتبقين".
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+وفي السياق ذاته، رحب رئيس الوزراء البريطاني كير ستارمر بجهود ترامب لإنهاء الحرب في قطاع غزة، وقال: "ندعو جميع الأطراف إلى العمل مع الإدارة الأميركية لاستكمال هذا الاتفاق وتجسيده على الأرض. يجب على حماس الآن الموافقة على الخطة وإنهاء المعاناة، بإلقاء السلاح والإفراج عن جميع الأسرى المتبقين".
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+في السياق ذاته، أبدى رئيس الوزراء البريطاني كير ستارمر ترحيبه بجهود ترامب لإنهاء الحرب في قطاع غزة، وقال: "ندعو جميع الأطراف إلى التكاتف والعمل مع الإدارة الأميركية لاستكمال هذه الاتفاقية وتجسيدها على الأرض. يجب على حماس الآن الموافقة على الخطة ووضع حد للمعاناة، من خلال إلقاء السلاح وإطلاق سراح جميع الأسرى المتبقين".
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[EN-AR | Sample 06 | Original line 210]
+SOURCE:
+The "optimal energy mix" concept holds significant importance among global policymakers, encompassing concerns about supply security and reliability alongside considerations of economic, environmental, and technological factors. In my view, this challenges the energy sector to balance the growing demand for electricity and fuels while adhering to the goal of achieving zero carbon neutrality and minimizing emissions.
+NLLB TRANSLATION:
+يُعدّ مفهوم "المزيج المثالي للطاقة" موضوعًا مهمًا لدى صانعي السياسات العالميين، إذ يشمل المخاوف المتعلقة بأمن الإمدادات وموثوقيتها إلى جانب الاعتبارات الاقتصادية والبيئية والتكنولوجية، وهو ما يشكل في رأيي تحديًا لقطاع الطاقة لموازنة الطلب المتزايد على الكهرباء والوقود مع الالتزام بهدف تحقيق الحيادية الكربونية الصفرية وتقليل الانبعاثات.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+يحظى مفهوم "مزيج الطاقة الأمثل" بأهمية كبيرة لدى صانعي السياسات في جميع أنحاء العالم، لأنه يجمع بين اعتبارات أمن الإمدادات وموثوقيتها وبين اعتبارات اقتصادية وبيئية وتكنولوجية. في رأيي، يمثل هذا تحديًا لقطاع الطاقة لموازنة الطلب المتزايد على الكهرباء والوقود مع الالتزام بهدف تحقيق الحياد الكربوني وتقليل الانبعاثات إلى الحد الأدنى.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+ويحظى مفهوم "المزيج الطاقي الأمثل" باهتمام كبير من صانعي السياسات على المستوى الدولي، إذ يوازن بين أمن الإمداد والموثوقية من جهة، والاعتبارات الاقتصادية والبيئية والتقنية من جهته الأخرى. وفي تقديري، يمثل هذا تحدياً حقيقياً للقطاع، إذ يتعين عليه مواكبة الطلب المتزايد على الكهرباء والوقود، مع التمسك بهدف تحقيق الحياد الصفري للكربون وتقليل الانبعاثات.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[EN-AR | Sample 07 | Original line 229]
+SOURCE:
+The White House announced that US President Donald Trump's plan includes a phased Israeli military withdrawal over three stages. The announcement suggests that if both parties agree on the plan, the ongoing conflict in Gaza would come to an immediate halt.
+NLLB TRANSLATION:
+أعلن البيت الأبيض أن خطة الرئيس الأميركي دونالد ترامب تتضمن انسحابًا إسرائيليًا تدريجيًا على ثلاث مراحل، مشيرًا إلى أنه إذا وافق الطرفان على الخطة، فسيتم إنهاء الحرب في غزة فورًا.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+أعلن البيت الأبيض أن خطة الرئيس الأميركي دونالد ترامب تتضمن انسحاباً عسكرياً إسرائيلياً تدريجياً على ثلاث مراحل، مشيراً إلى أنه إذا وافق الطرفان على الخطة، فإن الحرب المستمرة في غزة ستتوقف فوراً.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+قال البيت الأبيض إن خطة الرئيس الأميركي دونالد ترامب تنص على انسحاب عسكري إسرائيلي تدريجي في ثلاث مراحل، ملمحاً إلى أن الحرب في غزة ستتوقف فوراً إذا وافقت الأطراف على الخطة.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[EN-AR | Sample 08 | Original line 286]
+SOURCE:
+Arafa's intervention was clear, affirming her commitment to supporting her daughter and encouraging her to maintain her strength.
+NLLB TRANSLATION:
+كان تدخل عرفة واضحًا، مؤكدًا التزامها بدعم ابنتها وتشجيعها على الحفاظ على قوتها.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+كان تدخل عرفات واضحًا، مؤكدة التزامها بدعم ابنتها وتشجيعها على الحفاظ على قوتها.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+بدورها، أكدت عرفة دعمها لابنتها وتشجيعها على المثابرة.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[EN-AR | Sample 09 | Original line 448]
+SOURCE:
+The Labor Force Survey conducted by the General Authority for Statistics in Saudi Arabia revealed on Wednesday that the overall unemployment rate among Saudis and non-Saudis stood at 3.2% in the second quarter of 2025, marking an increase of 0.4 percentage points from the first quarter of the same year. This also shows a decline of 0.1 percentage points from the second quarter of 2024.
+NLLB TRANSLATION:
+أظهر مسح القوى العاملة الصادر عن الهيئة العامة للإحصاء في السعودية، اليوم الأربعاء، أن معدل البطالة الإجمالي للسعوديين وغير السعوديين بلغ 3.2% خلال الربع الثاني من عام 2025، بزيادة 0.4 نقطة مئوية عن الربع الأول من العام الجاري، وانخفاض 0.1 نقطة بالمئة عن النصف الثاني لعام 2024.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+أظهرت نتائج مسح القوى العاملة الذي أجرته الهيئة العامة للإحصاء في السعودية، اليوم الثلاثاء، أن معدل البطالة الإجمالي للسعوديين وغير السعوديين بلغ 3.2% في الربع الثاني من عام 2025، بزيادة قدرها 0.4 نقطة مئوية مقارنة بالربع الأول من العام نفسه، وانخفاضاً قدره ٠.١ نقطة تقريباً مقارنة مع الربع الثانى من عام ٢٠٢٤.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+وأظهرت نتائج "مسح القوى العاملة" الصادرة عن الهيئة العامة للإحصاء في السعودية، اليوم الثلاثاء، أن معدل البطالة الإجمالي للسعوديين وغير السعوديين بلغ ٣.٢% في الربع الثاني من عام ٢٠٢٥، بارتفاع قدره ٠.٤ نقطة مئوية عن الربع الأول من العام الحالي، كما انخفض بمقدار صفر.١ نقطة بالنسبة لنفس الفترة من العام الماضي.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[EN-AR | Sample 10 | Original line 458]
+SOURCE:
+The Member of Parliament, who is the son-in-law of the leader of the State of Law Coalition, Nouri al-Maliki, emphasized in a tweet on his account on Twitter that Adil's statements and efforts to sow discord and inflame divisions through his "favoritism towards Iraq under the risks surrounding him."
+NLLB TRANSLATION:
+وأكد النائب، الذي هو صهر زعيم ائتلاف دولة القانون، نوري المالكي، في تغريدة على حسابه على "تويتر"، أن تصريحات عادل وجهوده لزرع الخلاف وتأجيج الانقسامات من خلال "تفضيل العراق تحت المخاطر المحيطة به".
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+وشدد النائب، وهو صهر زعيم ائتلاف دولة القانون نوري المالكي، في تغريدة على حسابه بموقع "تويتر"، على أن تصريحات عادل ومساعيه لزرع الفتنة وإشعال الفتن عبر "محاباته للعراق تحت المخاطر المحيطة به".
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+وأكد النائب، وهو صهر زعيم ائتلاف دولة القانون، نوري المالكي، في تغريدة على حسابه في منصة إكس، أن حديث عادل ومساعيه لزرع الفتنة وإشعال الفرقة هي "محاباة للعراق في ظل المخاطر المحيطة به".
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[EN-AR | Sample 11 | Original line 477]
+SOURCE:
+In early 2023, a remark made by Treasury Secretary Scott Besent about the government's gold reserves raised questions about their valuation based on current market prices. This could lead to unexpected gains worth hundreds of billions of dollars for the government. However, Besent dismissed these speculations, indicating they were not being seriously considered. Bloomberg noted that this concept was not part of any serious discussions or studies.
+NLLB TRANSLATION:
+في أوائل عام 2023، أثار تصريح وزير الخزانة سكوت بيسنت حول احتياطيات الذهب الحكومية تساؤلات حول تقييمها بالأسعار السوقية الحالية. وقد يؤدي ذلك إلى مكاسب غير متوقعة بمئات المليارات من الدولارات للحكومة. لكن بيسينت رفض هذه التكهنات، مشيراً إلى أنها لم تكن قيد النظر بجدية. وذكرت "بلومبرغ" أن هذا المفهوم لم يكن جزءًا من أي مناقشات أو دراسات جادة.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+وكان وزير الخزانة سكوت بيسنت قد قال في وقت سابق من هذا العام إن احتياطيات الذهب الحكومية تُقيّم بأسعار السوق الحالية، ما قد يمنح الحكومة مكاسب غير متوقعة تصل إلى مئات المليارات من الدولارات. ونفى بسينت هذه التكهنات، مؤكداً أنها "لم تكن موضع نقاش أو دراسة جدية"، وفقاً لوكالة بلومبرغ.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+وفي وقت سابق من هذا العام، أثارت ملاحظة لوزير الخزانة سكوت بيسنت حول احتياطيات الذهب الحكومية تساؤلات حول تقييمها بالقيمة السوقية الحالية، والتي قد تعني مكاسب غير مدرجة في الميزانية بمئات المليارات من الدولارات للحكومة. لكن بيسنيت نفى ذلك، قائلاً: "لا أعتقد أن هناك جدياً في النظر في ذلك". وأضافت وكالة بلومبرغ أن "الفكرة لم تكن قيد المناقشة أو الدراسة الجادة".
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[EN-AR | Sample 12 | Original line 502]
+SOURCE:
+She added, "While such situations are exceedingly uncommon, various approaches can be attempted to remove the stuck ring, such as using soap and water, or immersing the hand in cold water. If these methods fail, further details can be found on the Samsung support page."
+NLLB TRANSLATION:
+وأضافت: "على الرغم من أن مثل هذه الحالات نادرة للغاية، إلا أنه يمكن محاولة إزالة الخاتم المتعلق بالماء والصابون أو غمر اليد في الماء البارد. وإذا فشلت هذه الأساليب، فيمكن الاطلاع على مزيد من التفاصيل من صفحة دعم سامسونج".
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+وأضافت: "على الرغم من أن هذه الحالات نادرة للغاية، إلا أنه يمكنك تجربة عدة طرق لإزالة الحلقة العالقة، مثل استخدام الصابون والماء أو غمس اليد في الماء البارد. وإذا فشلت هذه الطرق، راجع صفحة دعم سامسونغ للحصول على مزيد من التفاصيل".
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+وأضافت: "بينما تعد مثل هذه الحالات نادرة للغاية، هناك عدة طرق يمكن تجربتها لإزالة الحلقة العالقة، بما في ذلك استخدام الماء والصابون، أو نقع اليد في الماء البارد. وفي حال تعذر ذلك، تتوفر إرشادات إضافية على صفحة دعم 'سامسونغ'".
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[EN-AR | Sample 13 | Original line 564]
+SOURCE:
+The newly established Peace Committee, overseen by President Trump and co-chaired by him alongside other key figures, will lead this committee, which includes former British Prime Minister Tony Blair among its members.
+NLLB TRANSLATION:
+وستترأس لجنة السلام الجديدة، التي يرأسها ترامب ويشارك في رئاستها مع شخصيات رئيسية أخرى، والتي تضم رئيس الوزراء البريطاني السابق توني بلير.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+وسترأس لجنة السلام الجديدة، التي يرأسها ترامب ويشارك في رئاستها رئيس الوزراء البريطاني الأسبق توني بلير.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+وستتولى لجنة السلام المشكلة حديثاً برئاسة ترامب وشاركته في رئاستها شخصية بارزة أخرى، وتضم في عضويتها رئيس الوزراء البريطاني الأسبق توني بلير.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[EN-AR | Sample 14 | Original line 865]
+SOURCE:
+Summary: Understanding the path of battles requires knowing one's enemies. The conflict that Hezbollah engaged in resulted from its own demise.
+NLLB TRANSLATION:
+ملخص: فهم مسار المعارك يتطلب معرفة أعداء المرء. الصراع الذي خاضه حزب الله كان نتيجة لنهايته.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+خلاصة القول: لتعرف مسار المعارك عليك أن تعرف أعدائك. الحرب التي خاضها حزب الله كانت نتيجة لموت نفسه.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+ملاحظة: من أجل فهم مسار المعارك، لا بد من معرفة الأعداء. فالمعركة التي خاضها "حزب الله" كانت مع نفسه.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[EN-AR | Sample 15 | Original line 1035]
+SOURCE:
+During an interview on Fox News, Israeli Prime Minister Benjamin Netanyahu stated that he would permit Hamas leaders to exit Gaza if they decided to stop the conflict, surrender their weapons, and release detained individuals. He also mentioned that this issue was part of the talks he was having with President Donald Trump's administration.
+NLLB TRANSLATION:
+قال رئيس الوزراء الإسرائيلي بنيامين نتنياهو في مقابلة مع قناة "فوكس نيوز" إنه سيسمح لقادة حماس بمغادرة غزة إذا قرروا وقف الحرب وتسليم أسلحتهم وإطلاق سراح المعتقلين. وأضاف أن هذه القضية جزء من محادثاته مع إدارة الرئيس دونالد ترامب.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+قال رئيس الوزراء الإسرائيلي بنيامين نتنياهو، في مقابلة مع قناة "فوكس نيوز"، إنه سيسمح لقادة حماس بمغادرة غزة إذا قرروا وقف الحرب وتسليم السلاح والإفراج عن الأسرى، مشيراً إلى أن هذا الأمر جزء من المحادثات التي يجريها مع إدارة الرئيس الأميركي دونالد ترامب.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+وقال رئيس الوزراء الإسرائيلي، بنيامين نتنياهو، في مقابلة مع شبكة "فوكس نيوز" الأميركية، إنه سيسمح لقادة حماس بالخروج من غزة إذا اختاروا إنهاء الحرب، وسلموا أسلحتهم، وأطلقوا سراح المحتجزين. وأضاف أن هذا الأمر جزء من المحادثات التي يجريها مع إدارة الرئيس الأميركي دونالد ترامب.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[EN-AR | Sample 16 | Original line 1117]
+SOURCE:
+In the Japanese market, the benchmark Nikkei 225 index experienced a slight decline of less than 0.1%, closing at 45,023.48 points during morning trading.
+NLLB TRANSLATION:
+في اليابان، تراجع مؤشر نيكاي 225 أقل من 0.1% ليصل إلى 45،023.48 نقطة في التداول الصباحي.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+وفي السوق اليابانية، تراجع المؤشر نيكي 225 القياسي بنسبة أقل من 0.1% إلى 45023.48 نقطة في وقت مبكر من التعاملات.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+وفي اليابان، تراجع المؤشر نيكاي 275 القياسي بأقل من ٠,١ % ليصل إلى ٤٥٠٢٣,٤٨ نقطة في التعاملات الصباحية.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[EN-AR | Sample 17 | Original line 1210]
+SOURCE:
+In addition, WhatsApp introduced new sticker packs for downloading and simplified group search functionality by allowing users to find shared groups through the name of a specific individual within the group.
+NLLB TRANSLATION:
+بالإضافة إلى ذلك، أطلقت "واتساب" حزم ملصقات جديدة للتنزيل وظيفة البحث عن المجموعات المبسطة من خلال السماح للمستخدمين بالعثور على مجموعات مشتركة باستخدام اسم فرد معين داخل المجموعة.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+بالإضافة إلى ذلك، أضاف واتساب حزم ملصقات جديدة للتنزيل، وسهّل البحث عن المجموعات من خلال السماح للمستخدمين بالبحث عن مجموعات مشتركة باستخدام اسم شخص معين في المجموعة.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+إلى ذلك، أضافت "واتساب" حزم ملصقات جديدة للتنزيل، وسهّلت عملية البحث عن المجموعات من خلال إمكانية البحث عن مجموعة مشتركة عبر اسم شخص داخل المجموعة.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[EN-AR | Sample 18 | Original line 1233]
+SOURCE:
+He added: "Saudi Arabia's current state is significantly superior compared to China's, as the recent action is not unique but rather part of several ongoing reforms, ensuring long-term success."
+NLLB TRANSLATION:
+وأضاف: "حالة السعودية حاليًا أفضل بكثير من الصين، لأن الخطوة الأخيرة ليست فريدة من نوعها، بل جزء من عدة إصلاحات مستمرة، مما يضمن نجاحًا طويل الأمد".
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+وتابع: "السعودية في وضع أفضل بكثير من الصين، لأن ما حدث مؤخراً ليس حدثاً وحيداً، بل جزء من إصلاحات عدة، مما يضمن النجاح على المدى الطويل".
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+وتابع: "السعودية اليوم في وضع أفضل بكثير من الصين آنذاك، فالتحرك الأخير ليس فردياً بل ضمن سلسلة إصلاحات متواصلة تضمن استدامة النجاح".
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[EN-AR | Sample 19 | Original line 1310]
+SOURCE:
+Only the heritage section of the old stadium, which constitutes part of the second floor, will remain intact after its demolition.
+NLLB TRANSLATION:
+أما الجزء التراثي من الملعب القديم، الذي يشكل جزءًا من الطابق الثاني، فسيبقى سليماً بعد هدمه.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+وسيبقى القسم التراثي من الملعب القديم، الذي يشكل جزءًا من الطابق الثاني، سليما بعد هدمه.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+سيبقى فقط الجزء التراثي من الملعب القديم، الذي يشكل جزءًا من الطابق الثاني، سليمًا بعد هدمه.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[EN-AR | Sample 20 | Original line 1386]
+SOURCE:
+Russia has set a condition for nuclear disarmament talks with the United States: the inclusion of Britain's and France's arsenals at a later stage.
+NLLB TRANSLATION:
+روسيا تضع شرطًا لمحادثات نزع السلاح النووي مع الولايات المتحدة: إدراج ترسانتي بريطانيا وفرنسا في مرحلة لاحقة.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+روسيا تضع شرطاً لمحادثات نزع السلاح النووي مع واشنطن: إدراج ترسانتي بريطانيا وفرنسا لاحقاً
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+روسيا تضع شرطاً لمحادثات نزع السلاح النووي مع الولايات المتحدة.. إدراج ترسانتي بريطانيا وفرنسا لاحقاً
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------

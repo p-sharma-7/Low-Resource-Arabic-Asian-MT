@@ -1,0 +1,13 @@
+direction,eval_split,method,mean_similarity,median_similarity,p95_similarity
+ar-en/ar,dev,tfidf,0.2208,0.1901,0.3834
+ar-en/ar,devtest,tfidf,0.237,0.1995,0.4429
+ar-en/en,dev,tfidf,0.257,0.2318,0.4088
+ar-en/en,devtest,tfidf,0.271,0.2439,0.4721
+ar-hi/ar,dev,tfidf,0.2202,0.1892,0.3822
+ar-hi/ar,devtest,tfidf,0.2359,0.1989,0.4442
+ar-hi/hi,dev,tfidf,0.4096,0.3941,0.5455
+ar-hi/hi,devtest,tfidf,0.4264,0.4145,0.5726
+ar-ur/ar,dev,tfidf,0.2202,0.1891,0.3819
+ar-ur/ar,devtest,tfidf,0.2359,0.1987,0.4438
+ar-ur/ur,dev,tfidf,0.2869,0.2647,0.4473
+ar-ur/ur,devtest,tfidf,0.3087,0.2788,0.5154

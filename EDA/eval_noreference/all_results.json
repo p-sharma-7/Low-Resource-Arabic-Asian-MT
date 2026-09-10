@@ -1,0 +1,926 @@
+{
+  "nllb": {
+    "ar-en": {
+      "sanity": {
+        "direction": "ar-en",
+        "src_lines": 1500,
+        "hyp_lines": 1500,
+        "lines_match": true,
+        "empty_hyp": 0,
+        "empty_pct": 0.0,
+        "issues": [],
+        "passed": true
+      },
+      "language": {
+        "direction": "ar-en",
+        "target_lang": "en",
+        "expected_script": "LATIN",
+        "correct_script_pct": 100.0,
+        "wrong_examples": [],
+        "issues": [],
+        "passed": true
+      },
+      "copying": {
+        "direction": "ar-en",
+        "exact_copies": 0,
+        "exact_copy_pct": 0.0,
+        "high_overlap_lines": 0,
+        "high_overlap_pct": 0.0,
+        "mean_token_overlap": 0.0059,
+        "issues": [],
+        "passed": true
+      },
+      "length": {
+        "direction": "ar-en",
+        "hyp_mean_tokens": 40.45,
+        "src_mean_tokens": 33.23,
+        "mean_length_ratio": 1.2194,
+        "std_length_ratio": 0.1855,
+        "expected_ratio": 1.2,
+        "baseline_source": "typical MT ratio",
+        "drift_pct": 1.6,
+        "issues": [],
+        "passed": true
+      },
+      "fluency": {
+        "direction": "ar-en",
+        "mean_repetition": 0.007,
+        "high_repetition_pct": 0.0,
+        "mean_ttr": 0.8801,
+        "issues": [],
+        "passed": true
+      }
+    },
+    "en-ar": {
+      "sanity": {
+        "direction": "en-ar",
+        "src_lines": 1500,
+        "hyp_lines": 1500,
+        "lines_match": true,
+        "empty_hyp": 0,
+        "empty_pct": 0.0,
+        "issues": [],
+        "passed": true
+      },
+      "language": {
+        "direction": "en-ar",
+        "target_lang": "ar",
+        "expected_script": "ARABIC",
+        "correct_script_pct": 100.0,
+        "wrong_examples": [],
+        "issues": [],
+        "passed": true
+      },
+      "copying": {
+        "direction": "en-ar",
+        "exact_copies": 0,
+        "exact_copy_pct": 0.0,
+        "high_overlap_lines": 0,
+        "high_overlap_pct": 0.0,
+        "mean_token_overlap": 0.0054,
+        "issues": [],
+        "passed": true
+      },
+      "length": {
+        "direction": "en-ar",
+        "hyp_mean_tokens": 33.29,
+        "src_mean_tokens": 41.34,
+        "mean_length_ratio": 0.8169,
+        "std_length_ratio": 0.1218,
+        "expected_ratio": 0.85,
+        "baseline_source": "typical MT ratio",
+        "drift_pct": 3.9,
+        "issues": [],
+        "passed": true
+      },
+      "fluency": {
+        "direction": "en-ar",
+        "mean_repetition": 0.0008,
+        "high_repetition_pct": 0.0,
+        "mean_ttr": 0.9587,
+        "issues": [],
+        "passed": true
+      }
+    },
+    "ar-hi": {
+      "sanity": {
+        "direction": "ar-hi",
+        "src_lines": 1500,
+        "hyp_lines": 1500,
+        "lines_match": true,
+        "empty_hyp": 0,
+        "empty_pct": 0.0,
+        "issues": [],
+        "passed": true
+      },
+      "language": {
+        "direction": "ar-hi",
+        "target_lang": "hi",
+        "expected_script": "DEVANAGARI",
+        "correct_script_pct": 100.0,
+        "wrong_examples": [],
+        "issues": [],
+        "passed": true
+      },
+      "copying": {
+        "direction": "ar-hi",
+        "exact_copies": 0,
+        "exact_copy_pct": 0.0,
+        "high_overlap_lines": 0,
+        "high_overlap_pct": 0.0,
+        "mean_token_overlap": 0.0067,
+        "issues": [],
+        "passed": true
+      },
+      "length": {
+        "direction": "ar-hi",
+        "hyp_mean_tokens": 47.17,
+        "src_mean_tokens": 33.23,
+        "mean_length_ratio": 1.4253,
+        "std_length_ratio": 0.2259,
+        "expected_ratio": 1.45,
+        "baseline_source": "typical MT ratio",
+        "drift_pct": 1.7,
+        "issues": [],
+        "passed": true
+      },
+      "fluency": {
+        "direction": "ar-hi",
+        "mean_repetition": 0.0074,
+        "high_repetition_pct": 0.0,
+        "mean_ttr": 0.8705,
+        "issues": [],
+        "passed": true
+      }
+    },
+    "hi-ar": {
+      "sanity": {
+        "direction": "hi-ar",
+        "src_lines": 1500,
+        "hyp_lines": 1500,
+        "lines_match": true,
+        "empty_hyp": 0,
+        "empty_pct": 0.0,
+        "issues": [],
+        "passed": true
+      },
+      "language": {
+        "direction": "hi-ar",
+        "target_lang": "ar",
+        "expected_script": "ARABIC",
+        "correct_script_pct": 100.0,
+        "wrong_examples": [],
+        "issues": [],
+        "passed": true
+      },
+      "copying": {
+        "direction": "hi-ar",
+        "exact_copies": 0,
+        "exact_copy_pct": 0.0,
+        "high_overlap_lines": 0,
+        "high_overlap_pct": 0.0,
+        "mean_token_overlap": 0.0061,
+        "issues": [],
+        "passed": true
+      },
+      "length": {
+        "direction": "hi-ar",
+        "hyp_mean_tokens": 32.69,
+        "src_mean_tokens": 48.83,
+        "mean_length_ratio": 0.6859,
+        "std_length_ratio": 0.1062,
+        "expected_ratio": 0.7,
+        "baseline_source": "typical MT ratio",
+        "drift_pct": 2.0,
+        "issues": [],
+        "passed": true
+      },
+      "fluency": {
+        "direction": "hi-ar",
+        "mean_repetition": 0.0009,
+        "high_repetition_pct": 0.0,
+        "mean_ttr": 0.9581,
+        "issues": [],
+        "passed": true
+      }
+    },
+    "ar-ur": {
+      "sanity": {
+        "direction": "ar-ur",
+        "src_lines": 1500,
+        "hyp_lines": 1500,
+        "lines_match": true,
+        "empty_hyp": 0,
+        "empty_pct": 0.0,
+        "issues": [],
+        "passed": true
+      },
+      "language": {
+        "direction": "ar-ur",
+        "target_lang": "ur",
+        "expected_script": "ARABIC",
+        "correct_script_pct": 100.0,
+        "wrong_examples": [],
+        "issues": [],
+        "passed": true
+      },
+      "copying": {
+        "direction": "ar-ur",
+        "exact_copies": 0,
+        "exact_copy_pct": 0.0,
+        "high_overlap_lines": 0,
+        "high_overlap_pct": 0.0,
+        "mean_token_overlap": 0.011,
+        "issues": [],
+        "passed": true
+      },
+      "length": {
+        "direction": "ar-ur",
+        "hyp_mean_tokens": 51.25,
+        "src_mean_tokens": 33.23,
+        "mean_length_ratio": 1.5538,
+        "std_length_ratio": 0.2558,
+        "expected_ratio": 1.55,
+        "baseline_source": "typical MT ratio",
+        "drift_pct": 0.2,
+        "issues": [],
+        "passed": true
+      },
+      "fluency": {
+        "direction": "ar-ur",
+        "mean_repetition": 0.0079,
+        "high_repetition_pct": 0.0,
+        "mean_ttr": 0.8559,
+        "issues": [],
+        "passed": true
+      }
+    },
+    "ur-ar": {
+      "sanity": {
+        "direction": "ur-ar",
+        "src_lines": 1500,
+        "hyp_lines": 1500,
+        "lines_match": true,
+        "empty_hyp": 0,
+        "empty_pct": 0.0,
+        "issues": [],
+        "passed": true
+      },
+      "language": {
+        "direction": "ur-ar",
+        "target_lang": "ar",
+        "expected_script": "ARABIC",
+        "correct_script_pct": 100.0,
+        "wrong_examples": [],
+        "issues": [],
+        "passed": true
+      },
+      "copying": {
+        "direction": "ur-ar",
+        "exact_copies": 0,
+        "exact_copy_pct": 0.0,
+        "high_overlap_lines": 0,
+        "high_overlap_pct": 0.0,
+        "mean_token_overlap": 0.0113,
+        "issues": [],
+        "passed": true
+      },
+      "length": {
+        "direction": "ur-ar",
+        "hyp_mean_tokens": 32.49,
+        "src_mean_tokens": 53.02,
+        "mean_length_ratio": 0.6278,
+        "std_length_ratio": 0.0995,
+        "expected_ratio": 0.65,
+        "baseline_source": "typical MT ratio",
+        "drift_pct": 3.4,
+        "issues": [],
+        "passed": true
+      },
+      "fluency": {
+        "direction": "ur-ar",
+        "mean_repetition": 0.0009,
+        "high_repetition_pct": 0.0,
+        "mean_ttr": 0.9579,
+        "issues": [],
+        "passed": true
+      }
+    }
+  },
+  "madlad": {
+    "ar-en": {
+      "sanity": {
+        "direction": "ar-en",
+        "src_lines": 1500,
+        "hyp_lines": 1500,
+        "lines_match": true,
+        "empty_hyp": 0,
+        "empty_pct": 0.0,
+        "issues": [],
+        "passed": true
+      },
+      "language": {
+        "direction": "ar-en",
+        "target_lang": "en",
+        "expected_script": "LATIN",
+        "correct_script_pct": 100.0,
+        "wrong_examples": [],
+        "issues": [],
+        "passed": true
+      },
+      "copying": {
+        "direction": "ar-en",
+        "exact_copies": 0,
+        "exact_copy_pct": 0.0,
+        "high_overlap_lines": 0,
+        "high_overlap_pct": 0.0,
+        "mean_token_overlap": 0.0049,
+        "issues": [],
+        "passed": true
+      },
+      "length": {
+        "direction": "ar-en",
+        "hyp_mean_tokens": 41.16,
+        "src_mean_tokens": 33.23,
+        "mean_length_ratio": 1.2445,
+        "std_length_ratio": 0.202,
+        "expected_ratio": 1.2,
+        "baseline_source": "typical MT ratio",
+        "drift_pct": 3.7,
+        "issues": [],
+        "passed": true
+      },
+      "fluency": {
+        "direction": "ar-en",
+        "mean_repetition": 0.0062,
+        "high_repetition_pct": 0.0,
+        "mean_ttr": 0.8849,
+        "issues": [],
+        "passed": true
+      }
+    },
+    "en-ar": {
+      "sanity": {
+        "direction": "en-ar",
+        "src_lines": 1500,
+        "hyp_lines": 1500,
+        "lines_match": true,
+        "empty_hyp": 0,
+        "empty_pct": 0.0,
+        "issues": [],
+        "passed": true
+      },
+      "language": {
+        "direction": "en-ar",
+        "target_lang": "ar",
+        "expected_script": "ARABIC",
+        "correct_script_pct": 100.0,
+        "wrong_examples": [],
+        "issues": [],
+        "passed": true
+      },
+      "copying": {
+        "direction": "en-ar",
+        "exact_copies": 0,
+        "exact_copy_pct": 0.0,
+        "high_overlap_lines": 0,
+        "high_overlap_pct": 0.0,
+        "mean_token_overlap": 0.0046,
+        "issues": [],
+        "passed": true
+      },
+      "length": {
+        "direction": "en-ar",
+        "hyp_mean_tokens": 32.45,
+        "src_mean_tokens": 41.34,
+        "mean_length_ratio": 0.8011,
+        "std_length_ratio": 0.1406,
+        "expected_ratio": 0.85,
+        "baseline_source": "typical MT ratio",
+        "drift_pct": 5.8,
+        "issues": [],
+        "passed": true
+      },
+      "fluency": {
+        "direction": "en-ar",
+        "mean_repetition": 0.0008,
+        "high_repetition_pct": 0.0,
+        "mean_ttr": 0.9578,
+        "issues": [],
+        "passed": true
+      }
+    },
+    "ar-hi": {
+      "sanity": {
+        "direction": "ar-hi",
+        "src_lines": 1500,
+        "hyp_lines": 1500,
+        "lines_match": true,
+        "empty_hyp": 0,
+        "empty_pct": 0.0,
+        "issues": [],
+        "passed": true
+      },
+      "language": {
+        "direction": "ar-hi",
+        "target_lang": "hi",
+        "expected_script": "DEVANAGARI",
+        "correct_script_pct": 100.0,
+        "wrong_examples": [],
+        "issues": [],
+        "passed": true
+      },
+      "copying": {
+        "direction": "ar-hi",
+        "exact_copies": 0,
+        "exact_copy_pct": 0.0,
+        "high_overlap_lines": 0,
+        "high_overlap_pct": 0.0,
+        "mean_token_overlap": 0.0058,
+        "issues": [],
+        "passed": true
+      },
+      "length": {
+        "direction": "ar-hi",
+        "hyp_mean_tokens": 47.7,
+        "src_mean_tokens": 33.23,
+        "mean_length_ratio": 1.4404,
+        "std_length_ratio": 0.2368,
+        "expected_ratio": 1.45,
+        "baseline_source": "typical MT ratio",
+        "drift_pct": 0.7,
+        "issues": [],
+        "passed": true
+      },
+      "fluency": {
+        "direction": "ar-hi",
+        "mean_repetition": 0.0057,
+        "high_repetition_pct": 0.0,
+        "mean_ttr": 0.8748,
+        "issues": [],
+        "passed": true
+      }
+    },
+    "hi-ar": {
+      "sanity": {
+        "direction": "hi-ar",
+        "src_lines": 1500,
+        "hyp_lines": 1500,
+        "lines_match": true,
+        "empty_hyp": 0,
+        "empty_pct": 0.0,
+        "issues": [],
+        "passed": true
+      },
+      "language": {
+        "direction": "hi-ar",
+        "target_lang": "ar",
+        "expected_script": "ARABIC",
+        "correct_script_pct": 100.0,
+        "wrong_examples": [],
+        "issues": [],
+        "passed": true
+      },
+      "copying": {
+        "direction": "hi-ar",
+        "exact_copies": 0,
+        "exact_copy_pct": 0.0,
+        "high_overlap_lines": 0,
+        "high_overlap_pct": 0.0,
+        "mean_token_overlap": 0.0055,
+        "issues": [],
+        "passed": true
+      },
+      "length": {
+        "direction": "hi-ar",
+        "hyp_mean_tokens": 32.45,
+        "src_mean_tokens": 48.83,
+        "mean_length_ratio": 0.6799,
+        "std_length_ratio": 0.1114,
+        "expected_ratio": 0.7,
+        "baseline_source": "typical MT ratio",
+        "drift_pct": 2.9,
+        "issues": [],
+        "passed": true
+      },
+      "fluency": {
+        "direction": "hi-ar",
+        "mean_repetition": 0.0008,
+        "high_repetition_pct": 0.0,
+        "mean_ttr": 0.9577,
+        "issues": [],
+        "passed": true
+      }
+    },
+    "ar-ur": {
+      "sanity": {
+        "direction": "ar-ur",
+        "src_lines": 1500,
+        "hyp_lines": 1500,
+        "lines_match": true,
+        "empty_hyp": 0,
+        "empty_pct": 0.0,
+        "issues": [],
+        "passed": true
+      },
+      "language": {
+        "direction": "ar-ur",
+        "target_lang": "ur",
+        "expected_script": "ARABIC",
+        "correct_script_pct": 100.0,
+        "wrong_examples": [],
+        "issues": [],
+        "passed": true
+      },
+      "copying": {
+        "direction": "ar-ur",
+        "exact_copies": 0,
+        "exact_copy_pct": 0.0,
+        "high_overlap_lines": 0,
+        "high_overlap_pct": 0.0,
+        "mean_token_overlap": 0.0108,
+        "issues": [],
+        "passed": true
+      },
+      "length": {
+        "direction": "ar-ur",
+        "hyp_mean_tokens": 51.83,
+        "src_mean_tokens": 33.23,
+        "mean_length_ratio": 1.5654,
+        "std_length_ratio": 0.2568,
+        "expected_ratio": 1.55,
+        "baseline_source": "typical MT ratio",
+        "drift_pct": 1.0,
+        "issues": [],
+        "passed": true
+      },
+      "fluency": {
+        "direction": "ar-ur",
+        "mean_repetition": 0.0082,
+        "high_repetition_pct": 0.0,
+        "mean_ttr": 0.8513,
+        "issues": [],
+        "passed": true
+      }
+    },
+    "ur-ar": {
+      "sanity": {
+        "direction": "ur-ar",
+        "src_lines": 1500,
+        "hyp_lines": 1500,
+        "lines_match": true,
+        "empty_hyp": 0,
+        "empty_pct": 0.0,
+        "issues": [],
+        "passed": true
+      },
+      "language": {
+        "direction": "ur-ar",
+        "target_lang": "ar",
+        "expected_script": "ARABIC",
+        "correct_script_pct": 100.0,
+        "wrong_examples": [],
+        "issues": [],
+        "passed": true
+      },
+      "copying": {
+        "direction": "ur-ar",
+        "exact_copies": 0,
+        "exact_copy_pct": 0.0,
+        "high_overlap_lines": 0,
+        "high_overlap_pct": 0.0,
+        "mean_token_overlap": 0.0106,
+        "issues": [],
+        "passed": true
+      },
+      "length": {
+        "direction": "ur-ar",
+        "hyp_mean_tokens": 32.36,
+        "src_mean_tokens": 53.02,
+        "mean_length_ratio": 0.6229,
+        "std_length_ratio": 0.0992,
+        "expected_ratio": 0.65,
+        "baseline_source": "typical MT ratio",
+        "drift_pct": 4.2,
+        "issues": [],
+        "passed": true
+      },
+      "fluency": {
+        "direction": "ur-ar",
+        "mean_repetition": 0.0007,
+        "high_repetition_pct": 0.0,
+        "mean_ttr": 0.9576,
+        "issues": [],
+        "passed": true
+      }
+    }
+  },
+  "gemmax2": {
+    "ar-en": {
+      "sanity": {
+        "direction": "ar-en",
+        "src_lines": 1500,
+        "hyp_lines": 1500,
+        "lines_match": true,
+        "empty_hyp": 0,
+        "empty_pct": 0.0,
+        "issues": [],
+        "passed": true
+      },
+      "language": {
+        "direction": "ar-en",
+        "target_lang": "en",
+        "expected_script": "LATIN",
+        "correct_script_pct": 100.0,
+        "wrong_examples": [],
+        "issues": [],
+        "passed": true
+      },
+      "copying": {
+        "direction": "ar-en",
+        "exact_copies": 0,
+        "exact_copy_pct": 0.0,
+        "high_overlap_lines": 0,
+        "high_overlap_pct": 0.0,
+        "mean_token_overlap": 0.0001,
+        "issues": [],
+        "passed": true
+      },
+      "length": {
+        "direction": "ar-en",
+        "hyp_mean_tokens": 42.67,
+        "src_mean_tokens": 33.23,
+        "mean_length_ratio": 1.3008,
+        "std_length_ratio": 0.2557,
+        "expected_ratio": 1.2,
+        "baseline_source": "typical MT ratio",
+        "drift_pct": 8.4,
+        "issues": [],
+        "passed": true
+      },
+      "fluency": {
+        "direction": "ar-en",
+        "mean_repetition": 0.0056,
+        "high_repetition_pct": 0.0,
+        "mean_ttr": 0.8862,
+        "issues": [],
+        "passed": true
+      }
+    },
+    "en-ar": {
+      "sanity": {
+        "direction": "en-ar",
+        "src_lines": 1500,
+        "hyp_lines": 1500,
+        "lines_match": true,
+        "empty_hyp": 0,
+        "empty_pct": 0.0,
+        "issues": [],
+        "passed": true
+      },
+      "language": {
+        "direction": "en-ar",
+        "target_lang": "ar",
+        "expected_script": "ARABIC",
+        "correct_script_pct": 100.0,
+        "wrong_examples": [],
+        "issues": [],
+        "passed": true
+      },
+      "copying": {
+        "direction": "en-ar",
+        "exact_copies": 0,
+        "exact_copy_pct": 0.0,
+        "high_overlap_lines": 0,
+        "high_overlap_pct": 0.0,
+        "mean_token_overlap": 0.0003,
+        "issues": [],
+        "passed": true
+      },
+      "length": {
+        "direction": "en-ar",
+        "hyp_mean_tokens": 32.77,
+        "src_mean_tokens": 41.34,
+        "mean_length_ratio": 0.8146,
+        "std_length_ratio": 0.1665,
+        "expected_ratio": 0.85,
+        "baseline_source": "typical MT ratio",
+        "drift_pct": 4.2,
+        "issues": [],
+        "passed": true
+      },
+      "fluency": {
+        "direction": "en-ar",
+        "mean_repetition": 0.0011,
+        "high_repetition_pct": 0.0,
+        "mean_ttr": 0.9576,
+        "issues": [],
+        "passed": true
+      }
+    },
+    "ar-hi": {
+      "sanity": {
+        "direction": "ar-hi",
+        "src_lines": 1500,
+        "hyp_lines": 1500,
+        "lines_match": true,
+        "empty_hyp": 0,
+        "empty_pct": 0.0,
+        "issues": [],
+        "passed": true
+      },
+      "language": {
+        "direction": "ar-hi",
+        "target_lang": "hi",
+        "expected_script": "DEVANAGARI",
+        "correct_script_pct": 100.0,
+        "wrong_examples": [],
+        "issues": [],
+        "passed": true
+      },
+      "copying": {
+        "direction": "ar-hi",
+        "exact_copies": 0,
+        "exact_copy_pct": 0.0,
+        "high_overlap_lines": 0,
+        "high_overlap_pct": 0.0,
+        "mean_token_overlap": 0.0003,
+        "issues": [],
+        "passed": true
+      },
+      "length": {
+        "direction": "ar-hi",
+        "hyp_mean_tokens": 48.98,
+        "src_mean_tokens": 33.23,
+        "mean_length_ratio": 1.5008,
+        "std_length_ratio": 0.3118,
+        "expected_ratio": 1.45,
+        "baseline_source": "typical MT ratio",
+        "drift_pct": 3.5,
+        "issues": [],
+        "passed": true
+      },
+      "fluency": {
+        "direction": "ar-hi",
+        "mean_repetition": 0.0041,
+        "high_repetition_pct": 0.0,
+        "mean_ttr": 0.8815,
+        "issues": [],
+        "passed": true
+      }
+    },
+    "hi-ar": {
+      "sanity": {
+        "direction": "hi-ar",
+        "src_lines": 1500,
+        "hyp_lines": 1500,
+        "lines_match": true,
+        "empty_hyp": 0,
+        "empty_pct": 0.0,
+        "issues": [],
+        "passed": true
+      },
+      "language": {
+        "direction": "hi-ar",
+        "target_lang": "ar",
+        "expected_script": "ARABIC",
+        "correct_script_pct": 100.0,
+        "wrong_examples": [],
+        "issues": [],
+        "passed": true
+      },
+      "copying": {
+        "direction": "hi-ar",
+        "exact_copies": 0,
+        "exact_copy_pct": 0.0,
+        "high_overlap_lines": 0,
+        "high_overlap_pct": 0.0,
+        "mean_token_overlap": 0.0005,
+        "issues": [],
+        "passed": true
+      },
+      "length": {
+        "direction": "hi-ar",
+        "hyp_mean_tokens": 32.51,
+        "src_mean_tokens": 48.83,
+        "mean_length_ratio": 0.6845,
+        "std_length_ratio": 0.1345,
+        "expected_ratio": 0.7,
+        "baseline_source": "typical MT ratio",
+        "drift_pct": 2.2,
+        "issues": [],
+        "passed": true
+      },
+      "fluency": {
+        "direction": "hi-ar",
+        "mean_repetition": 0.0011,
+        "high_repetition_pct": 0.0,
+        "mean_ttr": 0.9572,
+        "issues": [],
+        "passed": true
+      }
+    },
+    "ar-ur": {
+      "sanity": {
+        "direction": "ar-ur",
+        "src_lines": 1500,
+        "hyp_lines": 1500,
+        "lines_match": true,
+        "empty_hyp": 0,
+        "empty_pct": 0.0,
+        "issues": [],
+        "passed": true
+      },
+      "language": {
+        "direction": "ar-ur",
+        "target_lang": "ur",
+        "expected_script": "ARABIC",
+        "correct_script_pct": 100.0,
+        "wrong_examples": [],
+        "issues": [],
+        "passed": true
+      },
+      "copying": {
+        "direction": "ar-ur",
+        "exact_copies": 0,
+        "exact_copy_pct": 0.0,
+        "high_overlap_lines": 0,
+        "high_overlap_pct": 0.0,
+        "mean_token_overlap": 0.0046,
+        "issues": [],
+        "passed": true
+      },
+      "length": {
+        "direction": "ar-ur",
+        "hyp_mean_tokens": 53.2,
+        "src_mean_tokens": 33.23,
+        "mean_length_ratio": 1.6333,
+        "std_length_ratio": 0.3367,
+        "expected_ratio": 1.55,
+        "baseline_source": "typical MT ratio",
+        "drift_pct": 5.4,
+        "issues": [],
+        "passed": true
+      },
+      "fluency": {
+        "direction": "ar-ur",
+        "mean_repetition": 0.0052,
+        "high_repetition_pct": 0.0,
+        "mean_ttr": 0.8629,
+        "issues": [],
+        "passed": true
+      }
+    },
+    "ur-ar": {
+      "sanity": {
+        "direction": "ur-ar",
+        "src_lines": 1500,
+        "hyp_lines": 1500,
+        "lines_match": true,
+        "empty_hyp": 0,
+        "empty_pct": 0.0,
+        "issues": [],
+        "passed": true
+      },
+      "language": {
+        "direction": "ur-ar",
+        "target_lang": "ar",
+        "expected_script": "ARABIC",
+        "correct_script_pct": 100.0,
+        "wrong_examples": [],
+        "issues": [],
+        "passed": true
+      },
+      "copying": {
+        "direction": "ur-ar",
+        "exact_copies": 0,
+        "exact_copy_pct": 0.0,
+        "high_overlap_lines": 0,
+        "high_overlap_pct": 0.0,
+        "mean_token_overlap": 0.0053,
+        "issues": [],
+        "passed": true
+      },
+      "length": {
+        "direction": "ur-ar",
+        "hyp_mean_tokens": 32.67,
+        "src_mean_tokens": 53.02,
+        "mean_length_ratio": 0.6357,
+        "std_length_ratio": 0.1312,
+        "expected_ratio": 0.65,
+        "baseline_source": "typical MT ratio",
+        "drift_pct": 2.2,
+        "issues": [],
+        "passed": true
+      },
+      "fluency": {
+        "direction": "ur-ar",
+        "mean_repetition": 0.001,
+        "high_repetition_pct": 0.0,
+        "mean_ttr": 0.9582,
+        "issues": [],
+        "passed": true
+      }
+    }
+  }
+}

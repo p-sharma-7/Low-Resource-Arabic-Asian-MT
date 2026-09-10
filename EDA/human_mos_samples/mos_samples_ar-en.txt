@@ -1,0 +1,364 @@
+Human MOS Evaluation Samples
+============================
+
+Purpose: Human Mean Opinion Score (MOS) evaluation of MT outputs.
+Rating scale suggestion: 1 = unusable, 2 = poor, 3 = understandable with errors, 4 = good, 5 = excellent.
+Each block contains one Challenge-Test source sentence and the corresponding outputs from NLLB, MADLAD, and GemmaX2.
+Write the MOS score and optional comments under each model output.
+
+Sampling: 20 fixed random line IDs per direction, generated with seed=42 from the 1500-line Challenge-Test source files.
+Line IDs are 1-based and correspond to the original source/submission files.
+
+
+Direction: ar-en
+
+Source file: /mnt/storage/Ahtisham_Aziz/NLP-IIT Patna/Challenge-Test/Sub-Task 2A_Arabic-to-English/Ar-to-En/test_challenge_ar_ar-to-en.txt
+
+NLLB output file: /mnt/storage/Pushkar/challenge/wmt/submission/NLLB/NLP-IIT-Patna_contrastive1_Sub-Task-2A.txt
+
+MADLAD output file: /mnt/storage/Pushkar/challenge/wmt/submission/MADLAD/NLP-IIT-Patna_primary_Sub-Task-2A.txt
+
+GEMMAX2 output file: /mnt/storage/Pushkar/challenge/wmt/submission/GEMMAX2/NLP-IIT-Patna_contrastive2_Sub-Task-2A.txt
+
+
+========================================================================================
+
+[AR-EN | Sample 01 | Original line 52]
+SOURCE:
+إذ إن ما يجرى حاليًا هو عملية إجهاضٍ ممنهجة لكل المكاسب والإنجازات التى تحققت لصالح منظمة التحرير الفلسطينية، والتى انبثقت عنها السلطة الفلسطينية، وكان من المفترض وفقًا لأوسلو وأخواتها أن تتمكن من قيادة الشعب الفلسطينى نحو إنهاء الاحتلال، وتحقيق الاستقلال الكامل، لذلك بدا دور هذه السلطة ـ وأقول ذلك بكل أسف ـ شاحبًا أو قليل التأثير.
+NLLB TRANSLATION:
+What is currently taking place is a systematic abortion of all the gains and achievements made by the Palestine Liberation Organization, which gave rise to the Palestinian Authority. According to Oslo and its sisters, this organization was supposed to be able to lead the people of Palestine towards ending the occupation and achieving full independence. Consequently, the role of this authority seemed pale or of little impact.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+What is happening now is a systematic abortion of all the gains and accomplishments made for the Palestine Liberation Organization, which led to the establishment of the Palestinian Authority. According to Oslo and its sisters, this authority was supposed to lead the Palestinian people towards ending the occupation and achieving full independence. Therefore, the role of this authority - and I say this with great regret - seemed pale or little impact.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+What is happening now is a systematic abortion of all the gains and achievements that have been made in favor of the Palestine Liberation Organization, and from which the Palestinian Authority emerged, and it was supposed, according to Oslo and its sisters, to be able to lead the Palestinian people to end the occupation and achieve full independence, so the role of this authority — and I say this with great regret — seemed pale or of little effect.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[AR-EN | Sample 02 | Original line 62]
+SOURCE:
+تزايدت في الآونة الأخيرة حدّة الخطاب المعاديللمهاجرين غير الشرعيين في ليبيا، بأشكال متعدّدة بين حملات تحريضية على مواقع التواصل الاجتماعي ومظاهرات في الشارع، وصولا إلى الملاحقات الأمنية.
+NLLB TRANSLATION:
+Recently, the rhetoric against illegal migrants in Libya has intensified, ranging from incitement campaigns on social media and street demonstrations to security prosecutions.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+Recently, the intensity of the modified discourse against illegal immigrants in Libya has intensified, taking various forms including inflammatory campaigns on social media platforms, street demonstrations, and even security prosecutions.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+In recent times, there has been a rise in the intensity of the rhetoric directed towards irregular migrants in Libya, manifesting in various forms such as provocative campaigns on social media platforms and street protests, culminating in security crackdowns.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[AR-EN | Sample 03 | Original line 66]
+SOURCE:
+كشف مسؤولون إيرانيون وأميركيون أن إدارة الرئيس دونالد ترامب رحلت نحو مئة إيراني على متن طائرة من الولايات المتحدة إلى بلادهم.
+NLLB TRANSLATION:
+Iranian and American officials revealed that President Donald Trump's administration transported approximately one hundred Iranians on a plane from the United States to their home country.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+Iranian and American officials revealed that President Donald Trump's administration deported approximately 100 Iranian nationals by plane from the United States back to their home country.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+Iranian and American officials have disclosed that President Donald Trump's administration has deported approximately 100 Iranians via air travel from the United States to their homeland.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[AR-EN | Sample 04 | Original line 179]
+SOURCE:
+وجاءت بداية اللقاء مثيرة، إذ حصل عدي الدباغ على ركلة جزاء للزمالك نفذها عبد الله السعيد لكنها أُعيدت بعدما تصدى الحارس محمد الشناوي لها بسبب دخول لاعبي الأهلي منطقة الجزاء أثناء التسديد.
+NLLB TRANSLATION:
+The beginning of the match was exciting, as Adi Al-Dabbagh scored a penalty kick for Zamalek, which was executed by Abdullah Al-Said, but it was returned after the goalkeeper Mohamed Al-Shanawi countered it due to Al-Ahly's players entering the penalty area during the shot.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+The start of the match was thrilling, as Ody El-Dabbagh secured a penalty kick for Zamalek, executed by Abdullah Al-Saeed. However, the kick was returned due to goalkeeper Mohamed El-Shenawy blocking it due to Al-Ahly's players entering the penalty area during the shootout.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+The beginning of the match was exciting, as Adi Al-Dabbagh earned a penalty kick for Zamalek, which was executed by Abdullah Al-Saeed. However, the ball was returned after goalkeeper Mohamed Al-Shenawy stopped it due to Ahli players entering the penalty area during the shot.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[AR-EN | Sample 05 | Original line 192]
+SOURCE:
+المحلل مايك بروليكس من شركة "فوريستر" قال: "إذا تم إيجاد ثغرة قانونية لفرض هذه الرسوم، فستكون هناك فوضى حقيقية في قطاع الترفيه".
+NLLB TRANSLATION:
+Analyst Mike Prolix from Forrester stated, "If a legal loophole is found to impose these fees, there will be a real chaos in the entertainment industry."
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+Analyst Mike Prolexis from Forrester stated: "If a legal loophole is found to impose these fees, there would be genuine chaos in the entertainment industry."
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+If a legal loophole is found to impose these fees, there will be real chaos in the entertainment sector, according to analyst Mike Prolx from Forrester.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[AR-EN | Sample 06 | Original line 210]
+SOURCE:
+روسيا تعتقل طاهية بتهمة تصوير سفن أسطول البحر الأسود والتخطيط لتسميم بحّارته
+NLLB TRANSLATION:
+Russia Arrests Chef Accused of Photographing Black Sea Fleet Ships and Planning to Poison Sailors
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+Russia Arrests Chef Accused of Photographing Black Sea Fleet Ships and Planning to Poisoning Its Sailors
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+A Russian chef has been arrested on charges of photographing ships belonging to the Black Sea Fleet and plotting to poison its sailors.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[AR-EN | Sample 07 | Original line 229]
+SOURCE:
+تقدر "سيتي" أن الطلب العالمي على قدرات الحوسبة للذكاء الاصطناعي سيحتاج إلى 55 غيغاواط من القدرة الجديدة بحلول عام 2030، ما يُترجم إلى 2.8 تريليون دولار من الإنفاق المتزايد، منها 1.4 تريليون دولار في الولايات المتحدة وحدها.
+NLLB TRANSLATION:
+Citi estimates that global demand for AI computing capabilities will require 55 gigawatts of new capacity by 2030, translating into $2.8 trillion in increased spending, with $1.4 trillion coming from the United States alone.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+According to Citi, the global demand for artificial intelligence computing capabilities will require 55 gigawatts of new capacity by 2030, translating into $2.8 trillion in increased spending, with $1.4 trillion coming from the United States alone.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+According to Citi, global demand for computing power for artificial intelligence will require approximately 5.5 gigawatts of new capacity by 2100, which translates to $28 trillion in increased spending, with $14 trillion coming from the U.S. alone.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[AR-EN | Sample 08 | Original line 286]
+SOURCE:
+وقتل في الحرب الإسرائيلية العنيفة المتواصلة على قطاع غزة ردا على الهجوم، 66,005 أشخاص غالبيتهم من المدنيين، بحسب أرقام هيئات الصحة في غزة.
+NLLB TRANSLATION:
+In the ongoing violent Israeli war on the Gaza Strip in response to the attack, 66,005 people were killed, most of them civilians, according to figures from health authorities in Gaza.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+In the ongoing violent Israeli war on the Gaza Strip in response to the attack, 66,005 people were killed, mostly civilians, according to figures from the health authorities in Gaza.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+In the ongoing violent Israeli war on the Gaza Strip, which was launched in response to an attack, 6,605 people, most of whom were civilians, have been killed, according to figures from the Gaza Health Authorities.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[AR-EN | Sample 09 | Original line 448]
+SOURCE:
+كما شدد روته على وجوب وضع خطة للتعامل مع المسيرات. وقال قبيل مشاركته في الاجتماع الأمني لهيئة المفوضين في بروكسل: "لا يمكننا إسقاط مسيرة بصواريخ قيمتها ملايين الدولارات".
+NLLB TRANSLATION:
+Route emphasized the need to develop a plan for handling marches. Prior to his participation in the Commissioners' Security Meeting in Brussels, he stated: "We cannot shoot down a march with missiles worth millions of dollars."
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+Rutte emphasized the importance of developing a strategy for dealing with marches, stating before participating in the security meeting of the College of Commissioners in Brussels: "We cannot defeat a march with missiles valued at millions of dollars."
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+As Rote emphasized, there should be a plan in place for dealing with marches. Before participating in the security meeting of the Commission of Commissioners in Brussels, he stated: "We cannot shoot down a march with millions of dollars' worth of missiles."
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[AR-EN | Sample 10 | Original line 458]
+SOURCE:
+كما شدد على أن "المقاومة ضد الاحتلال حق مشروع ويتوافق مع كافة القوانين الدولية"، وفق تعبيره.
+NLLB TRANSLATION:
+He emphasized that "resistance against the occupation is a legitimate right and complies with all international laws," according to his statement.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+The speaker emphasized that "resistance against occupation is a legitimate right that aligns with all international laws," according to his statement.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+As he emphasized, "resistance against occupation is a legitimate right and aligns with all international laws," according to his statement.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[AR-EN | Sample 11 | Original line 477]
+SOURCE:
+إن هذا النوع من التجارب السلسة لديه القدرة على إشعال حركة جديدة في كيفية تسوق الناس عبر الإنترنت - وهي حركة تبتعد عن محركات البحث مثل "غوغل" ومنصات التجارة الإلكترونية مثل "أمازون" نحو وكلاء المحادثة مع التوصيات المنسقة والمقارنات وتجارب الدفع السهلة.
+NLLB TRANSLATION:
+This type of seamless experience has the potential to spark a new movement in how people shop online - one that shifts away from search engines like Google and e-commerce platforms like Amazon toward conversational agents with coordinated recommendations, comparisons, and easy checkout experiences.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+This kind of seamless experience has the potential to spark a new trend in how people shop online - moving away from search engines like Google and e-commerce platforms like Amazon toward chatbots with coordinated recommendations, comparisons, and easy payment experiences.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+This type of seamless experience has the potential to spark a new movement in how people shop online - one that moves away from search engines like Google and e-commerce platforms like Amazon towards conversational agents with coordinated recommendations, comparisons, and easy checkout experiences.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[AR-EN | Sample 12 | Original line 502]
+SOURCE:
+«ضعوه بالخزانة»، هذه هي الاستراتيجية التي أراد نصر الله أن يتفوَّق بها على إسرائيل. نصيحة تقليدية هشَّة مكَّنت الإسرائيليين من ترتيب أكبر عملية استخباراتية في تاريخ الإقليم؛ بل من أخطر العمليات التي سيكتبها التاريخ.
+NLLB TRANSLATION:
+Put him in the closet, this is the strategy that Nasrallah wanted to surpass Israel. A fragile traditional advice enabled the Israelis to organize the largest intelligence operation in the history of the region; indeed, one of the most dangerous operations that history will write.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+"Put him in the treasury," Nasrallah's strategy aimed to outperform Israel. This fragile traditional advice enabled the Israelis to orchestrate the largest intelligence operation in the region's history; indeed, one of the most dangerous operations in history.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+"Put it in the closet" - this is the strategy that Hezbollah leader Sayyed Hassan Nasrallah aimed to implement against Israel. A traditional yet fragile piece of advice allowed the Israelis to plan the largest intelligence operation in the region's history, potentially making it one of the most dangerous operations ever recorded.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[AR-EN | Sample 13 | Original line 564]
+SOURCE:
+وكان البيت الأبيض قد نشر في وقت سابق الاثنين خطة ترامب لإنهاء القتال في قطاع غزة.وأعلن الرئيس الأميركي في مؤتمر صحافي أن هذه الخطة وافق عليها رئيس الوزراء الإسرائيلي، بنيامين نتنياهو، لكنها لا تزال تحتاج إلى موافقة حماس.
+NLLB TRANSLATION:
+Earlier today, the White House unveiled President Donald Trump's plan to end the fighting in the Gaza Strip. The US president stated at a press conference that this plan has been approved by Israeli Prime Minister Benjamin Netanyahu, but it still requires the approval of Hamas.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+On Monday earlier this week, the White House unveiled President Donald Trump's plan to end the fighting in the Gaza Strip. The US President announced at a press conference that this plan had been approved by Israeli Prime Minister Benjamin Netanyahu, but it still requires Hamas' approval.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+On Tuesday earlier this week, the White House released President Trump's proposal to cease hostilities in the Gaza Strip. During a press conference, the U.S. leader stated that Israeli Prime Minister Benjamin Netanyahu had endorsed the plan, though it remains contingent upon Hamas' approval.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[AR-EN | Sample 14 | Original line 865]
+SOURCE:
+ولم يحرز الرئيس الأميركي دونالد ترامب على ما يبدو أي تقدم خلال اجتماعه بالديمقراطيين لتجنب إغلاق الحكومة الذي قد يعطل مجموعة واسعة من الخدمات.
+NLLB TRANSLATION:
+US President Donald Trump appeared to make no progress during his meeting with Democrats to avoid a government shutdown that could disrupt a wide range of services.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+It appears that US President Donald Trump failed to make any progress during his meeting with Democrats aimed at preventing a government shutdown, which could potentially disrupt a broad range of services.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+President Donald Trump's meeting with Democrats did not result in any apparent progress towards preventing a government shutdown, which could potentially disrupt a broad range of services.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[AR-EN | Sample 15 | Original line 1035]
+SOURCE:
+وكتب ترامب في منشور على شبكته تروث سوشيال، "لدينا فرصة حقيقية لتحقيق شيء عظيم في الشرق الأوسط"، مضيفاً "الجميع مستعد لشيء لافت، إنها سابقة. وسنحقق ذلك".
+NLLB TRANSLATION:
+In a post on his Truth Social network, President Trump stated, "We have a real opportunity to accomplish something great in the Middle East." He added, "Everyone is ready for something remarkable. This is a precedent. We will achieve this."
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+In a post on his Truth Social network, President Trump stated, "We have a genuine opportunity to achieve something great in the Middle East," adding, "Everyone is prepared for something remarkable. This is a precedent. We will achieve it."
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+In a post on his Truth Social network, President Trump wrote, "We have a real opportunity to achieve something great in the Middle East," adding, "Everyone is ready for something remarkable, it is a precedent. We will achieve this."
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[AR-EN | Sample 16 | Original line 1117]
+SOURCE:
+أعلن رئيس الوزراء الإسرائيلي بنيامين نتنياهو، الاثنين، أنه يدعمخطة الرئيس الأميركي دونالد ترامبالمؤلفة من 20 بنداً، لإنهاء الحرب في غزة.
+NLLB TRANSLATION:
+Israeli Prime Minister Benjamin Netanyahu expressed support for US President Donald Trump's 20-point plan aimed at ending the conflict in Gaza.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+Israeli Prime Minister Benjamin Netanyahu stated on Tuesday that he supports US President Donald Trump's 20-point plan aimed at ending the conflict in Gaza.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+On Monday, Israeli Prime Minister Benjamin Netanyahu announced his support for US President Donald Trump's 21-point plan aimed at ending the conflict in Gaza.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[AR-EN | Sample 17 | Original line 1210]
+SOURCE:
+قال ويل جايبريك، رئيس قسم التكنولوجيا والأعمال في "سترايب"، في بيان: "تبني سترايب البنية التحتية الاقتصادية للذكاء الاصطناعي. وهذا يعني إعادة تصميم أنظمة التجارة الحالية، وخلق تجارب جديدة مدعومة بالذكاء الاصطناعي لمليارات الأشخاص".
+NLLB TRANSLATION:
+Will Gaibrick, head of technology and business at Stripe, stated in a statement: "Stripe is building the economic infrastructure of artificial intelligence. This means redesigning existing commerce systems and creating new experiences powered by artificial intelligence for billions of people."
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+Will Gaibrick, the head of technology and business at Stripe, stated in a statement: "Stripe is adopting the economic infrastructure of artificial intelligence. This involves redesigning existing trading systems and creating new AI-powered experiences for billions of people."
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+Will Geibrick, the head of technology and business at Stripe, stated in a statement that Stripe is building the economic infrastructure for artificial intelligence. This involves re-designing current trade systems and creating new experiences supported by artificial intelligence for billions of people.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[AR-EN | Sample 18 | Original line 1233]
+SOURCE:
+وقال ناوكي فوجيوارا، المدير لدى "شينكين لإدارة الأصول": "باع المستثمرون أسهم التكنولوجيا، التي تعد الأسهم ذات الثقل على مؤشر نيكاي لجني الأرباح"، وفق وكالة "رويترز".
+NLLB TRANSLATION:
+Naoki Fujiwara, a director at Shenkin Asset Management, stated that investors have sold technology stocks, which are considered the most valuable stocks on the Nikkei index, for profit, as reported by Reuters.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+Naoki Fujiwara, the director of Shinkin Asset Management, stated that investors sold tech stocks, which are considered heavily weighted on the Nikkei index, to make profits, as reported by Reuters.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+According to Naoki Fujiwara, director at Shinkin Asset Management, investors sold technology stocks, which have a significant impact on the Nikkei index, in order to make profits.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[AR-EN | Sample 19 | Original line 1310]
+SOURCE:
+وبالنسبة للأطباء، تكمن جاذبية النياسيناميد في سهولة الحصول عليه وسلامته وقدرته على التحمل. ويتميز "النياسيناميد" بأنه غير مُكلف، ويُباع بدون وصفة طبية، وخالٍ من الآثار الجانبية الكبيرة.
+NLLB TRANSLATION:
+For physicians, niacinamide's appeal lies in its accessibility, safety, and tolerability. Niacinamid stands out for its low cost, non-prescription availability, and lack of significant side effects.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+For doctors, the appeal of niacinamide lies in its ease of access, safety, and tolerability. Niacinamide stands out due to its affordability, being sold without a prescription, and being free from significant side effects.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+For doctors, the appeal of niacinamide lies in its accessibility, safety, and tolerance. Niacinamide stands out due to its affordability, availability without a prescription, and absence of significant side effects.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------
+
+[AR-EN | Sample 20 | Original line 1386]
+SOURCE:
+كما تُضيف شركات التكنولوجيا الكبرى، مثل "غوغل" و"مايكروسوفت"، المزيد من الميزات المُدعّمة بالذكاء الاصطناعي إلى مُتصفحاتها.
+NLLB TRANSLATION:
+Major tech companies like Google and Microsoft are adding more AI-powered features to their browsers.
+NLLB MOS score (1-5): ____
+NLLB comments:
+MADLAD TRANSLATION:
+Major tech giants like Google and Microsoft are adding more AI-powered features to their browsers.
+MADLAD MOS score (1-5): ____
+MADLAD comments:
+GEMMAX2 TRANSLATION:
+As major tech giants like Google and Microsoft continue to integrate more AI-powered features into their web browsers, they are further enhancing the user experience.
+GEMMAX2 MOS score (1-5): ____
+GEMMAX2 comments:
+----------------------------------------------------------------------------------------

@@ -1,0 +1,13 @@
+direction,eval_split,jsd,kld
+ar-en/ar,dev,0.231437,4.186342
+ar-en/ar,devtest,0.285738,5.384518
+ar-en/en,dev,0.134074,2.492235
+ar-en/en,devtest,0.171053,3.372547
+ar-hi/ar,dev,0.230446,4.174824
+ar-hi/ar,devtest,0.284634,5.37357
+ar-hi/hi,dev,0.080344,1.399125
+ar-hi/hi,devtest,0.107353,2.023879
+ar-ur/ar,dev,0.230655,4.176032
+ar-ur/ar,devtest,0.284754,5.373013
+ar-ur/ur,dev,0.071155,1.217745
+ar-ur/ur,devtest,0.096892,1.82321

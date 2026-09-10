@@ -1,0 +1,29 @@
+[
+  {
+    "pair": "Ar-En",
+    "src": "Ar-En/train_ar_ar-en.txt",
+    "tgt": "Ar-En/train_en_ar-en.txt",
+    "src_sentences": 21000,
+    "tgt_sentences": 21000,
+    "aligned": true,
+    "delta": 0
+  },
+  {
+    "pair": "Ar-Hi",
+    "src": "Ar-Hi/train_ar_ar-hi.txt",
+    "tgt": "Ar-Hi/train_hi_ar-hi.txt",
+    "src_sentences": 20100,
+    "tgt_sentences": 20100,
+    "aligned": true,
+    "delta": 0
+  },
+  {
+    "pair": "Ar-Ur",
+    "src": "Ar-Ur/train_ar_ar-ur.txt",
+    "tgt": "Ar-Ur/train_ur_ar-ur.txt",
+    "src_sentences": 20300,
+    "tgt_sentences": 20300,
+    "aligned": true,
+    "delta": 0
+  }
+]

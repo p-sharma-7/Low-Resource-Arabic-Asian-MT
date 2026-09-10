@@ -1,0 +1,46 @@
+{
+  "language": "arabic",
+  "source_files": [
+    "/mnt/storage/Pushkar/challenge/wmt/dataset/Ar-En/train_ar_ar-en.txt",
+    "/mnt/storage/Pushkar/challenge/wmt/dataset/Ar-Hi/train_ar_ar-hi.txt",
+    "/mnt/storage/Pushkar/challenge/wmt/dataset/Ar-Ur/train_ar_ar-ur.txt"
+  ],
+  "total_sentences": 61400,
+  "unique_sentences": 21086,
+  "duplicate_sentences": 40314,
+  "duplicate_pct": 65.658,
+  "empty_sentences": 0,
+  "mean_len": 26.735,
+  "median_len": 24.0,
+  "min_len": 3,
+  "max_len": 120,
+  "std_len": 14.4783,
+  "p95_len": 53.0,
+  "p99_len": 81.0,
+  "raw_vocab": {
+    "total_tokens": 1641528,
+    "unique_tokens": 98233,
+    "ttr": 0.059842,
+    "freq_exactly_1": 1735,
+    "freq_exactly_2": 710,
+    "freq_3_to_5": 57922,
+    "freq_over_100": 2166,
+    "mean_token_char_len": 5.1052,
+    "median_token_char_len": 5.0,
+    "min_token_char_len": 1,
+    "max_token_char_len": 125
+  },
+  "norm_vocab": {
+    "total_tokens": 1641528,
+    "unique_tokens": 98233,
+    "ttr": 0.059842,
+    "freq_exactly_1": 1735,
+    "freq_exactly_2": 710,
+    "freq_3_to_5": 57922,
+    "freq_over_100": 2166,
+    "mean_token_char_len": 5.1052,
+    "median_token_char_len": 5.0,
+    "min_token_char_len": 1,
+    "max_token_char_len": 125
+  }
+}

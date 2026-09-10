@@ -1,0 +1,13 @@
+direction,eval_split,oov_token_count,oov_token_pct,oov_unique_count,oov_unique_pct
+ar-en/ar,dev,3435,10.7961,3112,24.9359
+ar-en/ar,devtest,1478,9.3044,1259,18.8304
+ar-en/en,dev,1816,4.5698,1612,17.516
+ar-en/en,devtest,714,3.6414,625,11.7151
+ar-hi/ar,dev,3476,10.925,3146,25.2083
+ar-hi/ar,devtest,1493,9.3988,1273,19.0398
+ar-hi/hi,dev,1164,2.4792,1003,15.7531
+ar-hi/hi,devtest,450,1.9271,374,9.7983
+ar-ur/ar,dev,3467,10.8967,3137,25.1362
+ar-ur/ar,devtest,1486,9.3648,1267,18.9727
+ar-ur/ur,dev,1096,2.141,949,15.0802
+ar-ur/ur,devtest,394,1.5593,332,8.7645

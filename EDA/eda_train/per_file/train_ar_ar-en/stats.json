@@ -1,0 +1,41 @@
+{
+  "file": "/mnt/storage/Pushkar/challenge/wmt/dataset/Ar-En/train_ar_ar-en.txt",
+  "total_sentences": 21000,
+  "unique_sentences": 21000,
+  "duplicate_sentences": 0,
+  "duplicate_pct": 0.0,
+  "empty_sentences": 0,
+  "mean_len": 26.5778,
+  "median_len": 24.0,
+  "min_len": 3,
+  "max_len": 120,
+  "std_len": 14.4019,
+  "p95_len": 52.0,
+  "p99_len": 80.0,
+  "raw_vocab": {
+    "total_tokens": 558133,
+    "unique_tokens": 98062,
+    "ttr": 0.175696,
+    "freq_exactly_1": 59252,
+    "freq_exactly_2": 13582,
+    "freq_3_to_5": 12461,
+    "freq_over_100": 563,
+    "mean_token_char_len": 5.1036,
+    "median_token_char_len": 5.0,
+    "min_token_char_len": 1,
+    "max_token_char_len": 125
+  },
+  "norm_vocab": {
+    "total_tokens": 558133,
+    "unique_tokens": 98062,
+    "ttr": 0.175696,
+    "freq_exactly_1": 59252,
+    "freq_exactly_2": 13582,
+    "freq_3_to_5": 12461,
+    "freq_over_100": 563,
+    "mean_token_char_len": 5.1036,
+    "median_token_char_len": 5.0,
+    "min_token_char_len": 1,
+    "max_token_char_len": 125
+  }
+}

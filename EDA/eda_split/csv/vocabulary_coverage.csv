@@ -1,0 +1,13 @@
+direction,eval_split,token_coverage_pct,unique_token_cov_pct
+ar-en/ar,dev,89.2039,75.0641
+ar-en/ar,devtest,90.6956,81.1696
+ar-en/en,dev,95.4302,82.484
+ar-en/en,devtest,96.3586,88.2849
+ar-hi/ar,dev,89.075,74.7917
+ar-hi/ar,devtest,90.6012,80.9602
+ar-hi/hi,dev,97.5208,84.2469
+ar-hi/hi,devtest,98.0729,90.2017
+ar-ur/ar,dev,89.1033,74.8638
+ar-ur/ar,devtest,90.6352,81.0273
+ar-ur/ur,dev,97.859,84.9198
+ar-ur/ur,devtest,98.4407,91.2355
