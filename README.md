@@ -31,8 +31,11 @@ separate leaderboards, so the columns are not directly comparable.
 
 ## Zero-shot vs fine-tuned
 
-Macro-averages over the six directions on the 1,000-sentence dev split
-(`--split dev`), zero-shot → fine-tuned:
+Macro-averages over the six directions, zero-shot → fine-tuned. The fine-tuned
+figures come from the 1,000-sentence dev split (`--split dev`); the zero-shot
+artifacts predate that convention and the inference entry points default to the
+500-sentence devtest split, so read the two columns as directional rather than
+strictly paired:
 
 | System | COMET-22 | ChrF2++ | BLEU | TER ↓ |
 |---|---|---|---|---|
@@ -207,20 +210,6 @@ and `url` fields. Until then:
 @inproceedings{sharma-etal-2026-corpus,
     title = "Corpus-Driven Adaptation of Multilingual {MT} Models for Low-Resource {A}rabic--{A}sian Machine Translation",
     author = "Sharma, Pushkar and Ahtasam, Mo and Singh, Kshetrimayum Boynao and Kumar, Deepak and Ekbal, Asif",
-    booktitle = "Proceedings of the Eleventh Conference on Machine Translation",
-    month = oct,
-    year = "2026",
-    address = "Budapest, Hungary",
-    publisher = "Association for Computational Linguistics",
-}
-```
-
-Please also cite the shared-task overview:
-
-```bibtex
-@inproceedings{laskar-etal-2026-findings,
-    title = "Findings of the {WMT} 2026 Shared Task on Low-Resource {A}rabic--{A}sian Language Translation",
-    author = "Laskar, Sahinur Rahman and Alam, Firoj and Paul, Bishwaraj and Ahmad, Irfan and Lydia, Maya Silvi and Dadure, Pankaj Kundan",
     booktitle = "Proceedings of the Eleventh Conference on Machine Translation",
     month = oct,
     year = "2026",
