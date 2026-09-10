@@ -104,12 +104,14 @@ hf download pushkarsharma/wmt26-arabic-asian-mt --include "madlad/ar-en/*" --loc
 ```
 
 `resume_finetune.py` skips directions that already have a saved checkpoint and
-trains the rest.
+trains the rest. Use `run_eval_finetuned.py` rather than `run_pipeline.py --stage
+eval`: the latter predates LoRA adaptation, so it searches a directory nothing
+writes and loads MADLAD as full weights.
 
 Challenge-test run and submission files:
 
 ```bash
-# point CHALLENGE_ROOT in the script at the organisers' Sub-Task tree first
+# both scripts hardcode CHALLENGE_ROOT — point it at the organisers' Sub-Task tree first
 python pipelines/run_eval_finetuned_A.py
 python pipelines/run_noref_eval.py --comet-qe   # reference-free checks before submitting
 bash utlis/rename_submission.sh --apply         # paths at the top of the script are absolute; edit them
@@ -156,11 +158,13 @@ NFC after decoding so codepoint variants are not scored as errors.
 
 [pipelines/evaluate.py](pipelines/evaluate.py) reports COMET-22, ChrF2++, BLEU and
 TER, with the SacreBLEU tokeniser chosen per target language (`intl` for Arabic,
-`flores101` for Hindi and Urdu). COMET-Kiwi is available for reference-free QE and is
-what the challenge-test checks rely on, since references were never released.
+`flores101` for Hindi and Urdu). Challenge-test references were never released, so
+those outputs are checked without them — deterministic sanity checks plus COMET-Kiwi
+QE under `--comet-qe`.
 
 Results land in `outputs/` as one metrics `.txt` and one hypothesis file per
-model / direction / split, aggregated into the `all_results*.json` files.
+model / direction / split, aggregated into the `all_results*.json` files. The
+zero-shot run is kept only as the aggregate `outputs/zeroshot_all_results.json`.
 
 ## Corpus analysis
 
@@ -174,7 +178,9 @@ plots and a leakage report under `EDA/eda_split/`. The short version: Arabic is 
 outlier in this corpus — the shortest sentences (26.6 tokens against 38.3 for Hindi
 and 41.4 for Urdu) but the largest vocabulary (98K types, TTR 0.176), a dev OOV rate
 near 11% against roughly 2% for Hindi and Urdu, and train↔eval trigram overlap of
-only 9–12%. There is no exact-match leakage between splits. That sparsity is what
+only 9–12%. Cross-split leakage is negligible: nothing at all between train and
+devtest, and a single shared boilerplate attribution line between train and dev on
+each of the English, Hindi and Urdu sides. That sparsity is what
 keeps into-Arabic BLEU low while COMET-22 stays high.
 
 ## Layout
@@ -188,6 +194,39 @@ outputs/                hypotheses and metrics (zero-shot, dev, challenge test)
 submission/             the files sent to the organisers
 run_pipeline.py         orchestrator for the zero-shot / finetune / eval stages
 resume_finetune.py      restart training for directions without a checkpoint
+```
+
+## Citation
+
+The WMT 2026 proceedings are not on the ACL Anthology yet — the entry will appear at
+`aclanthology.org/2026.wmt-1.<id>/` after the conference (28–29 October 2026,
+Budapest), and its "Cite (BibTeX)" button gives the final form, including the `pages`
+and `url` fields. Until then:
+
+```bibtex
+@inproceedings{sharma-etal-2026-corpus,
+    title = "Corpus-Driven Adaptation of Multilingual {MT} Models for Low-Resource {A}rabic--{A}sian Machine Translation",
+    author = "Sharma, Pushkar and Ahtasam, Mo and Singh, Kshetrimayum Boynao and Kumar, Deepak and Ekbal, Asif",
+    booktitle = "Proceedings of the Eleventh Conference on Machine Translation",
+    month = oct,
+    year = "2026",
+    address = "Budapest, Hungary",
+    publisher = "Association for Computational Linguistics",
+}
+```
+
+Please also cite the shared-task overview:
+
+```bibtex
+@inproceedings{laskar-etal-2026-findings,
+    title = "Findings of the {WMT} 2026 Shared Task on Low-Resource {A}rabic--{A}sian Language Translation",
+    author = "Laskar, Sahinur Rahman and Alam, Firoj and Paul, Bishwaraj and Ahmad, Irfan and Lydia, Maya Silvi and Dadure, Pankaj Kundan",
+    booktitle = "Proceedings of the Eleventh Conference on Machine Translation",
+    month = oct,
+    year = "2026",
+    address = "Budapest, Hungary",
+    publisher = "Association for Computational Linguistics",
+}
 ```
 
 ## Acknowledgment

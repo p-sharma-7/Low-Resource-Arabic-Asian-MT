@@ -22,3 +22,11 @@ unbabel-comet>=2.2.0         # COMET-22 and COMET-Kiwi
 sentencepiece>=0.1.99        # Required by NLLB, MADLAD, GemmaX2 tokenisers
 protobuf>=3.20.0
 numpy>=1.26.0
+
+# ── Corpus analysis (EDA/) ─────────────────────────────────────────────────
+pandas>=2.0.0
+matplotlib>=3.7.0
+scipy>=1.11.0
+scikit-learn>=1.3.0          # TF-IDF similarity in cross_split_eda.py
+tqdm>=4.66.0
+# sentence-transformers      # only for cross_split_eda.py --semantic-method sbert
