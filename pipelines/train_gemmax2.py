@@ -1,23 +1,3 @@
-"""
-train_gemmax2.py — QLoRA fine-tuning of ModelSpace/GemmaX2-28-9B-v0.1.
-
-Training protocol:
-  • Quantisation : 4-bit NF4 (QLoRA) — keeps base model in ~4.5 GB VRAM
-  • LoRA adapters : r=16, α=32, all attention + FFN projections
-  • Framework     : trl SFTTrainer (instruction-style causal LM training)
-  • Loss          : next-token prediction over the full sequence
-  • Eval metric   : eval_loss (COMET computed post-training via run_pipeline)
-  • Format        : "Translate … from X to Y:\n{src}\nTranslation: {tgt}<eos>"
-
-Saved artefact: LoRA adapter weights (not the full model) stored under:
-    outputs/finetuned/gemmax2/{src_lang}-{tgt_lang}/
-
-At inference time the adapter is merged onto the base model (see infer_gemmax2).
-
-Standalone usage:
-    python train_gemmax2.py [--direction ar-hi] [--all]
-"""
-
 import argparse
 import json
 import logging
@@ -61,9 +41,7 @@ MODEL_NAME = MODELS["gemmax2"]
 MODEL_KEY  = "gemmax2"
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Dataset formatting
-# ─────────────────────────────────────────────────────────────────────────────
 
 def format_example(src: str, tgt: str, src_lang: str, tgt_lang: str, eos: str) -> str:
     """
@@ -92,9 +70,7 @@ def build_sft_dataset(
     return Dataset.from_list(records)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Model / tokeniser loading (4-bit QLoRA)
-# ─────────────────────────────────────────────────────────────────────────────
 
 def load_model_for_training():
     """Load GemmaX2 in 4-bit and return (model, tokeniser)."""
@@ -125,9 +101,7 @@ def load_model_for_training():
     return model, tokenizer
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Single-direction training
-# ─────────────────────────────────────────────────────────────────────────────
 
 def train_gemmax2_direction(src_lang: str, tgt_lang: str) -> str:
     """
@@ -144,7 +118,7 @@ def train_gemmax2_direction(src_lang: str, tgt_lang: str) -> str:
     os.makedirs(ckpt_dir, exist_ok=True)
     os.makedirs(output_dir, exist_ok=True)
 
-    # ── Model + LoRA ────────────────────────────────────────────────────────
+    # Model + LoRA
     model, tokenizer = load_model_for_training()
     eos = tokenizer.eos_token or "</s>"
 
@@ -152,7 +126,7 @@ def train_gemmax2_direction(src_lang: str, tgt_lang: str) -> str:
     model = get_peft_model(model, lora_cfg)
     model.print_trainable_parameters()
 
-    # ── Datasets ────────────────────────────────────────────────────────────
+    # Datasets
     datasets = load_dataset_for_direction(src_lang, tgt_lang)
 
     train_ds = build_sft_dataset(list(datasets["train"]), src_lang, tgt_lang, eos)
@@ -161,7 +135,7 @@ def train_gemmax2_direction(src_lang: str, tgt_lang: str) -> str:
     logger.info("Train: %d examples  |  Dev: %d examples",
                 len(train_ds), len(dev_ds))
 
-    # ── SFTTrainer ──────────────────────────────────────────────────────────
+    # SFTTrainer
     sft_args = SFTConfig(
         output_dir=ckpt_dir,
         **GEMMAX2_TRAINING_ARGS,
@@ -182,7 +156,7 @@ def train_gemmax2_direction(src_lang: str, tgt_lang: str) -> str:
     logger.info("Starting QLoRA training …")
     trainer.train()
 
-    # ── Save LoRA adapter ───────────────────────────────────────────────────
+    # Save LoRA adapter
     trainer.model.save_pretrained(output_dir)
     tokenizer.save_pretrained(output_dir)
 
@@ -194,9 +168,7 @@ def train_gemmax2_direction(src_lang: str, tgt_lang: str) -> str:
     return output_dir
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Train all 6 directions
-# ─────────────────────────────────────────────────────────────────────────────
 
 def train_all_gemmax2() -> None:
     """QLoRA fine-tune GemmaX2 sequentially on all 6 translation directions."""
@@ -205,9 +177,7 @@ def train_all_gemmax2() -> None:
         torch.cuda.empty_cache()
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Standalone entry point
-# ─────────────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
     logging.basicConfig(

@@ -1,13 +1,3 @@
-"""
-infer_nllb.py — Zero-shot inference with facebook/nllb-200-3.3B.
-
-Runs all 6 translation directions on the specified split (default: devtest),
-saves hypotheses, and reports all five evaluation metrics.
-
-Standalone usage:
-    python infer_nllb.py [--split devtest] [--batch_size 16]
-"""
-
 import argparse
 import logging
 import os
@@ -37,9 +27,7 @@ logger = logging.getLogger(__name__)
 
 MODEL_NAME = MODELS["nllb"]
 
-# ---------------------------------------------------------------------------
 # Language-token ID helper
-# ---------------------------------------------------------------------------
 
 def _get_lang_token_id(tokenizer, lang_code):
     # type: (object, str) -> int
@@ -69,9 +57,7 @@ def _get_lang_token_id(tokenizer, lang_code):
 MODEL_KEY  = "nllb"
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Model loading
-# ─────────────────────────────────────────────────────────────────────────────
 
 def load_nllb(
     model_path: Optional[str] = None,
@@ -102,9 +88,7 @@ def load_nllb(
     return model, tokenizer
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Translation
-# ─────────────────────────────────────────────────────────────────────────────
 
 def translate_nllb(
     texts: List[str],
@@ -170,9 +154,7 @@ def translate_nllb(
     return translations
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Zero-shot runner
-# ─────────────────────────────────────────────────────────────────────────────
 
 def run_zero_shot_nllb(
     split: str = "devtest",
@@ -214,9 +196,7 @@ def run_zero_shot_nllb(
     return all_results
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Standalone entry point
-# ─────────────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
     logging.basicConfig(

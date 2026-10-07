@@ -1,24 +1,3 @@
-#!/usr/bin/env python3
-"""
-run_eval_finetuned.py — Evaluate fine-tuned checkpoints on the FULL
-                       NLP-IIT Patna Challenge-Test set.
-
-Scope:
-  • 6 translation directions (ar↔ur, ar→hi, ar→en, en→ar, hi→ar)
-  • 3 fine-tuned models: NLLB, MADLAD, GemmaX2
-  • Reads the COMPLETE challenge test file for each direction (no sampling,
-    no train/dev/test split — every line is translated).
-  • Inputs longer than 512 tokens are split at sentence boundaries
-    (multi-script aware), translated in chunks, then reassembled — no truncation.
-  • Saves translated hypotheses always; computes COMET-22 / ChrF2++ / BLEU / TER
-    only if gold references exist next to the source file.
-
-Usage:
-    python run_eval_finetuned.py                        # all 3 models, all 6 directions
-    python run_eval_finetuned.py --model nllb           # one model only
-    python run_eval_finetuned.py --direction ar-en      # one direction only
-"""
-
 import argparse
 import json
 import logging
@@ -43,13 +22,11 @@ from utlis.config import OUTPUT_DIR, CHECKPOINT_DIR, MODELS, SEED
 from pipelines.evaluate import evaluate_all, log_metrics, save_hypotheses
 
 
-# ═════════════════════════════════════════════════════════════════════════════
 # Configuration
-# ═════════════════════════════════════════════════════════════════════════════
 
 CHALLENGE_ROOT = "/mnt/storage/Ahtisham_Aziz/NLP-IIT Patna/Challenge-Test"
 
-# 6 directions × (source_file, optional_reference_file) — paths relative to CHALLENGE_ROOT.
+# 6 directions × (source_file, optional_reference_file) - paths relative to CHALLENGE_ROOT.
 # Reference files don't ship today; they'll be auto-picked-up if you add them later.
 CHALLENGE_FILES = {
     ("ar", "ur"): (
@@ -86,14 +63,12 @@ MODEL_WEIGHT_FILES = [
     "adapter_model.safetensors", "adapter_model.bin",
 ]
 
-# Token budget per chunk — 480 leaves headroom for special tokens (lang IDs, BOS/EOS)
+# Token budget per chunk - 480 leaves headroom for special tokens (lang IDs, BOS/EOS)
 # on top of the model's 512-token limit.
 CHUNK_MAX_TOKENS = 480
 
 
-# ═════════════════════════════════════════════════════════════════════════════
 # Sliding-window chunking (sentence-aware, multi-script)
-# ═════════════════════════════════════════════════════════════════════════════
 
 # Sentence boundary punctuation for the 4 scripts:
 #   .  !  ?   → Latin / English
@@ -179,7 +154,7 @@ def translate_with_chunking(
 
       1. Each source is split into ≤max_tokens chunks (sentence-aware).
       2. All chunks are flattened and sent through translate_fn in ONE call
-         so the underlying function can batch internally — no efficiency hit.
+         so the underlying function can batch internally - no efficiency hit.
       3. Translated chunks are stitched back to one output per original source.
     """
     flat_chunks: List[str] = []
@@ -194,7 +169,7 @@ def translate_with_chunking(
     if len(translated) != len(flat_chunks):
         raise RuntimeError(
             f"translate_fn returned {len(translated)} outputs for "
-            f"{len(flat_chunks)} chunks — mismatch."
+            f"{len(flat_chunks)} chunks - mismatch."
         )
 
     assembled: List[List[str]] = [[] for _ in range(len(sources))]
@@ -203,9 +178,7 @@ def translate_with_chunking(
     return [join_with.join(parts) for parts in assembled]
 
 
-# ═════════════════════════════════════════════════════════════════════════════
-# File I/O — reads the COMPLETE challenge file (no sampling, no truncation)
-# ═════════════════════════════════════════════════════════════════════════════
+# File I/O - reads the COMPLETE challenge file (no sampling, no truncation)
 
 def _read_lines(path: str) -> List[str]:
     with open(path, "r", encoding="utf-8") as f:
@@ -213,7 +186,7 @@ def _read_lines(path: str) -> List[str]:
 
 
 def load_full_test(src: str, tgt: str) -> Tuple[Optional[List[str]], Optional[List[str]]]:
-    """Return (sources, references) — full file contents. references may be None."""
+    """Return (sources, references) - full file contents. references may be None."""
     paths = CHALLENGE_FILES.get((src, tgt))
     if paths is None:
         return None, None
@@ -228,9 +201,7 @@ def load_full_test(src: str, tgt: str) -> Tuple[Optional[List[str]], Optional[Li
     return sources, references
 
 
-# ═════════════════════════════════════════════════════════════════════════════
 # Checkpoint discovery
-# ═════════════════════════════════════════════════════════════════════════════
 
 def find_checkpoint(model: str, src: str, tgt: str) -> Optional[str]:
     direction = f"{src}-{tgt}"
@@ -264,9 +235,7 @@ def find_checkpoint(model: str, src: str, tgt: str) -> Optional[str]:
     return None
 
 
-# ═════════════════════════════════════════════════════════════════════════════
 # Save hypotheses + (optionally) score
-# ═════════════════════════════════════════════════════════════════════════════
 
 def _score_and_save(
     sources, references, hyps,
@@ -277,7 +246,7 @@ def _score_and_save(
 
     if references is None:
         logger.info(
-            "[%s | %s] no references found — hypotheses saved, metrics skipped.",
+            "[%s | %s] no references found - hypotheses saved, metrics skipped.",
             model_tag, direction,
         )
         results_dict[direction] = {"note": "hypotheses only; references unavailable"}
@@ -285,7 +254,7 @@ def _score_and_save(
 
     if len(references) != len(sources):
         logger.warning(
-            "[%s | %s] source/reference length mismatch (%d vs %d) — metrics skipped.",
+            "[%s | %s] source/reference length mismatch (%d vs %d) - metrics skipped.",
             model_tag, direction, len(sources), len(references),
         )
         results_dict[direction] = {
@@ -298,9 +267,7 @@ def _score_and_save(
     results_dict[direction] = metrics
 
 
-# ═════════════════════════════════════════════════════════════════════════════
-# Per-model evaluation — all three wrap their translate_* with chunking
-# ═════════════════════════════════════════════════════════════════════════════
+# Per-model evaluation - all three wrap their translate_* with chunking
 
 def eval_nllb(directions, out_dir):
     from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
@@ -311,12 +278,12 @@ def eval_nllb(directions, out_dir):
         direction = f"{src}-{tgt}"
         ckpt = find_checkpoint("nllb", src, tgt)
         if not ckpt:
-            logger.warning("NLLB — no checkpoint for %s, skipping.", direction)
+            logger.warning("NLLB - no checkpoint for %s, skipping.", direction)
             continue
 
         sources, references = load_full_test(src, tgt)
         if sources is None:
-            logger.warning("NLLB — no test data for %s, skipping.", direction)
+            logger.warning("NLLB - no test data for %s, skipping.", direction)
             continue
 
         logger.info("NLLB  %s  ← %s  (full set: %d lines)", direction, ckpt, len(sources))
@@ -349,12 +316,12 @@ def eval_madlad(directions, out_dir):
         direction = f"{src}-{tgt}"
         ckpt = find_checkpoint("madlad", src, tgt)
         if not ckpt:
-            logger.warning("MADLAD — no checkpoint for %s, skipping.", direction)
+            logger.warning("MADLAD - no checkpoint for %s, skipping.", direction)
             continue
 
         sources, references = load_full_test(src, tgt)
         if sources is None:
-            logger.warning("MADLAD — no test data for %s, skipping.", direction)
+            logger.warning("MADLAD - no test data for %s, skipping.", direction)
             continue
 
         logger.info("MADLAD  %s  ← %s  (full set: %d lines)", direction, ckpt, len(sources))
@@ -407,12 +374,12 @@ def eval_gemmax2(directions, out_dir):
         direction = f"{src}-{tgt}"
         ckpt = find_checkpoint("gemmax2", src, tgt)
         if not ckpt:
-            logger.warning("GemmaX2 — no checkpoint for %s, skipping.", direction)
+            logger.warning("GemmaX2 - no checkpoint for %s, skipping.", direction)
             continue
 
         sources, references = load_full_test(src, tgt)
         if sources is None:
-            logger.warning("GemmaX2 — no test data for %s, skipping.", direction)
+            logger.warning("GemmaX2 - no test data for %s, skipping.", direction)
             continue
 
         logger.info("GemmaX2  %s  ← %s  (full set: %d lines)", direction, ckpt, len(sources))
@@ -441,9 +408,7 @@ def eval_gemmax2(directions, out_dir):
     return results
 
 
-# ═════════════════════════════════════════════════════════════════════════════
 # Main
-# ═════════════════════════════════════════════════════════════════════════════
 
 def main():
     parser = argparse.ArgumentParser(

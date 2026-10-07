@@ -1,18 +1,3 @@
-#!/usr/bin/env python3
-"""
-run_eval_finetuned.py — Evaluate all fine-tuned checkpoints.
-
-Finds best checkpoint for each model/direction (checks both
-outputs/finetuned/ and checkpoints/ directories), runs inference,
-and reports all 4 metrics (COMET-22, ChrF2++, BLEU, TER).
-
-Usage:
-    python run_eval_finetuned.py                        # all models, dev split
-    python run_eval_finetuned.py --split devtest        # held-out test
-    python run_eval_finetuned.py --model nllb           # one model only
-    python run_eval_finetuned.py --model nllb --direction ar-en
-"""
-
 import argparse
 import json
 import logging
@@ -45,9 +30,7 @@ MODEL_WEIGHT_FILES = [
 ]
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Checkpoint discovery
-# ─────────────────────────────────────────────────────────────────────────────
 
 def find_checkpoint(model: str, src: str, tgt: str):
     """
@@ -100,7 +83,7 @@ def find_checkpoint(model: str, src: str, tgt: str):
 def is_eval_done(model: str, src: str, tgt: str, split: str, out_dir: str) -> bool:
     """
     Returns True if hypothesis and metrics files already exist for this
-    model/direction/split — meaning eval was completed in a prior run.
+    model/direction/split - meaning eval was completed in a prior run.
     """
     direction  = f"{src}-{tgt}"
     tag_map    = {"nllb": "nllb_ft", "madlad": "madlad_ft", "gemmax2": "gemmax2_ft"}
@@ -111,9 +94,7 @@ def is_eval_done(model: str, src: str, tgt: str, split: str, out_dir: str) -> bo
     return os.path.exists(hyp_file) and os.path.exists(met_file)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Per-model eval helpers
-# ─────────────────────────────────────────────────────────────────────────────
 
 def eval_nllb(directions, split, out_dir):
     from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
@@ -122,11 +103,11 @@ def eval_nllb(directions, split, out_dir):
     for src, tgt in directions:
         direction = f"{src}-{tgt}"
         if is_eval_done("nllb", src, tgt, split, out_dir):
-            logger.info("NLLB  %s  [SKIP — already evaluated]", direction)
+            logger.info("NLLB  %s  [SKIP - already evaluated]", direction)
             continue
         ckpt = find_checkpoint("nllb", src, tgt)
         if not ckpt:
-            logger.warning("NLLB — no checkpoint for %s, skipping.", direction)
+            logger.warning("NLLB - no checkpoint for %s, skipping.", direction)
             continue
         logger.info("NLLB  %s  ← %s", direction, ckpt)
         tokenizer = AutoTokenizer.from_pretrained(ckpt)
@@ -152,11 +133,11 @@ def eval_madlad(directions, split, out_dir):
     for src, tgt in directions:
         direction = f"{src}-{tgt}"
         if is_eval_done("madlad", src, tgt, split, out_dir):
-            logger.info("MADLAD  %s  [SKIP — already evaluated]", direction)
+            logger.info("MADLAD  %s  [SKIP - already evaluated]", direction)
             continue
         ckpt = find_checkpoint("madlad", src, tgt)
         if not ckpt:
-            logger.warning("MADLAD — no checkpoint for %s, skipping.", direction)
+            logger.warning("MADLAD - no checkpoint for %s, skipping.", direction)
             continue
         logger.info("MADLAD  %s  ← %s", direction, ckpt)
 
@@ -204,11 +185,11 @@ def eval_gemmax2(directions, split, out_dir):
     for src, tgt in directions:
         direction = f"{src}-{tgt}"
         if is_eval_done("gemmax2", src, tgt, split, out_dir):
-            logger.info("GemmaX2  %s  [SKIP — already evaluated]", direction)
+            logger.info("GemmaX2  %s  [SKIP - already evaluated]", direction)
             continue
         ckpt = find_checkpoint("gemmax2", src, tgt)
         if not ckpt:
-            logger.warning("GemmaX2 — no checkpoint for %s, skipping.", direction)
+            logger.warning("GemmaX2 - no checkpoint for %s, skipping.", direction)
             continue
         logger.info("GemmaX2  %s  ← %s", direction, ckpt)
         tokenizer = AutoTokenizer.from_pretrained(ckpt)
@@ -231,9 +212,7 @@ def eval_gemmax2(directions, split, out_dir):
     return results
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Main
-# ─────────────────────────────────────────────────────────────────────────────
 
 def main():
     parser = argparse.ArgumentParser(description="Evaluate all fine-tuned checkpoints")

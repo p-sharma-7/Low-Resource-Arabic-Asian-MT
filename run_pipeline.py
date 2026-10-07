@@ -1,33 +1,3 @@
-"""
-run_pipeline.py — Master orchestrator for WMT26 Arabic-Asian MT Challenge.
-
-Pipeline stages
-───────────────
-  zero_shot   Run all 3 models on devtest with no fine-tuning (baseline).
-  finetune    Fine-tune all 3 models on train/dev using the best protocol
-              for each architecture (Seq2SeqTrainer or SFTTrainer+LoRA).
-  eval        Load saved fine-tuned checkpoints, translate devtest, report
-              all 5 metrics per direction.
-  all         Run zero_shot → finetune → eval in sequence.
-
-Examples
-────────
-  # Full pipeline, all models
-  python run_pipeline.py --stage all
-
-  # Zero-shot baselines only
-  python run_pipeline.py --stage zero_shot
-
-  # Fine-tune only NLLB
-  python run_pipeline.py --stage finetune --model nllb
-
-  # Evaluate fine-tuned GemmaX2 on dev split
-  python run_pipeline.py --stage eval --model gemmax2 --split dev
-
-  # Single direction fine-tune for quick iteration
-  python run_pipeline.py --stage finetune --model madlad --direction ar-hi
-"""
-
 import argparse
 import json
 import logging
@@ -50,9 +20,7 @@ from utlis.config import (
     MODELS,
 )
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Logging setup
-# ─────────────────────────────────────────────────────────────────────────────
 
 def setup_logging(stage: str, model_tag: str) -> logging.Logger:
     os.makedirs(LOG_DIR, exist_ok=True)
@@ -76,9 +44,7 @@ def setup_logging(stage: str, model_tag: str) -> logging.Logger:
     return root_logger
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Reproducibility
-# ─────────────────────────────────────────────────────────────────────────────
 
 def set_seed(seed: int = SEED) -> None:
     random.seed(seed)
@@ -90,13 +56,11 @@ def set_seed(seed: int = SEED) -> None:
     torch.backends.cudnn.benchmark     = False
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Helpers
-# ─────────────────────────────────────────────────────────────────────────────
 
 logger = logging.getLogger(__name__)
 
-BANNER = "█" * 64
+BANNER = "=" * 64
 
 def _banner(msg: str) -> None:
     logger.info("\n%s\n  %s\n%s", BANNER, msg, BANNER)
@@ -117,9 +81,7 @@ def _directions_for(direction_filter: Optional[str]):
     return list(TRANSLATION_DIRECTIONS)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Stage 1 — Zero-shot inference
-# ─────────────────────────────────────────────────────────────────────────────
+# Stage 1 - Zero-shot inference
 
 def run_zero_shot(
     model_filter: str = "all",
@@ -129,7 +91,7 @@ def run_zero_shot(
     """Run zero-shot inference for the requested model(s) and directions."""
     all_results: dict = {}
 
-    # ── NLLB ────────────────────────────────────────────────────────────────
+    # NLLB
     if model_filter in ("all", "nllb"):
         _banner("ZERO-SHOT | NLLB-200-3.3B")
         from pipelines.infer_nllb import load_nllb, translate_nllb
@@ -153,7 +115,7 @@ def run_zero_shot(
         all_results["nllb"] = nllb_results
         del model; torch.cuda.empty_cache()
 
-    # ── MADLAD ──────────────────────────────────────────────────────────────
+    # MADLAD
     if model_filter in ("all", "madlad"):
         _banner("ZERO-SHOT | MADLAD-400-10B")
         from pipelines.infer_madlad import load_madlad, translate_madlad
@@ -177,7 +139,7 @@ def run_zero_shot(
         all_results["madlad"] = madlad_results
         del model; torch.cuda.empty_cache()
 
-    # ── GemmaX2 ─────────────────────────────────────────────────────────────
+    # GemmaX2
     if model_filter in ("all", "gemmax2"):
         _banner("ZERO-SHOT | GemmaX2-28-9B")
         from pipelines.infer_gemmax2 import load_gemmax2, translate_gemmax2
@@ -206,9 +168,7 @@ def run_zero_shot(
     return all_results
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Stage 2 — Fine-tuning
-# ─────────────────────────────────────────────────────────────────────────────
+# Stage 2 - Fine-tuning
 
 def run_finetune(
     model_filter: str = "all",
@@ -238,9 +198,7 @@ def run_finetune(
             torch.cuda.empty_cache()
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Stage 3 — Evaluate fine-tuned checkpoints
-# ─────────────────────────────────────────────────────────────────────────────
+# Stage 3 - Evaluate fine-tuned checkpoints
 
 def run_eval(
     model_filter: str = "all",
@@ -255,7 +213,7 @@ def run_eval(
 
     all_results: dict = {}
 
-    # ── NLLB ────────────────────────────────────────────────────────────────
+    # NLLB
     if model_filter in ("all", "nllb"):
         _banner("EVAL (fine-tuned) | NLLB-200-3.3B")
         from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
@@ -284,7 +242,7 @@ def run_eval(
 
         all_results["nllb"] = nllb_results
 
-    # ── MADLAD ──────────────────────────────────────────────────────────────
+    # MADLAD
     if model_filter in ("all", "madlad"):
         _banner("EVAL (fine-tuned) | MADLAD-400-10B")
         from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
@@ -313,7 +271,7 @@ def run_eval(
 
         all_results["madlad"] = madlad_results
 
-    # ── GemmaX2 ─────────────────────────────────────────────────────────────
+    # GemmaX2
     if model_filter in ("all", "gemmax2"):
         _banner("EVAL (fine-tuned) | GemmaX2-28-9B + LoRA")
         from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
@@ -366,13 +324,11 @@ def run_eval(
     return all_results
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # CLI entry point
-# ─────────────────────────────────────────────────────────────────────────────
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="WMT26 Arabic-Asian MT Challenge — full pipeline",
+        description="WMT26 Arabic-Asian MT Challenge - full pipeline",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__,
     )

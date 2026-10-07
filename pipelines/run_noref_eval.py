@@ -1,34 +1,3 @@
-#!/usr/bin/env python3
-"""
-run_noref_eval.py — Reference-free pre-submission checks for WMT26 challenge outputs.
-
-Evaluates all 18 hypothesis files (3 models × 6 directions) against the challenge
-source-only test sets using 5 deterministic checks + optional COMET-Kiwi QE.
-
-Fixes 5 bugs in the original EDA/evaluate_mt_noreference.py:
-  1. Correct source path resolution (challenge Sub-Task directory tree)
-  2. Correct hypothesis filename pattern (hyp_{model}_ft_{dir}_challenge.txt)
-  3. COMET-Kiwi model loaded ONCE and reused (not reloaded per direction)
-  4. COMET-Kiwi runs on GPU (gpus=1, not gpus=0)
-  5. Uses wmt23-cometkiwi-da (not wmt22-cometkiwi-da)
-
-Usage
------
-    cd /mnt/storage/Pushkar/challenge/wmt
-
-    # Fast checks only (~30 sec):
-    /mnt/storage/abhay/envs/wmt/bin/python run_noref_eval.py
-
-    # Include COMET-Kiwi QE scores (~10 min, GPU):
-    /mnt/storage/abhay/envs/wmt/bin/python run_noref_eval.py --comet-qe
-
-    # Single model:
-    /mnt/storage/abhay/envs/wmt/bin/python run_noref_eval.py --models nllb
-
-Outputs → outputs/eval_noreference/
-    REPORT_nllb.md, REPORT_madlad.md, REPORT_gemmax2.md
-    all_results.json
-"""
 from __future__ import annotations
 
 import argparse
@@ -40,7 +9,7 @@ from typing import Any, Dict, List, Optional
 
 import numpy as np
 
-# ── Import shared check functions from EDA script ────────────────────────────
+# Import shared check functions from EDA script
 ROOT_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT_DIR / "EDA"))
 from evaluate_mt_noreference import (  # noqa: E402
@@ -61,7 +30,7 @@ logging.basicConfig(
 )
 log = logging.getLogger(__name__)
 
-# ── Challenge test source files (source-only, no references) ─────────────────
+# Challenge test source files (source-only, no references)
 _CHALLENGE_ROOT = Path(
     "/mnt/storage/Ahtisham_Aziz/NLP-IIT Patna/Challenge-Test"
 )
@@ -82,7 +51,7 @@ def hyp_path(model: str, direction: str) -> Path:
     return HYP_ROOT / model / f"hyp_{model}_ft_{direction}_challenge.txt"
 
 
-# ── Fixed COMET-Kiwi QE (load once, run on GPU) ──────────────────────────────
+# Fixed COMET-Kiwi QE (load once, run on GPU)
 
 def load_comet_kiwi():
     """Download wmt23-cometkiwi-da and load it once. Returns model object."""
@@ -142,7 +111,7 @@ def check_comet_qe_gpu(
         }
 
 
-# ── Summary printer ───────────────────────────────────────────────────────────
+# Summary printer
 
 def print_model_summary(model: str, model_results: Dict[str, Dict]) -> None:
     print(f"\n{'═' * 72}")
@@ -162,7 +131,7 @@ def print_model_summary(model: str, model_results: Dict[str, Dict]) -> None:
         le = checks["length"]
         fl = checks["fluency"]
         failed = any(not ch.get("passed", True) for ch in checks.values())
-        status = " ⚠ REVIEW" if failed else "    OK ✅"
+        status = "  REVIEW" if failed else "      OK"
         row = (
             f"  {direction:<10} {s['hyp_lines']:>6} {s['empty_pct']:>6.1f}% "
             f"{la['correct_script_pct']:>7.0f}% {co['exact_copy_pct']:>6.1f}% "
@@ -182,12 +151,12 @@ def print_model_summary(model: str, model_results: Dict[str, Dict]) -> None:
         for c in checks.values()
     )
     if total_issues == 0:
-        print(f"  ✅ All directions PASS — {model.upper()} ready for submission\n")
+        print(f"  All directions PASS - {model.upper()} ready for submission\n")
     else:
-        print(f"  ⚠️  {total_issues} issue(s) found — see REPORT_{model}.md\n")
+        print(f"  {total_issues} issue(s) found - see REPORT_{model}.md\n")
 
 
-# ── Main ──────────────────────────────────────────────────────────────────────
+# Main
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(
@@ -209,7 +178,7 @@ def main() -> None:
     args = parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
 
-    log.info("Reference-free evaluation — WMT26 challenge test set")
+    log.info("Reference-free evaluation - WMT26 challenge test set")
     log.info("Models     : %s", args.models)
     log.info("COMET-QE   : %s", args.comet_qe)
     log.info("Output dir : %s", args.out.resolve())
@@ -234,7 +203,7 @@ def main() -> None:
         for direction in DIRECTIONS:
             hp = hyp_path(model, direction)
             if not hp.exists():
-                log.warning("Missing hypothesis: %s — skipping", hp)
+                log.warning("Missing hypothesis: %s - skipping", hp)
                 continue
 
             src_path = CHALLENGE_SRCS[direction]
@@ -262,9 +231,9 @@ def main() -> None:
 
             failed_checks = [k for k, v in checks.items() if not v.get("passed", True)]
             if failed_checks:
-                log.warning("    ⚠️  Issues in: %s", ", ".join(failed_checks))
+                log.warning("    Issues in: %s", ", ".join(failed_checks))
             else:
-                log.info("    ✅ All checks passed")
+                log.info("    All checks passed")
 
             model_results[direction] = checks
 
@@ -298,7 +267,7 @@ def main() -> None:
             for c in checks.values()
         )
         dirs_done = len(all_results[model])
-        status = "✅ READY" if model_issues == 0 else f"⚠️  {model_issues} issues"
+        status = "READY" if model_issues == 0 else f"{model_issues} issues"
         print(f"  {model.upper():<10}  {dirs_done}/6 directions   {status}")
     print(f"{'═' * 72}\n")
 

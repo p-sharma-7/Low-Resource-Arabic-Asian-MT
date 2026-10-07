@@ -1,33 +1,3 @@
-#!/usr/bin/env python3
-"""
-eda_train.py — Phase 1 EDA · Multilingual MT Training Corpora
-==============================================================
-Analyses Ar-En · Ar-Hi · Ar-Ur parallel corpora.
-
-Output tree
------------
-eda_train/
-├── per_file/
-│   ├── train_ar_ar-en/   stats.json  top100.txt  4× .png
-│   ├── train_en_ar-en/   ...
-│   ├── train_ar_ar-hi/   ...
-│   ├── train_hi_ar-hi/   ...
-│   ├── train_ar_ar-ur/   ...
-│   └── train_ur_ar-ur/   ...
-├── per_language/
-│   ├── arabic/           stats.json  top100.txt  4× .png
-│   ├── english/          ...
-│   ├── hindi/            ...
-│   └── urdu/             ...
-├── alignment_check.json
-└── summary.csv
-
-Usage
------
-    python eda_train.py
-    python eda_train.py --dataset-root /path/to/dataset --output-root /path/to/out
-"""
-
 from __future__ import annotations
 
 import argparse
@@ -46,9 +16,7 @@ import matplotlib.ticker as mticker
 import numpy as np
 import pandas as pd
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Logging
-# ──────────────────────────────────────────────────────────────────────────────
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s │ %(levelname)-7s │ %(message)s",
@@ -57,11 +25,9 @@ logging.basicConfig(
 log = logging.getLogger(__name__)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Dataset layout
 #   FILE_MAP  :  relative path under DATASET_ROOT → (language_tag, pair_tag)
 #   ALIGN_PAIRS: triples (src_rel, tgt_rel, pair_label) for alignment checks
-# ──────────────────────────────────────────────────────────────────────────────
 FILE_MAP: Dict[str, Tuple[str, str]] = {
     "Ar-En/train_ar_ar-en.txt": ("arabic",  "Ar-En"),
     "Ar-En/train_en_ar-en.txt": ("english", "Ar-En"),
@@ -78,9 +44,7 @@ ALIGN_PAIRS: List[Tuple[str, str, str]] = [
 ]
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Text helpers
-# ──────────────────────────────────────────────────────────────────────────────
 
 def load_lines(path: Path) -> List[str]:
     """Read every line, strip trailing newline only (preserve leading spaces)."""
@@ -94,13 +58,11 @@ def normalize(text: str) -> str:
 
 
 def tokenize(text: str) -> List[str]:
-    """Simple whitespace tokenisation — consistent with the spec."""
+    """Simple whitespace tokenisation - consistent with the spec."""
     return text.split()
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Core statistics
-# ──────────────────────────────────────────────────────────────────────────────
 
 def sentence_dataset_stats(
     lines: List[str],
@@ -208,9 +170,7 @@ def token_char_length_stats(
     return stats, arr
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Visualisations
-# ──────────────────────────────────────────────────────────────────────────────
 
 _BLUE   = "#4C72B0"
 _ORANGE = "#DD8452"
@@ -228,7 +188,7 @@ def _comma_fmt(x: float, _pos: Any) -> str:
     return f"{int(x):,}"
 
 
-# ── 1. Sentence-length histogram ──────────────────────────────────────────────
+# 1. Sentence-length histogram
 
 def plot_sent_len_hist(
     lengths: np.ndarray, title: str, path: Path
@@ -244,7 +204,7 @@ def plot_sent_len_hist(
     ax.hist(data, bins=bins, color=_BLUE, edgecolor="white", linewidth=0.3)
     ax.set_xlabel("Sentence length (whitespace tokens)", fontsize=11)
     ax.set_ylabel("Count", fontsize=11)
-    ax.set_title(f"Sentence Length Distribution — {title}",
+    ax.set_title(f"Sentence Length Distribution - {title}",
                  fontsize=12, fontweight="bold")
     ax.yaxis.set_major_formatter(mticker.FuncFormatter(_comma_fmt))
     ax.annotate(
@@ -257,7 +217,7 @@ def plot_sent_len_hist(
     plt.close(fig)
 
 
-# ── 2. Token-frequency histogram ─────────────────────────────────────────────
+# 2. Token-frequency histogram
 
 def plot_token_freq_hist(
     counter: Counter, title: str, path: Path
@@ -278,7 +238,7 @@ def plot_token_freq_hist(
     ax.set_yscale("log")
     ax.set_xlabel("Token frequency  (log scale)", fontsize=11)
     ax.set_ylabel("Number of word types  (log scale)", fontsize=11)
-    ax.set_title(f"Token Frequency Distribution — {title}",
+    ax.set_title(f"Token Frequency Distribution - {title}",
                  fontsize=12, fontweight="bold")
     ax.yaxis.set_major_formatter(mticker.FuncFormatter(_comma_fmt))
     plt.tight_layout()
@@ -286,7 +246,7 @@ def plot_token_freq_hist(
     plt.close(fig)
 
 
-# ── 3. Zipf curve ────────────────────────────────────────────────────────────
+# 3. Zipf curve
 
 def plot_zipf(counter: Counter, title: str, path: Path) -> None:
     """
@@ -305,14 +265,14 @@ def plot_zipf(counter: Counter, title: str, path: Path) -> None:
               label="Ideal Zipf  (C / rank)")
     ax.set_xlabel("Rank  (log scale)", fontsize=11)
     ax.set_ylabel("Frequency  (log scale)", fontsize=11)
-    ax.set_title(f"Zipf Curve — {title}", fontsize=12, fontweight="bold")
+    ax.set_title(f"Zipf Curve - {title}", fontsize=12, fontweight="bold")
     ax.legend(fontsize=10)
     plt.tight_layout()
     fig.savefig(path, dpi=150)
     plt.close(fig)
 
 
-# ── 4. Token character-length histogram ──────────────────────────────────────
+# 4. Token character-length histogram
 
 def plot_token_char_len_hist(
     char_len_arr: np.ndarray, title: str, path: Path
@@ -331,7 +291,7 @@ def plot_token_char_len_hist(
     ax.hist(data, bins=bins, color=_GREEN, edgecolor="white", linewidth=0.3)
     ax.set_xlabel("Token character length", fontsize=11)
     ax.set_ylabel("Frequency (weighted occurrences)", fontsize=11)
-    ax.set_title(f"Token Character Length Distribution — {title}",
+    ax.set_title(f"Token Character Length Distribution - {title}",
                  fontsize=12, fontweight="bold")
     ax.yaxis.set_major_formatter(mticker.FuncFormatter(_comma_fmt))
     ax.annotate(
@@ -344,13 +304,11 @@ def plot_token_char_len_hist(
     plt.close(fig)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Per-file analysis
-# ──────────────────────────────────────────────────────────────────────────────
 
 def write_top100(counter: Counter, label: str, path: Path) -> None:
     with open(path, "w", encoding="utf-8") as fh:
-        fh.write(f"Top 100 words — {label}\n")
+        fh.write(f"Top 100 words - {label}\n")
         fh.write("─" * 60 + "\n")
         fh.write(f"{'Rank':>5}  {'Token':<45}  {'Count':>10}\n")
         fh.write("─" * 60 + "\n")
@@ -364,19 +322,19 @@ def analyze_file(filepath: Path, out_dir: Path) -> Dict[str, Any]:
     stem = filepath.stem
     log.info("► file      %s", filepath)
 
-    # ── load once ─────────────────────────────────────────────────────────────
+    # load once
     lines = load_lines(filepath)
 
-    # ── sentence-level ────────────────────────────────────────────────────────
+    # sentence-level
     s_stats, lengths = sentence_dataset_stats(lines)
 
-    # ── raw vocabulary ────────────────────────────────────────────────────────
+    # raw vocabulary
     raw_tokens         = [tok for line in lines for tok in tokenize(line)]
     rv_stats, r_ctr    = vocabulary_stats(raw_tokens)
     r_bands            = frequency_bands(r_ctr)
     r_charlen, r_arr   = token_char_length_stats(r_ctr)
 
-    # ── normalised vocabulary (lowercase · strip · collapse spaces) ───────────
+    # normalised vocabulary (lowercase · strip · collapse spaces)
     norm_lines         = [normalize(l) for l in lines]
     norm_tokens        = [tok for l in norm_lines for tok in tokenize(l)]
     nv_stats, n_ctr    = vocabulary_stats(norm_tokens)
@@ -398,20 +356,20 @@ def analyze_file(filepath: Path, out_dir: Path) -> Dict[str, Any]:
         },
     }
 
-    # ── persist ───────────────────────────────────────────────────────────────
+    # persist
     (out_dir / "stats.json").write_text(
         json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
     )
     write_top100(r_ctr, stem, out_dir / "top100_words.txt")
 
-    # ── plots ─────────────────────────────────────────────────────────────────
+    # plots
     plot_sent_len_hist      (lengths, stem, out_dir / "sentence_length_hist.png")
     plot_token_freq_hist    (r_ctr,   stem, out_dir / "token_freq_hist.png")
     plot_zipf               (r_ctr,   stem, out_dir / "zipf_curve.png")
     plot_token_char_len_hist(r_arr,   stem, out_dir / "token_char_len_hist.png")
 
     log.info(
-        "  ✓  sentences=%s  raw_vocab=%s  norm_vocab=%s  dupes=%.2f%%",
+        "  sentences=%s  raw_vocab=%s  norm_vocab=%s  dupes=%.2f%%",
         f"{s_stats['total_sentences']:,}",
         f"{rv_stats['unique_tokens']:,}",
         f"{nv_stats['unique_tokens']:,}",
@@ -420,9 +378,7 @@ def analyze_file(filepath: Path, out_dir: Path) -> Dict[str, Any]:
     return result
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Language aggregation
-# ──────────────────────────────────────────────────────────────────────────────
 
 def analyze_language(
     lang: str, paths: List[Path], out_dir: Path
@@ -479,7 +435,7 @@ def analyze_language(
     plot_token_char_len_hist(r_arr,   lang, out_dir / "token_char_len_hist.png")
 
     log.info(
-        "  ✓  sentences=%s  raw_vocab=%s  norm_vocab=%s",
+        "  sentences=%s  raw_vocab=%s  norm_vocab=%s",
         f"{s_stats['total_sentences']:,}",
         f"{rv_stats['unique_tokens']:,}",
         f"{nv_stats['unique_tokens']:,}",
@@ -487,9 +443,7 @@ def analyze_language(
     return result
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Alignment check
-# ──────────────────────────────────────────────────────────────────────────────
 
 def alignment_check(
     pairs: List[Tuple[str, str, str]], dataset_root: Path
@@ -527,7 +481,7 @@ def alignment_check(
         if not ok:
             all_pass = False
 
-        status = "✓  PASS" if ok else f"✗  FAIL  (Δ = {delta:,} lines)"
+        status = "PASS" if ok else f"FAIL  (delta = {delta:,} lines)"
         print(f"\n  {pair}")
         print(f"    {src_path.name:<45}  {src_n:>10,}")
         print(f"    {tgt_path.name:<45}  {tgt_n:>10,}")
@@ -543,15 +497,13 @@ def alignment_check(
             "delta":         delta,
         })
 
-    overall = "ALL PASS ✓" if all_pass else "FAILURES DETECTED ✗"
+    overall = "ALL PASS" if all_pass else "FAILURES DETECTED"
     print(f"\n  Overall: {overall}")
     print(f"{bar}\n")
     return results
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Summary CSV
-# ──────────────────────────────────────────────────────────────────────────────
 
 def build_summary_csv(
     per_file: List[Dict[str, Any]], out_path: Path
@@ -599,13 +551,11 @@ def build_summary_csv(
     log.info("Summary CSV  →  %s", out_path)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # CLI
-# ──────────────────────────────────────────────────────────────────────────────
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(
-        description="Phase 1 EDA — multilingual MT training corpora",
+        description="Phase 1 EDA - multilingual MT training corpora",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     p.add_argument(
@@ -619,9 +569,7 @@ def parse_args() -> argparse.Namespace:
     return p.parse_args()
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Main
-# ──────────────────────────────────────────────────────────────────────────────
 
 def main() -> None:
     args         = parse_args()
@@ -636,13 +584,13 @@ def main() -> None:
     log.info("Dataset root : %s", dataset_root.resolve())
     log.info("Output root  : %s", output_root.resolve())
 
-    # ── 1. Alignment check ────────────────────────────────────────────────────
+    # 1. Alignment check
     align_results = alignment_check(ALIGN_PAIRS, dataset_root)
     (output_root / "alignment_check.json").write_text(
         json.dumps(align_results, indent=2), encoding="utf-8"
     )
 
-    # ── 2. Per-file analysis ──────────────────────────────────────────────────
+    # 2. Per-file analysis
     per_file_results: List[Dict[str, Any]] = []
     lang_to_files:    Dict[str, List[Path]] = {}
 
@@ -657,12 +605,12 @@ def main() -> None:
         per_file_results.append(result)
         lang_to_files.setdefault(lang, []).append(fp)
 
-    # ── 3. Language-level aggregation ────────────────────────────────────────
+    # 3. Language-level aggregation
     for lang, files in sorted(lang_to_files.items()):
         out_dir = output_root / "per_language" / lang
         analyze_language(lang, files, out_dir)
 
-    # ── 4. Summary CSV ────────────────────────────────────────────────────────
+    # 4. Summary CSV
     if per_file_results:
         build_summary_csv(per_file_results, output_root / "summary.csv")
 

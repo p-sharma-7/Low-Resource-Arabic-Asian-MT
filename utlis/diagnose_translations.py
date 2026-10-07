@@ -1,5 +1,5 @@
 """
-diagnose_translations.py — Print sample translations to spot obvious errors.
+diagnose_translations.py - Print sample translations to spot obvious errors.
 
 Usage (run from your wmt/ directory):
     python diagnose_translations.py
@@ -18,7 +18,7 @@ HYP_DIR    = os.path.join(OUTPUT_DIR, "outputs", "zero_shot", "nllb")
 DATA_DIR   = os.path.join(OUTPUT_DIR, "dataset")
 
 # (src_lang, tgt_lang, dataset_folder, pair_suffix)
-# pair_suffix is always the folder name lowercased e.g. "ar-en" — never "en-ar"
+# pair_suffix is always the folder name lowercased e.g. "ar-en" - never "en-ar"
 DIRECTIONS = [
     ("ar", "en", "Ar-En", "ar-en"),
     ("en", "ar", "Ar-En", "ar-en"),   # same folder/suffix, just source/target swap
@@ -43,7 +43,7 @@ for src_lang, tgt_lang, folder, pair_suffix in DIRECTIONS:
     ref_file  = os.path.join(DATA_DIR, folder, f"dev_{tgt_lang}_{pair_suffix}.txt")
 
     if not os.path.exists(hyp_file):
-        print(f"\n[SKIP — no hypothesis file yet] {hyp_file}")
+        print(f"\n[SKIP - no hypothesis file yet] {hyp_file}")
         continue
 
     hyps = read(hyp_file)
@@ -63,7 +63,7 @@ for src_lang, tgt_lang, folder, pair_suffix in DIRECTIONS:
         print(f"  [{i}] HYP ({h_words}w)  : {h[:100]}")
         print(f"  [{i}] REF ({r_words}w)  : {r[:100]}")
         print(f"       len ratio HYP/REF = {ratio:.2f}x"
-              + ("  ⚠ LOOP?" if ratio > 2.0 else "  ✓"))
+              + ("  LOOP?" if ratio > 2.0 else ""))
 
         # Detect which Unicode scripts appear in the hypothesis
         scripts = set()

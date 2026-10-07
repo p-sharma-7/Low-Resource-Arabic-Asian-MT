@@ -1,16 +1,3 @@
-"""
-evaluate.py — Evaluation pipeline for WMT26 Arabic-Asian MT Challenge.
-
-Metrics (in priority order per spec):
-  1. COMET-22      (Unbabel/wmt22-comet-da)          — primary / model selection
-  2. ChrF2++       (sacrebleu, word_order=2)          — secondary
-  3. BLEU          (SacreBLEU, tokeniser per language)
-  4. TER           (SacreBLEU)
-  5. COMET-Kiwi    (Unbabel/wmt23-cometkiwi-da)       — reference-free QE
-
-COMET models are loaded lazily and cached globally to avoid redundant I/O.
-"""
-
 import logging
 import os
 from typing import Dict, List, Optional
@@ -27,7 +14,6 @@ from utlis.config import (
 logger = logging.getLogger(__name__)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Robust unbabel-comet importer
 #
 # Problem: both `comet-ml` (experiment tracking) and `unbabel-comet`
@@ -41,7 +27,6 @@ logger = logging.getLogger(__name__)
 #   3. Walk sys.path looking for the unbabel-comet dist directly so we
 #      can import it even when comet-ml has hijacked the `comet` name.
 #   4. Raise a helpful message telling the user exactly how to fix it.
-# ─────────────────────────────────────────────────────────────────────────────
 
 def _load_unbabel_comet():
     """
@@ -53,7 +38,7 @@ def _load_unbabel_comet():
     import importlib.util
     import sys
 
-    # ── Strategy 1: standard path (works when unbabel-comet is on top) ──────
+    # Strategy 1: standard path (works when unbabel-comet is on top)
     try:
         from comet import download_model, load_from_checkpoint  # noqa: F401
         # Verify these symbols actually belong to unbabel-comet by checking
@@ -65,14 +50,14 @@ def _load_unbabel_comet():
     except (ImportError, Exception):
         pass
 
-    # ── Strategy 2: unbabel-comet 1.x path ───────────────────────────────────
+    # Strategy 2: unbabel-comet 1.x path
     try:
         from comet.models import download_model, load_from_checkpoint  # noqa: F401
         return download_model, load_from_checkpoint
     except (ImportError, Exception):
         pass
 
-    # ── Strategy 3: locate unbabel-comet on disk and import it directly ──────
+    # Strategy 3: locate unbabel-comet on disk and import it directly
     # This works even if comet-ml has registered itself as `comet` in
     # site-packages, because we bypass the normal import machinery.
     try:
@@ -96,7 +81,7 @@ def _load_unbabel_comet():
     except Exception:
         pass
 
-    # ── Strategy 4: clear error ──────────────────────────────────────────────
+    # Strategy 4: clear error
     raise ImportError(
         "\n\n"
         "  Could not import `download_model` / `load_from_checkpoint` from\n"
@@ -111,9 +96,7 @@ def _load_unbabel_comet():
 
 _download_model, _load_from_checkpoint = _load_unbabel_comet()
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Lazy COMET model cache
-# ─────────────────────────────────────────────────────────────────────────────
 _COMET22_MODEL    = None
 _COMET_KIWI_MODEL = None
 
@@ -167,9 +150,7 @@ def _get_comet_kiwi():
     return _COMET_KIWI_MODEL
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Individual metric functions
-# ─────────────────────────────────────────────────────────────────────────────
 
 def compute_bleu(
     hypotheses: List[str],
@@ -228,9 +209,7 @@ def compute_comet_kiwi(
     return round(float(output.system_score), 4)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Combined evaluation
-# ─────────────────────────────────────────────────────────────────────────────
 
 def evaluate_all(
     sources: List[str],
@@ -273,9 +252,7 @@ def evaluate_all(
     return metrics
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Logging / persistence helpers
-# ─────────────────────────────────────────────────────────────────────────────
 
 def log_metrics(
     metrics: Dict[str, float],

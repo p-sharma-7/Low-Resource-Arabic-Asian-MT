@@ -1,5 +1,5 @@
 """
-config.py — Central configuration for WMT26 Arabic-Asian MT Challenge.
+config.py - Central configuration for WMT26 Arabic-Asian MT Challenge.
 
 All paths, model names, language codes, and hyper-parameters live here so
 every other module imports from a single source of truth.
@@ -7,14 +7,12 @@ every other module imports from a single source of truth.
 
 import os
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Paths
 #
 # _REPO_ROOT = the directory that contains config.py (same dir as the scripts).
 # Works whether scripts live in  challenge/wmt/  OR directly in  challenge/.
 # Override with env var WMT_ROOT for non-standard layouts:
 #   export WMT_ROOT=/mnt/storage/Pushkar/challenge
-# ─────────────────────────────────────────────────────────────────────────────
 _REPO_ROOT    = os.environ.get(
     "WMT_ROOT",
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
@@ -27,23 +25,17 @@ CHECKPOINT_DIR = os.path.join(_REPO_ROOT, "checkpoints")
 for _d in (OUTPUT_DIR, LOG_DIR, CHECKPOINT_DIR):
     os.makedirs(_d, exist_ok=True)
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Reproducibility
-# ─────────────────────────────────────────────────────────────────────────────
 SEED = 42
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Model identifiers (HuggingFace Hub)
-# ─────────────────────────────────────────────────────────────────────────────
 MODELS = {
     "nllb":    "facebook/nllb-200-3.3B",
     "madlad":  "google/madlad400-10b-mt",
     "gemmax2": "ModelSpace/GemmaX2-28-9B-v0.1",
 }
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Language codes per model family
-# ─────────────────────────────────────────────────────────────────────────────
 NLLB_LANG_CODES = {
     "ar": "arb_Arab",   # Modern Standard Arabic ISO 639-3
     "en": "eng_Latn",
@@ -65,11 +57,9 @@ LANG_NAMES = {
     "ur": "Urdu",
 }
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Six translation directions
 # Tuple: (src_lang, tgt_lang)
 # Both forward and reverse directions share the same dataset folder.
-# ─────────────────────────────────────────────────────────────────────────────
 TRANSLATION_DIRECTIONS = [
     ("ar", "en"),   # Ar → En
     ("en", "ar"),   # En → Ar
@@ -89,18 +79,14 @@ PAIR_FOLDER_MAP = {
     ("ur", "ar"): "Ar-Ur",
 }
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Max token lengths
-# ─────────────────────────────────────────────────────────────────────────────
 MAX_INPUT_LENGTH = {
     "nllb":    512,
     "madlad":  512,
     "gemmax2": 512,   # kept at 512 for batch efficiency (model supports 4096)
 }
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Training hyper-parameters — NLLB-200-3.3B  (Seq2SeqTrainer)
-# ─────────────────────────────────────────────────────────────────────────────
+# Training hyper-parameters - NLLB-200-3.3B  (Seq2SeqTrainer)
 NLLB_TRAINING_ARGS = dict(
     num_train_epochs=5,
     per_device_train_batch_size=16,
@@ -126,10 +112,8 @@ NLLB_TRAINING_ARGS = dict(
     report_to="none",
 )
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Training hyper-parameters — MADLAD-400-10B  (Seq2SeqTrainer)
+# Training hyper-parameters - MADLAD-400-10B  (Seq2SeqTrainer)
 # Uses gradient-checkpointing + 8-bit Adam to fit within 48 GB VRAM.
-# ─────────────────────────────────────────────────────────────────────────────
 MADLAD_TRAINING_ARGS = dict(
     num_train_epochs=5,
     per_device_train_batch_size=8,
@@ -162,10 +146,8 @@ MADLAD_LORA_CONFIG = dict(
     target_modules=["q", "k", "v", "o", "wi_0", "wi_1", "wo"],
 )
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Training hyper-parameters — GemmaX2-28-9B  (SFTTrainer / LoRA)
+# Training hyper-parameters - GemmaX2-28-9B  (SFTTrainer / LoRA)
 # Quantised to 4-bit (QLoRA) so the adapter fits easily within 48 GB.
-# ─────────────────────────────────────────────────────────────────────────────
 GEMMAX2_TRAINING_ARGS = dict(
     num_train_epochs=3,
     per_device_train_batch_size=4,
@@ -184,7 +166,7 @@ GEMMAX2_TRAINING_ARGS = dict(
     greater_is_better=False,
     seed=SEED,
     report_to="none",
-    # max_seq_length removed from SFTConfig in trl>=0.9 — passed to SFTTrainer directly
+    # max_seq_length removed from SFTConfig in trl>=0.9 - passed to SFTTrainer directly
 )
 
 # LoRA adapter config (applied to all attention + FFN projections)
@@ -200,9 +182,7 @@ LORA_CONFIG = dict(
     ],
 )
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Evaluation metrics
-# ─────────────────────────────────────────────────────────────────────────────
 COMET_MODEL       = "Unbabel/wmt22-comet-da"
 COMET_KIWI_MODEL  = "Unbabel/wmt23-cometkiwi-da"
 

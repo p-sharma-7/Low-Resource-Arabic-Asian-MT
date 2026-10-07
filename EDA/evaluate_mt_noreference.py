@@ -1,38 +1,3 @@
-#!/usr/bin/env python3
-"""
-evaluate_mt_noreference.py — Reference-Free Pre-Submission MT Checks
-=====================================================================
-When you have SOURCE only and no target references (standard shared-task
-test sets), this script validates your translations using:
-
-  Check 1 — Sanity             (line count, empty, encoding)
-  Check 2 — Language validity  (is the output in the right language?)
-  Check 3 — Source copying     (did the model just copy the input?)
-  Check 4 — Length consistency  (compare against devtest baseline)
-  Check 5 — Fluency signals    (repetition, token diversity)
-  Check 6 — Quality estimation (COMET-QE, no reference needed)
-  Check 7 — Cross-pair sanity  (shared Arabic sources should align)
-
-File layout
------------
-    dataset/Ar-En/test_ar_ar-en.txt    ← source (you have this)
-    dataset/Ar-En/test_en_ar-en.txt    ← reference (you DON'T have this)
-
-    hypotheses/ar-en.txt               ← your model output (you have this)
-
-    devtest_hyps/ar-en.txt             ← your devtest output (optional, for baseline)
-
-Usage
------
-    python evaluate_mt_noreference.py --hyp-dir hypotheses --split test
-
-    # Compare against devtest baseline for length/vocab consistency
-    python evaluate_mt_noreference.py --hyp-dir hypotheses --split test \\
-        --devtest-hyp-dir devtest_hyps
-
-    # With COMET-QE (pip install unbabel-comet)
-    python evaluate_mt_noreference.py --hyp-dir hypotheses --split test --comet-qe
-"""
 from __future__ import annotations
 
 import argparse
@@ -61,9 +26,7 @@ logging.basicConfig(
 )
 log = logging.getLogger(__name__)
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Direction configuration
-# ──────────────────────────────────────────────────────────────────────────────
 DIRECTIONS = {
     "ar-en": ("ar", "en", "Ar-En"),
     "en-ar": ("en", "ar", "Ar-En"),
@@ -91,9 +54,7 @@ TYPICAL_RATIOS = {
     "ur-ar": 0.65,
 }
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Helpers
-# ──────────────────────────────────────────────────────────────────────────────
 
 def load_lines(path: Path) -> List[str]:
     with open(path, encoding="utf-8", errors="replace") as fh:
@@ -147,9 +108,7 @@ def compute_repetition_score(text: str) -> float:
     return repeated / len(bigrams)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Check 1: Sanity
-# ──────────────────────────────────────────────────────────────────────────────
 
 def check_sanity(direction: str, src: List[str], hyp: List[str]) -> Dict[str, Any]:
     result = {
@@ -170,9 +129,7 @@ def check_sanity(direction: str, src: List[str], hyp: List[str]) -> Dict[str, An
     return result
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Check 2: Language validity
-# ──────────────────────────────────────────────────────────────────────────────
 
 def check_language(
     direction: str, hyp: List[str], sample_n: int = 300
@@ -215,9 +172,7 @@ def check_language(
     }
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Check 3: Source copying detection
-# ──────────────────────────────────────────────────────────────────────────────
 
 def check_source_copying(
     direction: str, src: List[str], hyp: List[str]
@@ -242,11 +197,11 @@ def check_source_copying(
     issues = []
     if exact_pct > 2:
         issues.append(
-            f"{exact_copies} exact source copies ({exact_pct}%) — model is not translating"
+            f"{exact_copies} exact source copies ({exact_pct}%) - model is not translating"
         )
     if high_ov_pct > 10:
         issues.append(
-            f"{high_overlap} lines with >80% token overlap ({high_ov_pct}%) — possible undertranslation"
+            f"{high_overlap} lines with >80% token overlap ({high_ov_pct}%) - possible undertranslation"
         )
 
     return {
@@ -261,9 +216,7 @@ def check_source_copying(
     }
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Check 4: Length consistency
-# ──────────────────────────────────────────────────────────────────────────────
 
 def check_length(
     direction: str,
@@ -328,9 +281,7 @@ def check_length(
     }
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Check 5: Fluency signals
-# ──────────────────────────────────────────────────────────────────────────────
 
 def check_fluency(direction: str, hyp: List[str]) -> Dict[str, Any]:
     rep_scores = []
@@ -352,13 +303,13 @@ def check_fluency(direction: str, hyp: List[str]) -> Dict[str, Any]:
     issues = []
     if mean_rep > 0.15:
         issues.append(
-            f"Mean repetition score {mean_rep:.3f} is high — model may be looping"
+            f"Mean repetition score {mean_rep:.3f} is high - model may be looping"
         )
     if high_rep_pct > 10:
         issues.append(f"{high_rep_pct}% of sentences have high repetition (>0.3)")
     if mean_ttr < 0.4:
         issues.append(
-            f"Mean type-token ratio {mean_ttr:.3f} is very low — limited vocabulary diversity"
+            f"Mean type-token ratio {mean_ttr:.3f} is very low - limited vocabulary diversity"
         )
 
     return {
@@ -371,9 +322,7 @@ def check_fluency(direction: str, hyp: List[str]) -> Dict[str, Any]:
     }
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Check 6: COMET-QE (reference-free quality estimation)
-# ──────────────────────────────────────────────────────────────────────────────
 
 def check_comet_qe(
     direction: str, src: List[str], hyp: List[str]
@@ -382,7 +331,7 @@ def check_comet_qe(
         return {
             "direction": direction,
             "available": False,
-            "issues": ["COMET not installed — pip install unbabel-comet"],
+            "issues": ["COMET not installed - pip install unbabel-comet"],
             "passed": True,  # don't fail for missing optional dependency
         }
 
@@ -428,18 +377,16 @@ def check_comet_qe(
         }
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Report generation
-# ──────────────────────────────────────────────────────────────────────────────
 
 def generate_report(all_results: Dict[str, Dict[str, Any]], split: str) -> str:
     lines = []
-    lines.append(f"# Reference-Free Evaluation Report — `{split}` split\n")
+    lines.append(f"# Reference-Free Evaluation Report - `{split}` split\n")
     lines.append("*No target references available. Checks are based on source-hypothesis*")
     lines.append("*consistency, language validity, and statistical patterns.*\n")
     lines.append("---\n")
 
-    # ── Overall verdict ───────────────────────────────────────────────────
+    # Overall verdict
     lines.append("## Overall Verdict\n")
     lines.append("| Direction | Sanity | Language | Copying | Length | Fluency | Ready? |")
     lines.append("|-----------|--------|----------|---------|--------|---------|--------|")
@@ -448,17 +395,17 @@ def generate_report(all_results: Dict[str, Dict[str, Any]], split: str) -> str:
         cells = []
         for check_name in ["sanity", "language", "copying", "length", "fluency"]:
             c = checks.get(check_name, {})
-            cells.append("✅" if c.get("passed", True) else "❌")
+            cells.append("PASS" if c.get("passed", True) else "FAIL")
 
         all_pass = all(
             checks.get(cn, {}).get("passed", True)
             for cn in ["sanity", "language", "copying", "length", "fluency"]
         )
-        verdict = "✅ SUBMIT" if all_pass else "⚠️ REVIEW"
+        verdict = "SUBMIT" if all_pass else "REVIEW"
         lines.append(f"| {direction} | {' | '.join(cells)} | {verdict} |")
     lines.append("")
 
-    # ── Detailed results per direction ────────────────────────────────────
+    # Detailed results per direction
     for direction, checks in all_results.items():
         lines.append(f"## {direction}\n")
 
@@ -471,7 +418,7 @@ def generate_report(all_results: Dict[str, Dict[str, Any]], split: str) -> str:
             if not c:
                 continue
 
-            status = "✅" if c.get("passed", True) else "❌"
+            status = "PASS" if c.get("passed", True) else "FAIL"
             lines.append(f"**{label}** {status}\n")
 
             # Show key metrics
@@ -484,10 +431,10 @@ def generate_report(all_results: Dict[str, Dict[str, Any]], split: str) -> str:
 
             # Show issues
             for iss in c.get("issues", []):
-                lines.append(f"- ⚠️ {iss}")
+                lines.append(f"- {iss}")
             lines.append("")
 
-    # ── Action items ──────────────────────────────────────────────────────
+    # Action items
     lines.append("## Action Items\n")
 
     all_issues = []
@@ -497,7 +444,7 @@ def generate_report(all_results: Dict[str, Dict[str, Any]], split: str) -> str:
                 all_issues.append((direction, check_name, iss))
 
     if not all_issues:
-        lines.append("No issues found. All directions ready for submission. ✅\n")
+        lines.append("No issues found. All directions ready for submission.\n")
     else:
         for direction, check, issue in all_issues:
             lines.append(f"- **{direction}** ({check}): {issue}")
@@ -506,9 +453,7 @@ def generate_report(all_results: Dict[str, Dict[str, Any]], split: str) -> str:
     return "\n".join(lines)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # CLI + Main
-# ──────────────────────────────────────────────────────────────────────────────
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(
@@ -548,10 +493,10 @@ def main() -> None:
         hyp_path = args.hyp_dir / f"{direction}.txt"
 
         if src_path is None:
-            log.warning("Skipping %s — no source file for split '%s'", direction, args.split)
+            log.warning("Skipping %s - no source file for split '%s'", direction, args.split)
             continue
         if not hyp_path.exists():
-            log.warning("Skipping %s — no hypothesis at %s", direction, hyp_path)
+            log.warning("Skipping %s - no hypothesis at %s", direction, hyp_path)
             continue
 
         log.info("━" * 55)
@@ -573,7 +518,7 @@ def main() -> None:
         checks: Dict[str, Any] = {}
 
         # Check 1: Sanity
-        log.info("  Check 1 — Sanity")
+        log.info("  Check 1 - Sanity")
         checks["sanity"] = check_sanity(direction, src, hyp)
         s = checks["sanity"]
         log.info("    lines: src=%d hyp=%d match=%s empty=%d",
@@ -584,19 +529,19 @@ def main() -> None:
         src_t, hyp_t = src[:n], hyp[:n]
 
         # Check 2: Language
-        log.info("  Check 2 — Language validity")
+        log.info("  Check 2 - Language validity")
         checks["language"] = check_language(direction, hyp_t)
         log.info("    correct script: %s%%", checks["language"]["correct_script_pct"])
 
         # Check 3: Source copying
-        log.info("  Check 3 — Source copying")
+        log.info("  Check 3 - Source copying")
         checks["copying"] = check_source_copying(direction, src_t, hyp_t)
         log.info("    exact copies: %s  high overlap: %s%%",
                  checks["copying"]["exact_copies"],
                  checks["copying"]["high_overlap_pct"])
 
         # Check 4: Length consistency
-        log.info("  Check 4 — Length consistency")
+        log.info("  Check 4 - Length consistency")
         checks["length"] = check_length(direction, src_t, hyp_t, devtest_hyp, devtest_src)
         lc = checks["length"]
         log.info("    ratio: %.3f (expected: %.3f from %s, drift: %.1f%%)",
@@ -604,7 +549,7 @@ def main() -> None:
                  lc["baseline_source"], lc["drift_pct"])
 
         # Check 5: Fluency
-        log.info("  Check 5 — Fluency signals")
+        log.info("  Check 5 - Fluency signals")
         checks["fluency"] = check_fluency(direction, hyp_t)
         log.info("    repetition: %.3f  TTR: %.3f",
                  checks["fluency"]["mean_repetition"],
@@ -612,7 +557,7 @@ def main() -> None:
 
         # Check 6: COMET-QE
         if args.comet_qe:
-            log.info("  Check 6 — COMET-QE")
+            log.info("  Check 6 - COMET-QE")
             checks["comet_qe"] = check_comet_qe(direction, src_t, hyp_t)
             if checks["comet_qe"].get("system_score"):
                 log.info("    COMET-QE: %.4f", checks["comet_qe"]["system_score"])
@@ -621,9 +566,9 @@ def main() -> None:
         failed = [name for name, c in checks.items()
                   if not c.get("passed", True)]
         if failed:
-            log.warning("  ⚠️  ISSUES in: %s", ", ".join(failed))
+            log.warning("  ISSUES in: %s", ", ".join(failed))
         else:
-            log.info("  ✅ All checks passed")
+            log.info("  All checks passed")
 
         all_results[direction] = checks
 
@@ -631,7 +576,7 @@ def main() -> None:
         log.error("No directions evaluated. Check file paths.")
         sys.exit(1)
 
-    # ── Write outputs ─────────────────────────────────────────────────────
+    # Write outputs
     log.info("━" * 55)
     report = generate_report(all_results, args.split)
     (out / "PRESUBMISSION_REPORT.md").write_text(report, encoding="utf-8")
@@ -641,7 +586,7 @@ def main() -> None:
         encoding="utf-8",
     )
 
-    # ── Print summary ─────────────────────────────────────────────────────
+    # Print summary
     print("\n" + "═" * 72)
     print("  PRE-SUBMISSION CHECK (NO REFERENCE)")
     print("═" * 72)
@@ -656,7 +601,7 @@ def main() -> None:
         le = checks["length"]
         f = checks["fluency"]
         failed = any(not ch.get("passed", True) for ch in checks.values())
-        status = " ⚠ CHECK" if failed else "    OK ✅"
+        status = "   CHECK" if failed else "      OK"
         print(
             f"  {direction:<10} {s['hyp_lines']:>7} {s['empty_pct']:>6.1f}% "
             f"{l['correct_script_pct']:>7.0f}% {c['exact_copy_pct']:>6.1f}% "
@@ -672,9 +617,9 @@ def main() -> None:
         for iss in [c.get("issues", [])]
     )
     if total_issues == 0:
-        print("\n  ✅ ALL DIRECTIONS PASS — ready for submission\n")
+        print("\n  ALL DIRECTIONS PASS - ready for submission\n")
     else:
-        print(f"\n  ⚠️  {total_issues} issue(s) found — see PRESUBMISSION_REPORT.md\n")
+        print(f"\n  {total_issues} issue(s) found - see PRESUBMISSION_REPORT.md\n")
     print("═" * 72 + "\n")
 
     log.info("Report → %s", out / "PRESUBMISSION_REPORT.md")

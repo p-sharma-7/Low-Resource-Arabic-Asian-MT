@@ -1,16 +1,3 @@
-#!/usr/bin/env python3
-"""
-resume_finetune.py — Resume fine-tuning from where it stopped.
-
-Checks finetuned_checkpoints/{model}/{direction}/ for a saved model.
-Skips directions that already have a completed checkpoint.
-Runs remaining directions sequentially.
-
-Usage:
-    python resume_finetune.py                   # all 3 models, all 6 directions
-    python resume_finetune.py --model nllb      # only NLLB remaining directions
-    python resume_finetune.py --dry_run         # print what would run, don't train
-"""
 import argparse
 import logging
 import os
@@ -23,7 +10,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# ── Config ───────────────────────────────────────────────────────────────────
+# Config
 REPO_ROOT = os.environ.get("WMT_ROOT", os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, REPO_ROOT)
 
@@ -96,7 +83,7 @@ def run(model_filter: str = "all", dry_run: bool = False) -> None:
         for src, tgt in TRANSLATION_DIRECTIONS:
             direction = f"{src}-{tgt}"
             if is_done(model, src, tgt):
-                logger.info("  [SKIP — already done] %s", direction)
+                logger.info("  [SKIP - already done] %s", direction)
             else:
                 logger.info("  [PENDING]             %s", direction)
                 pending.append((src, tgt))
@@ -106,11 +93,11 @@ def run(model_filter: str = "all", dry_run: bool = False) -> None:
             continue
 
         if dry_run:
-            logger.info("  Dry run — would train: %s",
+            logger.info("  Dry run - would train: %s",
                         [f"{s}-{t}" for s, t in pending])
             continue
 
-        # ── Load trainer for this model ───────────────────────────────────
+        # Load trainer for this model
         if model == "nllb":
             from pipelines.train_nllb import train_nllb_direction as train_fn
         elif model == "madlad":
@@ -127,7 +114,7 @@ def run(model_filter: str = "all", dry_run: bool = False) -> None:
                 logger.info("  [DONE] %s  %s", model.upper(), direction)
             except Exception as e:
                 logger.error("  [FAILED] %s  %s: %s", model.upper(), direction, e)
-                logger.error("  Stopping — fix the error and re-run to resume.")
+                logger.error("  Stopping - fix the error and re-run to resume.")
                 raise
 
 
@@ -173,7 +160,7 @@ def main():
 
     # GPU check
     if not torch.cuda.is_available():
-        logger.error("No CUDA GPU found — aborting.")
+        logger.error("No CUDA GPU found - aborting.")
         sys.exit(1)
 
     free_gb = torch.cuda.mem_get_info(0)[0] / 1024**3
@@ -190,7 +177,7 @@ def main():
             free_gb,
         )
         if free_gb < 15:
-            logger.error("Less than 15 GB free — too risky to start. Aborting.")
+            logger.error("Less than 15 GB free - too risky to start. Aborting.")
             sys.exit(1)
 
     if args.debug:

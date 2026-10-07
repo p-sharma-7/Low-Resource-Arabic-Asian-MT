@@ -1,5 +1,5 @@
 """
-rebuild_json.py — Reconstruct all_results_dev.json from existing metric .txt files.
+rebuild_json.py - Reconstruct all_results_dev.json from existing metric .txt files.
 
 Run from the wmt directory:
     python rebuild_json.py

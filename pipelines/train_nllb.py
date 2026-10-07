@@ -1,21 +1,3 @@
-"""
-train_nllb.py — Fine-tuning facebook/nllb-200-3.3B with Seq2SeqTrainer.
-
-Training protocol:
-  • Optimizer  : AdamW (fp16)
-  • Scheduler  : linear warmup + decay
-  • Eval metric: COMET-22 (primary) — best checkpoint kept per direction
-  • Early stop : patience=2 epochs (on COMET-22)
-  • Splits     : train_* for training, dev_* for validation
-
-Each of the 6 translation directions is fine-tuned as a separate run,
-saving its best checkpoint under:
-    checkpoints/nllb/{src_lang}-{tgt_lang}/
-
-Standalone usage:
-    python train_nllb.py [--direction ar-en] [--all]
-"""
-
 import argparse
 import logging
 import os
@@ -71,9 +53,7 @@ def _get_lang_token_id(tokenizer, lang_code):
 MODEL_KEY  = "nllb"
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Tokenisation
-# ─────────────────────────────────────────────────────────────────────────────
 
 def tokenize_batch(
     examples: Dict,
@@ -105,9 +85,7 @@ def tokenize_batch(
     return model_inputs
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # compute_metrics callback  (COMET-22)
-# ─────────────────────────────────────────────────────────────────────────────
 
 def make_compute_metrics(
     tokenizer: AutoTokenizer,
@@ -142,9 +120,7 @@ def make_compute_metrics(
     return compute_metrics
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Single-direction training
-# ─────────────────────────────────────────────────────────────────────────────
 
 def train_nllb_direction(src_lang: str, tgt_lang: str) -> str:
     """
@@ -161,7 +137,7 @@ def train_nllb_direction(src_lang: str, tgt_lang: str) -> str:
     os.makedirs(ckpt_dir, exist_ok=True)
     os.makedirs(output_dir, exist_ok=True)
 
-    # ── Load tokeniser & model ──────────────────────────────────────────────
+    # Load tokeniser & model
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
     model = AutoModelForSeq2SeqLM.from_pretrained(
         MODEL_NAME,
@@ -174,7 +150,7 @@ def train_nllb_direction(src_lang: str, tgt_lang: str) -> str:
     forced_bos_id = _get_lang_token_id(tokenizer, tgt_code)
     model.config.forced_bos_token_id = forced_bos_id
 
-    # ── Datasets ────────────────────────────────────────────────────────────
+    # Datasets
     datasets = load_dataset_for_direction(src_lang, tgt_lang)
     max_len  = MAX_INPUT_LENGTH[MODEL_KEY]
 
@@ -196,7 +172,7 @@ def train_nllb_direction(src_lang: str, tgt_lang: str) -> str:
     dev_sources, dev_references = get_src_tgt_lists(src_lang, tgt_lang, "dev")
     compute_metrics = make_compute_metrics(tokenizer, dev_sources, dev_references)
 
-    # ── Trainer ─────────────────────────────────────────────────────────────
+    # Trainer
     data_collator = DataCollatorForSeq2Seq(
         tokenizer, model=model, padding=True, pad_to_multiple_of=8
     )
@@ -222,7 +198,7 @@ def train_nllb_direction(src_lang: str, tgt_lang: str) -> str:
     logger.info("Starting training …")
     trainer.train()
 
-    # ── Save best model ──────────────────────────────────────────────────────
+    # Save best model
     trainer.save_model(output_dir)
     tokenizer.save_pretrained(output_dir)
     logger.info("Best checkpoint saved → %s", output_dir)
@@ -230,9 +206,7 @@ def train_nllb_direction(src_lang: str, tgt_lang: str) -> str:
     return output_dir
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Train all 6 directions
-# ─────────────────────────────────────────────────────────────────────────────
 
 def train_all_nllb() -> None:
     """Fine-tune NLLB-200-3.3B sequentially on all 6 translation directions."""
@@ -242,9 +216,7 @@ def train_all_nllb() -> None:
         torch.cuda.empty_cache()
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Standalone entry point
-# ─────────────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
     logging.basicConfig(

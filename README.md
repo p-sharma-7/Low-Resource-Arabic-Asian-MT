@@ -1,5 +1,10 @@
 # Arabic–Asian Machine Translation — NLP-IIT-Patna @ WMT 2026
 
+**Paper:** [NLP-IIT Patna at WMT 2026: Corpus-Driven Adaptation of Multilingual MT
+Models for Low-Resource Arabic–Asian Machine
+Translation](https://www2.statmt.org/wmt26/pdf/2026.wmt-1.175.pdf) (PDF) ·
+Proceedings of WMT 2026
+
 Code and artefacts for our submission to the WMT 2026 shared task on Low-Resource
 Arabic–Asian Machine Translation. We entered six directions — Arabic↔English,
 Arabic↔Hindi and Arabic↔Urdu (Sub-Tasks 1A, 1B, 1E, 2A, 2B, 2E) — and fine-tuned
@@ -202,19 +207,17 @@ resume_finetune.py      restart training for directions without a checkpoint
 ## Citation
 
 The WMT 2026 proceedings are not on the ACL Anthology yet — the entry will appear at
-`aclanthology.org/2026.wmt-1.<id>/` after the conference (28–29 October 2026,
-Budapest), and its "Cite (BibTeX)" button gives the final form, including the `pages`
-and `url` fields. Until then:
+`aclanthology.org/2026.wmt-1.175/` after the conference (28–29 October 2026,
+Budapest), and its "Cite (BibTeX)" button gives the final form. Until then:
 
 ```bibtex
-@inproceedings{sharma-etal-2026-corpus,
-    title = "Corpus-Driven Adaptation of Multilingual {MT} Models for Low-Resource {A}rabic--{A}sian Machine Translation",
-    author = "Sharma, Pushkar and Ahtasam, Mo and Singh, Kshetrimayum Boynao and Kumar, Deepak and Ekbal, Asif",
-    booktitle = "Proceedings of the Eleventh Conference on Machine Translation",
-    month = oct,
-    year = "2026",
-    address = "Budapest, Hungary",
-    publisher = "Association for Computational Linguistics",
+@inproceedings{sharma2026nlp,
+  title={NLP-IIT Patna at WMT 2026: Corpus-Driven Adaptation of Multilingual MT Models for Low-Resource Arabic--Asian Machine Translation},
+  author={Sharma, Pushkar and Ahtasam, Mo and Singh, Kshetrimayum Boynao and Kumar, Deepak and Ekbal, Asif},
+  booktitle={Proceedings of the Eleventh Conference on Machine Translation, Budapest, Hungary. Association for Computational Linguistics},
+  year={2026},
+  pages={2336--2344},
+  url={https://www2.statmt.org/wmt26/pdf/2026.wmt-1.175.pdf}
 }
 ```
 

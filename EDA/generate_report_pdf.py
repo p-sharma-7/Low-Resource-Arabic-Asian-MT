@@ -1,16 +1,3 @@
-#!/usr/bin/env python3
-"""
-generate_report_pdf.py — Generate a comprehensive PDF EDA report for the
-WMT26 multilingual MT dataset (Ar-En, Ar-Hi, Ar-Ur).
-
-Usage:
-    python generate_report_pdf.py \
-        --phase1-dir eda_train \
-        --phase2-dir eda_split \
-        --output MT_Dataset_EDA_Report.pdf
-"""
-
-# ── Bootstrap missing packages ─────────────────────────────────────────────
 import subprocess, sys
 
 _DEPS = [
@@ -26,7 +13,7 @@ for _pkg, _imp in _DEPS:
         print(f"Installing {_pkg} …", flush=True)
         subprocess.check_call([sys.executable, "-m", "pip", "install", _pkg, "-q"])
 
-# ── Standard imports ───────────────────────────────────────────────────────
+# Standard imports
 import argparse
 import csv
 import json
@@ -49,7 +36,7 @@ logging.basicConfig(
 )
 log = logging.getLogger(__name__)
 
-# ── Layout constants ───────────────────────────────────────────────────────
+# Layout constants
 MARGIN    = 20          # mm
 CONTENT_W = 210 - 2 * MARGIN   # 170 mm
 
@@ -65,7 +52,7 @@ FONT_SIZE = {1: 16, 2: 13, 3: 11}
 BODY_SZ   = 9
 LINE_H    = 5   # mm
 
-# ── Font paths & download URLs ─────────────────────────────────────────────
+# Font paths & download URLs
 FONT_CACHE  = Path.home() / ".local" / "share" / "fonts"
 DEJAVU_REG    = Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
 DEJAVU_BOLD   = Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf")
@@ -87,7 +74,7 @@ _NOTO = {
 _FONTS_OK: set = set()   # populated by setup_fonts()
 
 
-# ── Font helpers ───────────────────────────────────────────────────────────
+# Font helpers
 
 def setup_fonts(pdf: "EDAReport") -> None:
     """Register DejaVu + try to download/register Noto fonts."""
@@ -104,7 +91,7 @@ def setup_fonts(pdf: "EDAReport") -> None:
             try:
                 urllib.request.urlretrieve(url, str(local))
             except Exception as exc:
-                log.warning("Cannot download %s: %s — using DejaVu fallback", family, exc)
+                log.warning("Cannot download %s: %s - using DejaVu fallback", family, exc)
                 continue
         try:
             pdf.add_font(family, style="", fname=str(local))
@@ -140,7 +127,7 @@ def _shape(text: str) -> str:
     return text
 
 
-# ── I/O helpers ───────────────────────────────────────────────────────────
+# I/O helpers
 
 def read_json(path: str) -> Optional[Any]:
     try:
@@ -246,16 +233,16 @@ def extract_per_direction_assessment(md: str) -> List[Tuple[str, str]]:
     return results
 
 
-# ── PDF class ──────────────────────────────────────────────────────────────
+# PDF class
 
 class EDAReport(FPDF):
     def __init__(self) -> None:
         super().__init__(orientation="P", unit="mm", format="A4")
         self.set_margins(MARGIN, MARGIN, MARGIN)
         self.set_auto_page_break(auto=True, margin=MARGIN)
-        self._doc_title = "Multilingual MT Dataset — EDA Report"
+        self._doc_title = "Multilingual MT Dataset - EDA Report"
 
-    # ── Header / footer ──────────────────────────────────────────────────
+    # Header / footer
 
     def header(self) -> None:
         if self.page_no() <= 3:   # cover + TOC pages
@@ -275,7 +262,7 @@ class EDAReport(FPDF):
         self.cell(0, 10, f"Page {self.page_no()}", align="C")
         self.set_text_color(0, 0, 0)
 
-    # ── Section title ────────────────────────────────────────────────────
+    # Section title
 
     def section_title(self, text: str, level: int = 1) -> None:
         self.ln(4 if level > 1 else 8)
@@ -303,7 +290,7 @@ class EDAReport(FPDF):
         self.set_text_color(0, 0, 0)
         self.start_section(text, level=level - 1)
 
-    # ── Key-value table ──────────────────────────────────────────────────
+    # Key-value table
 
     def kv_table(self, rows: List[Tuple[str, str]]) -> None:
         col_k = CONTENT_W * 0.45
@@ -323,7 +310,7 @@ class EDAReport(FPDF):
             self.cell(col_v, LINE_H, str(v), border=0, new_x="LMARGIN", new_y="NEXT", fill=fill)
         self.ln(2)
 
-    # ── Data table ───────────────────────────────────────────────────────
+    # Data table
 
     def data_table(
         self,
@@ -378,7 +365,7 @@ class EDAReport(FPDF):
             self.set_text_color(0, 0, 0)
         self.ln(2)
 
-    # ── Image ────────────────────────────────────────────────────────────
+    # Image
 
     def embed_image(self, path: str, caption: Optional[str] = None) -> None:
         if not os.path.exists(path):
@@ -410,7 +397,7 @@ class EDAReport(FPDF):
             log.warning("Cannot embed image %s: %s", path, exc)
             self.miss(path)
 
-    # ── Missing-file note ────────────────────────────────────────────────
+    # Missing-file note
 
     def miss(self, path: str) -> None:
         log.warning("Missing: %s", path)
@@ -427,7 +414,7 @@ class EDAReport(FPDF):
         self.multi_cell(CONTENT_W, 4, text, align="L")
 
 
-# ── TOC renderer ──────────────────────────────────────────────────────────
+# TOC renderer
 
 def _render_toc(pdf: EDAReport, outline: list) -> None:
     pdf.set_font("DejaVu", style="B", size=14)
@@ -452,7 +439,7 @@ def _render_toc(pdf: EDAReport, outline: list) -> None:
         pdf.cell(12, 5, pg, align="R", new_x="LMARGIN", new_y="NEXT")
 
 
-# ── Section builders ──────────────────────────────────────────────────────
+# Section builders
 
 def build_cover(pdf: EDAReport, p1: str, p2: str) -> None:
     pdf.add_page()
@@ -477,23 +464,23 @@ def build_cover(pdf: EDAReport, p1: str, p2: str) -> None:
     pdf.cell(CONTENT_W, 6, f"Date: {date.today().strftime('%d %B %Y')}",
              align="C", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(4)
-    pdf.cell(CONTENT_W, 6, f"Phase 1 — Training Analysis:   {os.path.basename(p1)}",
+    pdf.cell(CONTENT_W, 6, f"Phase 1 - Training Analysis:   {os.path.basename(p1)}",
              align="C", new_x="LMARGIN", new_y="NEXT")
-    pdf.cell(CONTENT_W, 6, f"Phase 2 — Cross-Split Analysis: {os.path.basename(p2)}",
+    pdf.cell(CONTENT_W, 6, f"Phase 2 - Cross-Split Analysis: {os.path.basename(p2)}",
              align="C", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(14)
     pdf.set_font("DejaVu", size=9)
     pdf.set_text_color(140, 140, 140)
     pdf.multi_cell(CONTENT_W, 5,
         "Sections covered:\n"
-        "  Part 1 — Training Set Analysis (alignment, per-file stats, language aggregation)\n"
-        "  Part 2 — Cross-Split Analysis (OOV, leakage, n-gram overlap, semantic similarity)\n"
-        "  Part 3 — Overall Assessment",
+        "  Part 1 - Training Set Analysis (alignment, per-file stats, language aggregation)\n"
+        "  Part 2 - Cross-Split Analysis (OOV, leakage, n-gram overlap, semantic similarity)\n"
+        "  Part 3 - Overall Assessment",
         align="C")
     pdf.set_text_color(0, 0, 0)
 
 
-# ── Part 1 ────────────────────────────────────────────────────────────────
+# Part 1
 
 def build_alignment_check(pdf: EDAReport, p1: str) -> None:
     pdf.add_page()
@@ -515,7 +502,7 @@ def build_alignment_check(pdf: EDAReport, p1: str) -> None:
             str(e.get("src_sentences", "")),
             str(e.get("tgt_sentences", "")),
             str(e.get("delta", "")),
-            "PASS ✓" if e.get("aligned") else "FAIL ✗",
+            "PASS" if e.get("aligned") else "FAIL",
         ])
     pdf.data_table(headers, rows, col_widths=[3, 3, 3, 2, 2])
 
@@ -589,7 +576,7 @@ def build_per_language(pdf: EDAReport, p1: str) -> None:
             pdf.embed_image(os.path.join(folder, fname), caption=caption)
 
 
-# ── Part 2 helpers ────────────────────────────────────────────────────────
+# Part 2 helpers
 
 def _p2csv(p2: str, name: str) -> str:
     return os.path.join(p2, "csv", name)
@@ -598,7 +585,7 @@ def _p2plot(p2: str, name: str) -> str:
     return os.path.join(p2, "plots", name)
 
 
-# ── Part 2 section builders ───────────────────────────────────────────────
+# Part 2 section builders
 
 def build_split_statistics(pdf: EDAReport, p2: str) -> None:
     pdf.add_page()
@@ -727,7 +714,7 @@ def build_lang_summary(pdf: EDAReport, p2: str) -> None:
     pdf.data_table(headers, data)
 
 
-# ── Part 3 ────────────────────────────────────────────────────────────────
+# Part 3
 
 def build_assessment(pdf: EDAReport, p2: str) -> None:
     pdf.add_page()
@@ -749,7 +736,7 @@ def build_assessment(pdf: EDAReport, p2: str) -> None:
                 if not stripped:
                     pdf.ln(2)
                 elif stripped.startswith("|"):
-                    # Markdown table row — render as plain text
+                    # Markdown table row - render as plain text
                     pdf.multi_cell(CONTENT_W, 4, stripped, align="L")
                 else:
                     pdf.multi_cell(CONTENT_W, 4, stripped, align="L")
@@ -770,7 +757,7 @@ def build_assessment(pdf: EDAReport, p2: str) -> None:
                 pdf.multi_cell(CONTENT_W, 4, stripped, align="L")
 
 
-# ── CLI + orchestration ────────────────────────────────────────────────────
+# CLI + orchestration
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(
@@ -805,23 +792,23 @@ def main() -> None:
 
     pdf = EDAReport()
     setup_fonts(pdf)
-    pdf.set_title("Multilingual MT Dataset — EDA Report")
+    pdf.set_title("Multilingual MT Dataset - EDA Report")
     pdf.set_author("WMT26 Arabic-Asian MT Challenge")
 
-    # ── Cover (page 1) ────────────────────────────────────────────────────
+    # Cover (page 1)
     build_cover(pdf, p1, p2)
 
-    # ── TOC placeholder (pages 2-3) ───────────────────────────────────────
+    # TOC placeholder (pages 2-3)
     pdf.add_page()
     pdf.insert_toc_placeholder(_render_toc, pages=1)
 
-    # ── Part 1 ────────────────────────────────────────────────────────────
+    # Part 1
     build_alignment_check(pdf, p1)
     build_summary_table(pdf, p1)
     build_per_file(pdf, p1)
     build_per_language(pdf, p1)
 
-    # ── Part 2 ────────────────────────────────────────────────────────────
+    # Part 2
     build_split_statistics(pdf, p2)
     build_vocab_coverage(pdf, p2)
     build_oov(pdf, p2)
@@ -833,10 +820,10 @@ def main() -> None:
     build_divergence(pdf, p2)
     build_lang_summary(pdf, p2)
 
-    # ── Part 3 ────────────────────────────────────────────────────────────
+    # Part 3
     build_assessment(pdf, p2)
 
-    # ── Save ──────────────────────────────────────────────────────────────
+    # Save
     pdf.output(out)
     size_mb = round(os.path.getsize(out) / 1024 / 1024, 1)
     log.info("Report saved → %s  (%s MB)", out, size_mb)

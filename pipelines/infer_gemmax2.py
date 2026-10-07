@@ -1,14 +1,3 @@
-"""
-infer_gemmax2.py — Zero-shot inference with ModelSpace/GemmaX2-28-9B-v0.1.
-
-GemmaX2 is a Gemma-2-based decoder-only LLM trained for multilingual MT.
-We use instruction-formatted prompts and decode only the newly generated
-tokens (everything after "Translation:").
-
-Standalone usage:
-    python infer_gemmax2.py [--split devtest] [--batch_size 4]
-"""
-
 import argparse
 import logging
 import os
@@ -44,9 +33,7 @@ MODEL_NAME = MODELS["gemmax2"]
 MODEL_KEY  = "gemmax2"
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Prompt template
-# ─────────────────────────────────────────────────────────────────────────────
 
 def format_prompt(source: str, src_lang: str, tgt_lang: str) -> str:
     """
@@ -66,9 +53,7 @@ def format_prompt(source: str, src_lang: str, tgt_lang: str) -> str:
     )
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Model loading
-# ─────────────────────────────────────────────────────────────────────────────
 
 def load_gemmax2(
     model_path: Optional[str] = None,
@@ -120,9 +105,7 @@ def load_gemmax2(
     return model, tokenizer
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Translation
-# ─────────────────────────────────────────────────────────────────────────────
 
 def translate_gemmax2(
     texts: List[str],
@@ -194,9 +177,7 @@ def translate_gemmax2(
     return translations
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Zero-shot runner
-# ─────────────────────────────────────────────────────────────────────────────
 
 def run_zero_shot_gemmax2(
     split: str = "devtest",
@@ -246,9 +227,7 @@ def run_zero_shot_gemmax2(
     return all_results
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Standalone entry point
-# ─────────────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
     logging.basicConfig(

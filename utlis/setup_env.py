@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-setup_env.py — Environment validation and conflict-resolution for WMT26 pipeline.
+setup_env.py - Environment validation and conflict-resolution for WMT26 pipeline.
 
 Run this ONCE before running run_pipeline.py to verify every dependency is
 installed correctly.
@@ -16,18 +16,16 @@ import subprocess
 import sys
 import argparse
 
-OK   = "\033[32m✓\033[0m"
-WARN = "\033[33m⚠\033[0m"
-FAIL = "\033[31m✗\033[0m"
+OK   = "\033[32m[ OK ]\033[0m"
+WARN = "\033[33m[WARN]\033[0m"
+FAIL = "\033[31m[FAIL]\033[0m"
 
 
 def pip(*args):
     subprocess.check_call([sys.executable, "-m", "pip", *args])
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Check helpers
-# ─────────────────────────────────────────────────────────────────────────────
 
 def check_python_version():
     v = sys.version_info
@@ -67,12 +65,12 @@ def check_cuda():
             n  = torch.cuda.device_count()
             nm = torch.cuda.get_device_name(0)
             gb = torch.cuda.get_device_properties(0).total_memory / 1024**3
-            print(f"  {OK}  CUDA  {n} GPU(s) — {nm}  ({gb:.0f} GB)")
+            print(f"  {OK}  CUDA  {n} GPU(s) - {nm}  ({gb:.0f} GB)")
         else:
-            print(f"  {WARN}  CUDA not available — pipeline will run on CPU (very slow)")
+            print(f"  {WARN}  CUDA not available - pipeline will run on CPU (very slow)")
         return True
     except ImportError:
-        print(f"  {FAIL}  torch not installed — cannot check CUDA")
+        print(f"  {FAIL}  torch not installed - cannot check CUDA")
         return False
 
 
@@ -99,7 +97,7 @@ def check_unbabel_comet(fix: bool = False):
     try:
         importlib.metadata.distribution("comet-ml")
         comet_ml_installed = True
-        print(f"  {WARN}  comet-ml is also installed — namespace conflict possible")
+        print(f"  {WARN}  comet-ml is also installed - namespace conflict possible")
     except importlib.metadata.PackageNotFoundError:
         print(f"  {OK}  comet-ml  NOT installed (no conflict)")
 
@@ -108,14 +106,14 @@ def check_unbabel_comet(fix: bool = False):
         from comet import download_model, load_from_checkpoint  # noqa: F401
         import inspect
         inspect.signature(load_from_checkpoint)   # comet-ml won't have this
-        print(f"  {OK}  `from comet import download_model` — OK")
+        print(f"  {OK}  `from comet import download_model` - OK")
         return True
     except (ImportError, Exception):
         pass
 
     try:
         from comet.models import download_model, load_from_checkpoint  # noqa: F401
-        print(f"  {OK}  `from comet.models import download_model` — OK (v1.x path)")
+        print(f"  {OK}  `from comet.models import download_model` - OK (v1.x path)")
         return True
     except (ImportError, Exception):
         pass
@@ -131,7 +129,7 @@ def check_unbabel_comet(fix: bool = False):
             import comet as _c
             _il.reload(_c)
             from comet import download_model  # noqa: F401
-            print(f"  {OK}  Fixed — unbabel-comet now on top")
+            print(f"  {OK}  Fixed - unbabel-comet now on top")
             return True
         except Exception:
             print(
@@ -152,9 +150,7 @@ def check_unbabel_comet(fix: bool = False):
         return False
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Main
-# ─────────────────────────────────────────────────────────────────────────────
 
 def main():
     parser = argparse.ArgumentParser()
@@ -163,7 +159,7 @@ def main():
     args = parser.parse_args()
 
     print("\n═══════════════════════════════════════════════════════════")
-    print("  WMT26 Pipeline — environment check")
+    print("  WMT26 Pipeline - environment check")
     print("═══════════════════════════════════════════════════════════\n")
 
     print("── Python & CUDA ────────────────────────────────────────────")
@@ -196,7 +192,7 @@ def main():
     print("\n═══════════════════════════════════════════════════════════")
     n_fail = results.count(False)
     if n_fail == 0:
-        print(f"  {OK}  All checks passed — ready to run run_pipeline.py")
+        print(f"  {OK}  All checks passed - ready to run run_pipeline.py")
     else:
         print(f"  {FAIL}  {n_fail} issue(s) detected.")
         if not args.fix:

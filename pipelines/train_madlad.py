@@ -1,26 +1,3 @@
-"""
-train_madlad.py — LoRA fine-tuning of google/madlad400-10b-mt.
-
-Memory budget (33 GB available after other process):
-  Full fine-tune needs ~60 GB (20 GB bf16 weights + 20 GB grads + 20 GB 8-bit Adam).
-  LoRA + 8-bit base loading needs ~14 GB:
-    8-bit base weights  : ~10 GB
-    LoRA trainable params: ~0.3 GB (r=16, T5 attn+FFN, ~150 M params)
-    LoRA gradients       : ~0.3 GB
-    fp32 Adam for LoRA   : ~1.2 GB
-    Activations (grad ckpt, batch=4): ~2 GB
-
-Training protocol:
-  Base model   : 8-bit (bitsandbytes load_in_8bit) -- frozen
-  LoRA adapters: r=16, a=32, T5 attention + FFN projections
-  Trainer      : Seq2SeqTrainer with predict_with_generate
-  Eval metric  : COMET-22
-  Saved artefact: LoRA adapter weights under outputs/finetuned/madlad/{dir}/
-
-Standalone usage:
-    python train_madlad.py [--direction ar-en] [--all]
-"""
-
 import argparse
 import logging
 import os

@@ -1,5 +1,5 @@
 """
-gpu_utils.py — CUDA enforcement helpers for WMT26 pipeline.
+gpu_utils.py - CUDA enforcement helpers for WMT26 pipeline.
 
 Call require_cuda() at the top of every entry-point so the pipeline
 fails immediately with a clear message instead of silently running
@@ -29,7 +29,7 @@ def require_cuda(min_free_gb: float = 10.0) -> int:
     if n == 0:
         _diagnose_and_abort()
 
-    logger.info("CUDA OK — %d GPU(s) available:", n)
+    logger.info("CUDA OK - %d GPU(s) available:", n)
     for i in range(n):
         props = torch.cuda.get_device_properties(i)
         free, total = torch.cuda.mem_get_info(i)
@@ -76,7 +76,7 @@ def _diagnose_and_abort() -> None:
         "  1. Driver/PyTorch version mismatch (most likely):",
         "       Check driver:  nvidia-smi",
         "       Check torch :  python -c \"import torch; print(torch.version.cuda)\"",
-        "     Fix — reinstall PyTorch matching your driver CUDA version:",
+        "     Fix - reinstall PyTorch matching your driver CUDA version:",
         "       Driver ≥ 525  → CUDA 12.x",
         "         pip install torch --index-url https://download.pytorch.org/whl/cu121",
         "       Driver ≥ 450  → CUDA 11.x",

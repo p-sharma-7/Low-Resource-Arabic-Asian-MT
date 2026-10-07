@@ -1,5 +1,5 @@
 """
-data_loader.py — Parallel corpus loading for WMT26 Arabic-Asian MT Challenge.
+data_loader.py - Parallel corpus loading for WMT26 Arabic-Asian MT Challenge.
 
 Each dataset folder uses the naming convention:
     {split}_{lang}_{pair}.txt
@@ -20,9 +20,7 @@ from utlis.config import DATASET_DIR, PAIR_FOLDER_MAP
 logger = logging.getLogger(__name__)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # File-path resolution
-# ─────────────────────────────────────────────────────────────────────────────
 
 def get_file_paths(src_lang: str, tgt_lang: str, split: str) -> Tuple[str, str]:
     """
@@ -50,9 +48,7 @@ def get_file_paths(src_lang: str, tgt_lang: str, split: str) -> Tuple[str, str]:
         return file_lang2, file_lang1
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Core loading helpers
-# ─────────────────────────────────────────────────────────────────────────────
 
 def load_parallel_data(
     src_lang: str,
@@ -129,9 +125,7 @@ def load_dataset_for_direction(
     return DatasetDict(dataset_splits)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Convenience: raw text lists
-# ─────────────────────────────────────────────────────────────────────────────
 
 def get_src_tgt_lists(
     src_lang: str,

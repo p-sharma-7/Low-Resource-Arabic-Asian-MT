@@ -1,14 +1,3 @@
-"""
-infer_madlad.py — Zero-shot inference with google/madlad400-10b-mt.
-
-MADLAD-400 is a T5-based seq2seq model.  Translation is triggered by
-prepending a language tag ("<2hi>", "<2ar>", …) to the source sentence.
-No src_lang needs to be set on the tokeniser.
-
-Standalone usage:
-    python infer_madlad.py [--split devtest] [--batch_size 8]
-"""
-
 import argparse
 import logging
 import os
@@ -40,9 +29,7 @@ MODEL_NAME = MODELS["madlad"]
 MODEL_KEY  = "madlad"
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Model loading
-# ─────────────────────────────────────────────────────────────────────────────
 
 def load_madlad(
     model_path: Optional[str] = None,
@@ -81,9 +68,7 @@ def load_madlad(
     return model, tokenizer
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Translation
-# ─────────────────────────────────────────────────────────────────────────────
 
 def translate_madlad(
     texts: List[str],
@@ -100,7 +85,7 @@ def translate_madlad(
 
     MADLAD's translation protocol: prepend the target-language tag to each
     source sentence, e.g.  "<2hi> مرحبا بالعالم".
-    No forced_bos_token_id is required — the model infers direction from the
+    No forced_bos_token_id is required - the model infers direction from the
     prefix.
     """
     tgt_code = MADLAD_LANG_CODES[tgt_lang]
@@ -146,9 +131,7 @@ def translate_madlad(
     return translations
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Zero-shot runner
-# ─────────────────────────────────────────────────────────────────────────────
 
 def run_zero_shot_madlad(
     split: str = "devtest",
@@ -190,9 +173,7 @@ def run_zero_shot_madlad(
     return all_results
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Standalone entry point
-# ─────────────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
     logging.basicConfig(

@@ -1,26 +1,3 @@
-#!/usr/bin/env python3
-"""
-cross_split_eda.py — Phase 2: Train ↔ Dev ↔ DevTest Split Analysis
-===================================================================
-Analyses every translation direction across TRAIN / DEV / DEVTEST splits.
-
-Covers 11 analyses:
-  1.  Dataset statistics          7.  Vocabulary frequency shift
-  2.  Vocabulary coverage         8.  Semantic similarity (TF-IDF / SBERT)
-  3.  OOV analysis                9.  Distribution divergence (JSD / KLD)
-  4.  Exact duplicate detection  10.  Leakage detection report
-  5.  N-gram overlap             11.  Cross-language summary
-  6.  Sentence length shift
-
-Plus 6 visualisations and 2 Markdown reports.
-
-Usage
------
-    python cross_split_eda.py
-    python cross_split_eda.py --dataset-root /data --output-root /out
-    python cross_split_eda.py --skip-semantic          # skip embedding analysis
-    python cross_split_eda.py --semantic-method tfidf   # or sbert
-"""
 from __future__ import annotations
 
 import argparse
@@ -56,9 +33,7 @@ from sklearn.metrics.pairwise import cosine_similarity as sklearn_cosine
 
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Logging
-# ──────────────────────────────────────────────────────────────────────────────
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s │ %(levelname)-7s │ %(message)s",
@@ -66,9 +41,7 @@ logging.basicConfig(
 )
 log = logging.getLogger(__name__)
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Constants
-# ──────────────────────────────────────────────────────────────────────────────
 SEED                   = 42
 MAX_EMBED_SAMPLES      = 50_000
 EMBED_BATCH            = 512
@@ -88,9 +61,7 @@ _FNAME_RE = re.compile(
     r"^(train|dev|devtest)_([a-z]{2})_([a-z]{2}-[a-z]{2})\.txt$"
 )
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Data structures
-# ──────────────────────────────────────────────────────────────────────────────
 
 @dataclass
 class SplitCorpus:
@@ -140,9 +111,7 @@ class AnalysisUnit:
         return f"{self.pair}/{self.lang}"
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # File discovery
-# ──────────────────────────────────────────────────────────────────────────────
 
 def _load_lines(path: Path) -> List[str]:
     with open(path, encoding="utf-8", errors="replace") as fh:
@@ -168,7 +137,7 @@ def discover_units(root: Path) -> List[AnalysisUnit]:
     for (pair, lang), splits in sorted(registry.items()):
         missing = {"train", "dev", "devtest"} - set(splits)
         if missing:
-            log.warning("Skipping %s/%s — missing splits: %s", pair, lang, missing)
+            log.warning("Skipping %s/%s - missing splits: %s", pair, lang, missing)
             continue
         log.info("Discovered  %s / %s  (train=%s)", pair, lang, splits["train"].name)
         units.append(AnalysisUnit(
@@ -180,9 +149,7 @@ def discover_units(root: Path) -> List[AnalysisUnit]:
     return units
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Helpers
-# ──────────────────────────────────────────────────────────────────────────────
 
 def _pct(num: float, den: float) -> float:
     return round(100.0 * num / den, 4) if den else 0.0
@@ -231,9 +198,7 @@ def _aligned_distributions(
     return p, q
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Analysis 1 — Dataset statistics
-# ──────────────────────────────────────────────────────────────────────────────
+# Analysis 1 - Dataset statistics
 
 def analysis_1(units: List[AnalysisUnit]) -> pd.DataFrame:
     """Per-split sentence / token counts."""
@@ -254,9 +219,7 @@ def analysis_1(units: List[AnalysisUnit]) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Analysis 2 — Vocabulary coverage
-# ──────────────────────────────────────────────────────────────────────────────
+# Analysis 2 - Vocabulary coverage
 
 def analysis_2(units: List[AnalysisUnit]) -> pd.DataFrame:
     rows: List[Dict[str, Any]] = []
@@ -282,9 +245,7 @@ def analysis_2(units: List[AnalysisUnit]) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Analysis 3 — OOV analysis
-# ──────────────────────────────────────────────────────────────────────────────
+# Analysis 3 - OOV analysis
 
 def analysis_3(
     units: List[AnalysisUnit],
@@ -324,9 +285,7 @@ def analysis_3(
     return pd.DataFrame(stats_rows), pd.DataFrame(oov_rows)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Analysis 4 — Exact duplicate sentences
-# ──────────────────────────────────────────────────────────────────────────────
+# Analysis 4 - Exact duplicate sentences
 
 def analysis_4(
     units: List[AnalysisUnit],
@@ -363,9 +322,7 @@ def analysis_4(
     return pd.DataFrame(summary_rows), pd.DataFrame(dup_rows)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Analysis 5 — N-gram overlap
-# ──────────────────────────────────────────────────────────────────────────────
+# Analysis 5 - N-gram overlap
 
 def analysis_5(units: List[AnalysisUnit]) -> pd.DataFrame:
     rows: List[Dict[str, Any]] = []
@@ -382,9 +339,7 @@ def analysis_5(units: List[AnalysisUnit]) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Analysis 6 — Sentence-length distribution shift
-# ──────────────────────────────────────────────────────────────────────────────
+# Analysis 6 - Sentence-length distribution shift
 
 def analysis_6(units: List[AnalysisUnit]) -> pd.DataFrame:
     rows: List[Dict[str, Any]] = []
@@ -404,9 +359,7 @@ def analysis_6(units: List[AnalysisUnit]) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Analysis 7 — Vocabulary frequency shift
-# ──────────────────────────────────────────────────────────────────────────────
+# Analysis 7 - Vocabulary frequency shift
 
 def analysis_7(units: List[AnalysisUnit]) -> pd.DataFrame:
     rows: List[Dict[str, Any]] = []
@@ -429,9 +382,7 @@ def analysis_7(units: List[AnalysisUnit]) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Analysis 8 — Semantic similarity
-# ──────────────────────────────────────────────────────────────────────────────
+# Analysis 8 - Semantic similarity
 
 def _sample(lines: List[str], n: int) -> List[str]:
     rng = np.random.RandomState(SEED)
@@ -472,7 +423,7 @@ def _semantic_sbert(
     eval_sents: List[str],
     model_name: str = "sentence-transformers/all-MiniLM-L6-v2",
 ) -> np.ndarray:
-    """SBERT cosine similarity — preferred if available."""
+    """SBERT cosine similarity - preferred if available."""
     model = SentenceTransformer(model_name)
     log.info("  Encoding train (%d sentences) …", len(train_sents))
     train_emb = model.encode(
@@ -511,7 +462,7 @@ def analysis_8(
 
     use_sbert = method == "sbert" and HAS_SBERT
     if method == "sbert" and not HAS_SBERT:
-        log.warning("sentence-transformers not installed — falling back to TF-IDF")
+        log.warning("sentence-transformers not installed - falling back to TF-IDF")
         use_sbert = False
 
     actual_method = "sbert" if use_sbert else "tfidf"
@@ -531,7 +482,7 @@ def analysis_8(
                 else:
                     sims = _semantic_tfidf(train_samp, eval_samp)
             except Exception as exc:
-                log.error("  Semantic similarity failed: %s — skipping", exc)
+                log.error("  Semantic similarity failed: %s - skipping", exc)
                 continue
 
             key = f"{u.direction}|{sc.name}"
@@ -548,9 +499,7 @@ def analysis_8(
     return pd.DataFrame(rows), all_sims
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Analysis 9 — Distribution divergence
-# ──────────────────────────────────────────────────────────────────────────────
+# Analysis 9 - Distribution divergence
 
 def analysis_9(units: List[AnalysisUnit]) -> pd.DataFrame:
     rows: List[Dict[str, Any]] = []
@@ -568,9 +517,7 @@ def analysis_9(units: List[AnalysisUnit]) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Analysis 10 — Leakage detection report
-# ──────────────────────────────────────────────────────────────────────────────
+# Analysis 10 - Leakage detection report
 
 def analysis_10(
     dup_summary: pd.DataFrame, ngram_df: pd.DataFrame
@@ -608,11 +555,11 @@ def analysis_10(
             tri_ov  = row.get("trigram_overlap", 0.0)
 
             if dup_pct > 5 or tri_ov > 95:
-                risk = "🔴 **HIGH RISK**"
+                risk = "**HIGH RISK**"
             elif dup_pct > 1:
-                risk = "🟡 **MEDIUM RISK**"
+                risk = "**MEDIUM RISK**"
             else:
-                risk = "🟢 **LOW RISK**"
+                risk = "**LOW RISK**"
 
             evidence: List[str] = []
             if dup_pct > 0:
@@ -620,7 +567,7 @@ def analysis_10(
             if tri_ov > 0:
                 evidence.append(f"Trigram overlap: {tri_ov:.2f}%")
 
-            lines.append(f"**{row['comparison']}**  — {risk}\n")
+            lines.append(f"**{row['comparison']}**  - {risk}\n")
             for e in evidence:
                 lines.append(f"- {e}")
             lines.append("")
@@ -628,9 +575,7 @@ def analysis_10(
     return "\n".join(lines)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Analysis 11 — Cross-language summary
-# ──────────────────────────────────────────────────────────────────────────────
+# Analysis 11 - Cross-language summary
 
 def analysis_11(
     units: List[AnalysisUnit],
@@ -682,9 +627,7 @@ def analysis_11(
     return pd.DataFrame(rows)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Visualisations
-# ──────────────────────────────────────────────────────────────────────────────
 
 plt.rcParams.update({
     "font.family":       "DejaVu Sans",
@@ -856,9 +799,7 @@ def plot_sentence_length(units: List[AnalysisUnit], path: Path) -> None:
     plt.close(fig)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Final report
-# ──────────────────────────────────────────────────────────────────────────────
 
 def _assessment(
     u: AnalysisUnit,
@@ -947,7 +888,7 @@ def _assessment(
             f"  → Representative: {'Yes' if representative else 'Needs review'}"
         )
         if leakage:
-            parts.append(f"  → ⚠️  Possible leakage ({dup_val:.2f}% duplicates)")
+            parts.append(f"  → Possible leakage ({dup_val:.2f}% duplicates)")
         else:
             parts.append("  → No leakage detected")
         parts.append("")
@@ -989,7 +930,7 @@ def build_final_report(
     sections.append("")
 
     # 4 leakage / duplicates
-    sections.append("## 4. Leakage — Exact Duplicates\n")
+    sections.append("## 4. Leakage - Exact Duplicates\n")
     sections.append(dup_summary.to_markdown(index=False))
     sections.append("")
 
@@ -1024,13 +965,11 @@ def build_final_report(
     return "\n".join(sections)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # CLI
-# ──────────────────────────────────────────────────────────────────────────────
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(
-        description="Phase 2 EDA — Train ↔ Dev ↔ DevTest split analysis",
+        description="Phase 2 EDA - Train ↔ Dev ↔ DevTest split analysis",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     p.add_argument("--dataset-root", default="dataset",  type=Path, metavar="DIR")
@@ -1042,9 +981,7 @@ def parse_args() -> argparse.Namespace:
     return p.parse_args()
 
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Main
-# ──────────────────────────────────────────────────────────────────────────────
 
 def main() -> None:
     args = parse_args()
@@ -1062,74 +999,74 @@ def main() -> None:
     log.info("Dataset root : %s", root.resolve())
     log.info("Output root  : %s", out.resolve())
 
-    # ── discover ──────────────────────────────────────────────────────────────
+    # discover
     units = discover_units(root)
     if not units:
         log.error("No complete (train+dev+devtest) triples found. Exiting.")
         sys.exit(1)
     log.info("Found %d analysis units", len(units))
 
-    # ── analysis 1 ────────────────────────────────────────────────────────────
-    log.info("Analysis  1/11 — Dataset statistics")
+    # analysis 1
+    log.info("Analysis  1/11 - Dataset statistics")
     stats_df = analysis_1(units)
     stats_df.to_csv(csv_dir / "split_statistics.csv", index=False)
 
-    # ── analysis 2 ────────────────────────────────────────────────────────────
-    log.info("Analysis  2/11 — Vocabulary coverage")
+    # analysis 2
+    log.info("Analysis  2/11 - Vocabulary coverage")
     cov_df = analysis_2(units)
     cov_df.to_csv(csv_dir / "vocabulary_coverage.csv", index=False)
 
-    # ── analysis 3 ────────────────────────────────────────────────────────────
-    log.info("Analysis  3/11 — OOV analysis")
+    # analysis 3
+    log.info("Analysis  3/11 - OOV analysis")
     oov_stats_df, top_oov_df = analysis_3(units)
     oov_stats_df.to_csv(csv_dir / "oov_statistics.csv",  index=False)
     top_oov_df.to_csv(csv_dir / "top_oov_tokens.csv",    index=False)
 
-    # ── analysis 4 ────────────────────────────────────────────────────────────
-    log.info("Analysis  4/11 — Exact duplicate detection")
+    # analysis 4
+    log.info("Analysis  4/11 - Exact duplicate detection")
     dup_summary_df, dup_sents_df = analysis_4(units)
     dup_summary_df.to_csv(csv_dir / "exact_duplicate_summary.csv", index=False)
     dup_sents_df.to_csv(csv_dir / "exact_duplicate_sentences.csv", index=False)
 
-    # ── analysis 5 ────────────────────────────────────────────────────────────
-    log.info("Analysis  5/11 — N-gram overlap")
+    # analysis 5
+    log.info("Analysis  5/11 - N-gram overlap")
     ngram_df = analysis_5(units)
     ngram_df.to_csv(csv_dir / "ngram_overlap.csv", index=False)
 
-    # ── analysis 6 ────────────────────────────────────────────────────────────
-    log.info("Analysis  6/11 — Sentence length distribution")
+    # analysis 6
+    log.info("Analysis  6/11 - Sentence length distribution")
     len_df = analysis_6(units)
     len_df.to_csv(csv_dir / "sentence_length_distribution.csv", index=False)
 
-    # ── analysis 7 ────────────────────────────────────────────────────────────
-    log.info("Analysis  7/11 — Vocabulary frequency shift")
+    # analysis 7
+    log.info("Analysis  7/11 - Vocabulary frequency shift")
     freq_df = analysis_7(units)
     freq_df.to_csv(csv_dir / "frequency_shift.csv", index=False)
 
-    # ── analysis 8 ────────────────────────────────────────────────────────────
-    log.info("Analysis  8/11 — Semantic similarity")
+    # analysis 8
+    log.info("Analysis  8/11 - Semantic similarity")
     sem_df, sims_dict = analysis_8(
         units, method=args.semantic_method, skip=args.skip_semantic,
     )
     if not sem_df.empty:
         sem_df.to_csv(csv_dir / "semantic_similarity.csv", index=False)
 
-    # ── analysis 9 ────────────────────────────────────────────────────────────
-    log.info("Analysis  9/11 — Distribution divergence")
+    # analysis 9
+    log.info("Analysis  9/11 - Distribution divergence")
     div_df = analysis_9(units)
     div_df.to_csv(csv_dir / "distribution_divergence.csv", index=False)
 
-    # ── analysis 10 ───────────────────────────────────────────────────────────
-    log.info("Analysis 10/11 — Leakage report")
+    # analysis 10
+    log.info("Analysis 10/11 - Leakage report")
     leakage_md = analysis_10(dup_summary_df, ngram_df)
     (out / "LEAKAGE_REPORT.md").write_text(leakage_md, encoding="utf-8")
 
-    # ── analysis 11 ───────────────────────────────────────────────────────────
-    log.info("Analysis 11/11 — Cross-language summary")
+    # analysis 11
+    log.info("Analysis 11/11 - Cross-language summary")
     lang_df = analysis_11(units, cov_df, oov_stats_df, dup_summary_df, sem_df)
     lang_df.to_csv(csv_dir / "language_summary.csv", index=False)
 
-    # ── visualisations ────────────────────────────────────────────────────────
+    # visualisations
     log.info("Generating visualisations …")
     plot_coverage_bar(cov_df,               plot_dir / "vocabulary_coverage_barplot.png")
     plot_oov_bar(oov_stats_df,              plot_dir / "oov_rate_barplot.png")
@@ -1138,7 +1075,7 @@ def main() -> None:
     plot_divergence_bar(div_df,            plot_dir / "distribution_divergence_barplot.png")
     plot_sentence_length(units,            plot_dir / "sentence_length_distribution_comparison.png")
 
-    # ── final report ──────────────────────────────────────────────────────────
+    # final report
     log.info("Writing final report …")
     try:
         report_md = build_final_report(
@@ -1146,7 +1083,7 @@ def main() -> None:
             dup_summary_df, ngram_df, sem_df, div_df, lang_df,
         )
     except Exception as exc:
-        log.warning("to_markdown() failed (%s) — writing plain-text tables", exc)
+        log.warning("to_markdown() failed (%s) - writing plain-text tables", exc)
         report_md = "# Report\n\nPlease install `tabulate` for Markdown tables.\n"
     (out / "TRAIN_DEV_ANALYSIS_REPORT.md").write_text(report_md, encoding="utf-8")
 
