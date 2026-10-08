@@ -206,28 +206,16 @@ resume_finetune.py      restart training for directions without a checkpoint
 
 ## Citation
 
-The WMT 2026 proceedings are not on the ACL Anthology yet — the entry will appear at
-`aclanthology.org/2026.wmt-1.175/` after the conference (28–29 October 2026,
-Budapest), and its "Cite (BibTeX)" button gives the final form. Until then:
-
 ```bibtex
-@inproceedings{sharma2026nlp,
-  title={NLP-IIT Patna at WMT 2026: Corpus-Driven Adaptation of Multilingual MT Models for Low-Resource Arabic--Asian Machine Translation},
-  author={Sharma, Pushkar and Ahtasam, Mo and Singh, Kshetrimayum Boynao and Kumar, Deepak and Ekbal, Asif},
-  booktitle={Proceedings of the Eleventh Conference on Machine Translation, Budapest, Hungary. Association for Computational Linguistics},
-  year={2026},
-  pages={2336--2344},
-  url={https://www2.statmt.org/wmt26/pdf/2026.wmt-1.175.pdf}
+@InProceedings{sharma-EtAl:2026:wmt,
+  author    = {Sharma, Pushkar  and  Ahtasam, Mo  and  Singh, Kshetrimayum Boynao  and  Kumar, Deepak  and  Ekbal, Asif},
+  title     = {NLP-IIT Patna at WMT 2026: Corpus-Driven Adaptation of Multilingual MT Models for Low-Resource Arabicâ€“Asian Machine Translation},
+  booktitle      = {Proceedings of the Eleventh Conference on Machine Translation},
+  month          = {October},
+  year           = {2026},
+  address        = {Budapest, Hungary},
+  publisher      = {Association for Computational Linguistics},
+  pages     = {2336--2344},
+  url       = {https://aclanthology.org/2026.wmt-1.175}
 }
 ```
-
-## Acknowledgment
-
-We thank the WMT 2026 Low-Resource Arabic–Asian MT organisers for the datasets, and
-the COIL-D (Centre of Indian Language Data) project under Bhashini, funded by MeitY,
-Government of India, for the compute.
-
-## License
-
-Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) —
-https://creativecommons.org/licenses/by-nc/4.0/
